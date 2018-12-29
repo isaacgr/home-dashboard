@@ -9,23 +9,27 @@ const path = require("path");
 const port = process.env.PORT || 3000;
 const app = express();
 
+const publicPath = path.join(__dirname, "..", "public");
 const views = path.join(__dirname, "..", "public", "views");
+const layouts = path.join(__dirname, "..", "public", "views", "layouts");
 const partials = path.join(__dirname, "..", "public", "views", "partials");
+
 hbs.registerPartials(partials);
 
+app.use(express.static(publicPath));
 app.use(bodyParser.json());
 
 app.set("views", views);
+app.set("view engine", "hbs");
 app.engine(
-  "handlebars",
+  "hbs",
   exphbs({
     defaultLayout: "index",
     extname: ".hbs",
-    layoutsDir: views,
+    layoutsDir: layouts,
     partialsDir: partials
   })
 );
-app.set("view engine", "hbs");
 
 let data;
 
@@ -36,11 +40,13 @@ app.get("/", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (!request.body.temp || !request.body.humid) {
-    return response.status(500).send({ error: "missing params" });
+  if (!request.body.temp || !request.body.humid || !request.body.loc) {
+    return response.status(400).send({ error: "missing params" });
+  }
+  if (request.body.key !== process.env.SECRET) {
+    return response.status(400).send({ error: "invalid key" });
   }
   data = request.body;
-
   response.status(200).send("OK");
 });
 

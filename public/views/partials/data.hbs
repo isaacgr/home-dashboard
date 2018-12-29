@@ -1,4 +1,20 @@
-<h1>Temperature</h1>
-{{temp}}
-<h1>Humidity</h1>
-{{humid}}
+<section class="data">
+  <div class="container">
+    <div class="data__location">
+      <h1 class="data__header data__header--location">{{loc}}</h1>
+    </div>
+    <div class="data__block">
+      <h1 class="data__header">
+        Temperature
+      </h1>
+      <p class="data__value">{{temp}} &#176; C</p>
+    </div>
+
+    <div class="data__block">
+      <h1 class="data__header">
+        Humidity
+      </h1>
+      <p class="data__value">{{humid}} %</p>
+    </div>
+  </div>
+</section>

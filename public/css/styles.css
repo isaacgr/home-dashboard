@@ -1,0 +1,69 @@
+/* Reset Webpage Styling */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  height: 100%;
+  background-color: #f7f7f7;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.data {
+  text-align: center;
+  margin-top: 5rem;
+  line-height: 5rem;
+}
+
+.data__location {
+  text-transform: capitalize;
+}
+
+.data__header {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #95a5a6;
+}
+
+.data__header--location {
+  font-size: 3rem;
+}
+
+.data__value {
+  font-size: 5rem;
+  font-weight: 100;
+  letter-spacing: 1px;
+  color: #2c3e50;
+}
+
+.data__block {
+  margin: 1rem 5rem;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 490px) {
+  .data__block {
+    margin: 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 310px) {
+  .data__value {
+    font-size: 3rem;
+  }
+}

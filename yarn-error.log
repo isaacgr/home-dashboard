@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn start
+  /usr/bin/node /usr/local/bin/yarn start-dev
 
 PATH: 
   /home/isaac/anaconda3/bin:/home/isaac/bin:/home/isaac/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/isaac/.config/composer/vendor/bin/:/home/isaac/.config/composer/vendor/bin/:/home/isaac/.yarn/bin
@@ -22,7 +22,8 @@ npm manifest:
     "author": "Isaac Rowell",
     "license": "MIT",
     "scripts": {
-      "start": "nodemon server/server.js"
+      "start": "node server/server.js",
+      "start-dev": "nodemon server/server.js"
     },
     "dependencies": {
       "express": "^4.16.4",
