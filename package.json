@@ -1,0 +1,17 @@
+{
+  "name": "temp_page",
+  "version": "1.0.0",
+  "description": "Webpage to display temperature data from esp8266",
+  "main": "index.js",
+  "author": "Isaac Rowell",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.12",
+    "hbs": "^4.0.1"
+  }
+}
