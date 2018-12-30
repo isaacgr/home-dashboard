@@ -43,11 +43,11 @@ app.post("/api/temp", (request, response) => {
   if (!request.body.temp || !request.body.humid || !request.body.loc) {
     return response.status(400).send({ error: "missing params" });
   }
-  if (request.body.key !== 'secretkey') {
+  if (request.body.key !== process.env.SECRET) {
     return response.status(400).send({ error: "invalid key" });
   }
   data = request.body;
-  console.log(request.body)
+  console.log(request.body);
   response.status(200).send("OK");
 });
 
