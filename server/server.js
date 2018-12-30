@@ -41,13 +41,15 @@ app.get("/", (request, response) => {
 
 app.post("/api/temp", (request, response) => {
   if (!request.body.temp || !request.body.humid || !request.body.loc) {
+	console.log({error: "missing params"})
     return response.status(400).send({ error: "missing params" });
   }
   if (request.body.key !== process.env.SECRET) {
+	console.log({error: "invalid key"})
     return response.status(400).send({ error: "invalid key" });
   }
   data = request.body;
-  console.log(request.body);
+  console.log("OK")
   response.status(200).send("OK");
 });
 
