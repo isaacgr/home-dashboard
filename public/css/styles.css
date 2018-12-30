@@ -51,9 +51,14 @@ body {
   color: #2c3e50;
 }
 
+.data__value--alt {
+  font-size: 2rem;
+}
+
 .data__block {
   margin: 1rem 5rem;
   display: inline-block;
+  vertical-align: top;
 }
 
 @media only screen and (max-width: 490px) {

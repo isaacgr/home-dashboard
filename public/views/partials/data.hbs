@@ -7,7 +7,14 @@
       <h1 class="data__header">
         Temperature
       </h1>
-      <p class="data__value">{{temp}} &#176; C</p>
+      <p class="data__value">
+        {{temp}} &#176; C
+      </p>
+      {{#if temp_f}}
+      <p class="data__value--alt">
+        ({{temp_f}} &#176; F)
+      </p>
+      {{/if}}
     </div>
 
     <div class="data__block">
