@@ -47,6 +47,7 @@ app.post("/api/temp", (request, response) => {
     return response.status(400).send({ error: "invalid key" });
   }
   data = request.body;
+  console.log(request.body)
   response.status(200).send("OK");
 });
 
