@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 
 const Temp = mongoose.model("Dashboard", {
-  temp: { type: Number, require },
-  humid: { type: Number, require },
-  loc: { type: String, require },
+  temp: { type: Number, required: true },
+  humid: { type: Number, required: true },
+  loc: { type: String, required: true },
   temp_f: { type: Number, default: null },
-  createdAt: { type: Number, default: null }
+  created: [
+    {
+      time: { type: Number, default: null },
+      timeStamp: { type: String, default: null }
+    }
+  ]
 });
 
 module.exports = { Temp };

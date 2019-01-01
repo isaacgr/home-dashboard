@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const validator = require("express-validator");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
+const moment = require("moment");
 
 const path = require("path");
 
@@ -35,16 +36,16 @@ app.engine(
 
 app.get("/api/temp", (request, response) => {
   Temp.findOne()
-    .sort({ createdAt: -1 })
+    .sort({ created: -1 })
     .limit(1)
-    .then(temp => {
-      response.send(temp);
+    .then(doc => {
+      response.send(doc);
     });
 });
 
 app.get("/", (request, response) => {
   Temp.findOne()
-    .sort({ createdAt: -1 })
+    .sort({ created: -1 })
     .limit(1)
     .then(
       doc => {
@@ -62,18 +63,21 @@ app.get("/", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (request.body.key !== "secretsauce") {
+  if (request.body.key !== process.env.SECRET) {
     console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }
-  const date = new Date();
+  const date = new moment();
 
   const temp = new Temp({
     temp: request.body.temp,
     humid: request.body.humid,
     loc: request.body.loc,
     temp_f: request.body.temp_f,
-    createdAt: date.getTime()
+    created: {
+      time: date,
+      timeStamp: date.format()
+    }
   });
 
   temp.save().then(
