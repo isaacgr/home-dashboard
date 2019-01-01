@@ -2,8 +2,10 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
+const validator = require("express-validator");
+const { mongoose } = require("./db/mongoose");
+const { Temp } = require("./models/temp");
 
-const fs = require("fs");
 const path = require("path");
 
 const port = process.env.PORT || 3000;
@@ -31,26 +33,59 @@ app.engine(
   })
 );
 
-let data;
+app.get("/api/temp", (request, response) => {
+  Temp.findOne()
+    .sort({ createdAt: -1 })
+    .limit(1)
+    .then(temp => {
+      response.send(temp);
+    });
+});
 
 app.get("/", (request, response) => {
-  response.render("home", {
-    ...data
-  });
+  Temp.findOne()
+    .sort({ createdAt: -1 })
+    .limit(1)
+    .then(
+      doc => {
+        const temp = {
+          ...doc.toObject()
+        };
+        response.render("home", {
+          ...temp
+        });
+      },
+      error => {
+        response.status(400).send(error);
+      }
+    );
 });
 
 app.post("/api/temp", (request, response) => {
-  if (!request.body.temp || !request.body.humid || !request.body.loc) {
-	console.log({error: "missing params"})
-    return response.status(400).send({ error: "missing params" });
-  }
-  if (request.body.key !== process.env.SECRET) {
-	console.log({error: "invalid key"})
+  if (request.body.key !== "secretsauce") {
+    console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }
-  data = request.body;
-  console.log("OK")
-  response.status(200).send("OK");
+  const date = new Date();
+
+  const temp = new Temp({
+    temp: request.body.temp,
+    humid: request.body.humid,
+    loc: request.body.loc,
+    temp_f: request.body.temp_f,
+    createdAt: date.getTime()
+  });
+
+  temp.save().then(
+    doc => {
+      data = request.body;
+      console.log("OK");
+      response.status(200).send("OK");
+    },
+    error => {
+      response.status(400).send(error);
+    }
+  );
 });
 
 app.listen(port, () => {
