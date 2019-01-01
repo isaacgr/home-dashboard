@@ -1,7 +1,10 @@
 <section class="data">
   <div class="container">
-    <div class="data__location">
+    <div class="heading">
       <h1 class="data__header data__header--location">{{loc}}</h1>
+      {{#each created as |time|}}
+      <p class="data__value--alt u-text-sm">{{time.timeStamp}}</p>
+      {{/each}}
     </div>
     <div class="data__block">
       <h1 class="data__header">
@@ -16,7 +19,6 @@
       </p>
       {{/if}}
     </div>
-
     <div class="data__block">
       <h1 class="data__header">
         Humidity

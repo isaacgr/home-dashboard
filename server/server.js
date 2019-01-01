@@ -76,7 +76,7 @@ app.post("/api/temp", (request, response) => {
     temp_f: request.body.temp_f,
     created: {
       time: date,
-      timeStamp: date.format()
+      timeStamp: date.format("LLL")
     }
   });
 

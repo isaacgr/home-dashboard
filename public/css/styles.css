@@ -29,10 +29,6 @@ body {
   line-height: 5rem;
 }
 
-.data__location {
-  text-transform: capitalize;
-}
-
 .data__header {
   font-size: 2rem;
   font-weight: 300;
@@ -42,6 +38,7 @@ body {
 
 .data__header--location {
   font-size: 3rem;
+  text-transform: capitalize;
 }
 
 .data__value {
@@ -53,21 +50,26 @@ body {
 
 .data__value--alt {
   font-size: 2rem;
+  line-height: 2.3rem;
 }
 
 .data__block {
-  margin: 1rem 5rem;
+  padding: 1rem 5rem;
   display: inline-block;
   vertical-align: top;
 }
 
-@media only screen and (max-width: 490px) {
+.u-text-sm {
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 550px) {
   .data__block {
-    margin: 0 1rem;
+    padding: 0 1rem;
   }
 }
 
-@media only screen and (max-width: 310px) {
+@media only screen and (max-width: 390px) {
   .data__value {
     font-size: 3rem;
   }
