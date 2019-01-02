@@ -34,6 +34,17 @@ app.engine(
   })
 );
 
+app.get("/api/temp/all", (request, response) => {
+  Temp.find({}).then(
+    doc => {
+      response.send(doc);
+    },
+    error => {
+      response.status(400).send(error);
+    }
+  );
+});
+
 app.get("/api/temp", (request, response) => {
   Temp.findOne()
     .sort({ created: -1 })
@@ -60,6 +71,23 @@ app.get("/", (request, response) => {
         response.status(400).send(error);
       }
     );
+});
+
+app.get("/tempgraph", (request, response) => {
+  Temp.find({}).then(
+    doc => {
+      response.render("tempgraph", {
+        doc: [...doc]
+      });
+    },
+    error => {
+      response.status(400).send(error);
+    }
+  );
+});
+
+app.get("/lights", (request, response) => {
+  response.render("lights");
 });
 
 app.post("/api/temp", (request, response) => {
