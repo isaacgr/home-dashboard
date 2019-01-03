@@ -45,8 +45,9 @@ app.get("/api/temp/all", (request, response) => {
 });
 
 app.get("/api/temp", (request, response) => {
-  Temp.findOne()
-    .sort({ created: -1 })
+  Temp.aggregate()
+    .unwind("values")
+    .sort({ "values.createdAt": -1 })
     .limit(1)
     .then(doc => {
       response.send(doc);
@@ -57,15 +58,17 @@ app.get("/api/temp", (request, response) => {
 });
 
 app.get("/", (request, response) => {
-  Temp.findOne()
-    .sort({ created: -1 })
+  Temp.aggregate()
+    .unwind("values")
+    .sort({ "values.createdAt": -1 })
     .limit(1)
     .then(doc => {
-      const temp = {
-        ...doc.toObject()
-      };
       response.render("home", {
-        ...temp
+        ...doc[0],
+        values: {
+          ...doc[0].values,
+          createdAt: moment(doc[0].values.createdAt).format("LLL")
+        }
       });
     })
     .catch(error => {
@@ -90,7 +93,7 @@ app.get("/lights", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (request.body.key !== "secretsauce") {
+  if (request.body.key !== process.env.SECRET) {
     console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }

@@ -2,23 +2,20 @@
   <div class="container">
     <div class="heading">
       <h1 class="data__header data__header--location">{{location}}</h1>
-      {{#each values as |value|}}
-      <p class="data__value--alt u-text-sm">{{value.createdAt}}</p>
-      {{/each}}
+      <p class="data__value--alt u-text-sm">{{values.createdAt}}</p>
 
     </div>
-    {{#each values as |value|}}
 
     <div class="data__block">
       <h1 class="data__header">
         Temperature
       </h1>
       <p class="data__value">
-        {{value.temp}} &#176; C
+        {{values.temp}} &#176; C
       </p>
-      {{#if value.temp_f}}
+      {{#if values.temp_f}}
       <p class="data__value--alt">
-        ({{value.temp_f}} &#176; F)
+        ({{values.temp_f}} &#176; F)
       </p>
       {{/if}}
     </div>
@@ -26,9 +23,8 @@
       <h1 class="data__header">
         Humidity
       </h1>
-      <p class="data__value">{{value.humid}} %</p>
+      <p class="data__value">{{values.humid}} %</p>
     </div>
-    {{/each}}
 
   </div>
 </section>
