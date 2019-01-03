@@ -48,8 +48,8 @@ console.log("JS Running");
 //   }
 // ];
 
-var width = 500;
-var height = 300;
+var width = 790;
+var height = 500;
 var margin = 50;
 var duration = 250;
 
