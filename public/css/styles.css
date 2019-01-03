@@ -110,7 +110,7 @@ svg {
 }
 
 /* Media queries */
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 640px) {
   .data__block {
     padding: 0 1rem;
   }
