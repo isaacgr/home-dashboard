@@ -90,7 +90,7 @@ app.get("/lights", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (request.body.key !== process.env.SECRET) {
+  if (request.body.key !== "secretsauce") {
     console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }
