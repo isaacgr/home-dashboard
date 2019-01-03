@@ -119,7 +119,13 @@ svg {
   }
 }
 
-@media only screen and (max-width: 390px) {
+@media only screen and (max-width: 480px) {
+  .data__value {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-width: 410px) {
   .data__value {
     font-size: 3rem;
   }
