@@ -3,7 +3,6 @@ const exphbs = require("express-handlebars");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const validator = require("express-validator");
-const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const moment = require("moment");
 
@@ -58,19 +57,17 @@ app.get("/", (request, response) => {
   Temp.findOne()
     .sort({ created: -1 })
     .limit(1)
-    .then(
-      doc => {
-        const temp = {
-          ...doc.toObject()
-        };
-        response.render("home", {
-          ...temp
-        });
-      },
-      error => {
-        response.status(400).send(error);
-      }
-    );
+    .then(doc => {
+      const temp = {
+        ...doc.toObject()
+      };
+      response.render("home", {
+        ...temp
+      });
+    })
+    .catch(error => {
+      return response.status(400).send({ error: error["message"] });
+    });
 });
 
 app.get("/tempgraph", (request, response) => {
@@ -91,7 +88,7 @@ app.get("/lights", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (request.body.key !== process.env.SECRET) {
+  if (request.body.key !== "secretsauce") {
     console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }
@@ -104,7 +101,7 @@ app.post("/api/temp", (request, response) => {
     temp_f: request.body.temp_f,
     created: {
       time: date,
-      timeStamp: date.format("LLL")
+      timeStamp: date.format("L")
     }
   });
 
