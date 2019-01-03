@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const validator = require("express-validator");
+const mongoose = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const moment = require("moment");
 
@@ -34,14 +35,13 @@ app.engine(
 );
 
 app.get("/api/temp/all", (request, response) => {
-  Temp.find({}).then(
-    doc => {
+  Temp.find({})
+    .then(doc => {
       response.send(doc);
-    },
-    error => {
-      response.status(400).send(error);
-    }
-  );
+    })
+    .catch(error => {
+      response.status(400).send({ error: error["message"] });
+    });
 });
 
 app.get("/api/temp", (request, response) => {
@@ -50,6 +50,9 @@ app.get("/api/temp", (request, response) => {
     .limit(1)
     .then(doc => {
       response.send(doc);
+    })
+    .catch(error => {
+      response.status(400).send({ error: error["message"] });
     });
 });
 
@@ -71,16 +74,15 @@ app.get("/", (request, response) => {
 });
 
 app.get("/tempgraph", (request, response) => {
-  Temp.find({}).then(
-    doc => {
+  Temp.find({})
+    .then(doc => {
       response.render("tempgraph", {
         doc: [...doc]
       });
-    },
-    error => {
-      response.status(400).send(error);
-    }
-  );
+    })
+    .catch(error => {
+      response.status(400).send({ error: error["message"] });
+    });
 });
 
 app.get("/lights", (request, response) => {
@@ -88,33 +90,38 @@ app.get("/lights", (request, response) => {
 });
 
 app.post("/api/temp", (request, response) => {
-  if (request.body.key !== "secretsauce") {
+  if (request.body.key !== process.env.SECRET) {
     console.log({ error: "invalid key" });
     return response.status(400).send({ error: "invalid key" });
   }
   const date = new moment();
 
-  const temp = new Temp({
-    temp: request.body.temp,
-    humid: request.body.humid,
-    loc: request.body.loc,
-    temp_f: request.body.temp_f,
-    created: {
-      time: date,
-      timeStamp: date.format("L")
-    }
-  });
+  const temp = Temp.updateOne(
+    { location: request.body.loc },
+    {
+      $push: {
+        values: [
+          {
+            temp: request.body.temp,
+            humid: request.body.humid,
+            temp_f: request.body.temp_f,
+            createdAt: date.format("YYYY-MM-DDTHH:mm")
+          }
+        ]
+      }
+    },
+    { upsert: true }
+  );
 
-  temp.save().then(
-    doc => {
+  temp
+    .then(doc => {
       data = request.body;
       console.log("OK");
       response.status(200).send("OK");
-    },
-    error => {
-      response.status(400).send(error);
-    }
-  );
+    })
+    .catch(error => {
+      response.status(400).send({ error: error["message"] });
+    });
 });
 
 app.listen(port, () => {

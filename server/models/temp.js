@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 
 const Temp = mongoose.model("Dashboard", {
-  temp: { type: Number, required: true },
-  humid: { type: Number, required: true },
-  loc: { type: String, required: true },
-  temp_f: { type: Number, default: null },
-  created: [
+  location: { type: String, required: true },
+  values: [
     {
-      time: { type: Number, default: null },
-      timeStamp: { type: String, default: null }
+      temp: { type: Number, required: true },
+      humid: { type: Number, required: true },
+      temp_f: { type: Number, default: null },
+      createdAt: { type: String, default: null }
     }
   ]
 });
