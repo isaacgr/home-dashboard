@@ -86,7 +86,7 @@ const data = getData()
 
     var yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data[0].values, d => d.temp)])
+      .domain([10, d3.max(data[0].values, d => d.temp)])
       .range([height - margin, 0]);
 
     var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -95,8 +95,6 @@ const data = getData()
     var svg = d3
       .select("#chart")
       .append("svg")
-      .attr("width", width + margin + "px")
-      .attr("height", height + margin + "px")
       .append("g")
       .attr("transform", `translate(${margin}, ${margin})`);
 
@@ -210,10 +208,11 @@ const data = getData()
       .attr("class", "y axis")
       .call(yAxis)
       .append("text")
-      .attr("y", 15)
+      .attr("y", -25)
       .attr("transform", "rotate(-90)")
       .attr("fill", "#000")
-      .text("Temperature");
+      .text("Temperature")
+      .attr("class", "axis-title");
   })
   .catch(error => {
     console.log(error);

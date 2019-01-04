@@ -21,7 +21,7 @@ body {
 
 .container {
   margin: 0 auto;
-  width: 50%;
+  width: 75%;
 }
 
 /* Data styling */
@@ -84,8 +84,8 @@ body {
 
 /* D3 Graph */
 svg {
-  font-family: Sans-Serif, Arial;
   width: 100%;
+  height: 60rem;
 }
 .line {
   stroke-width: 2;
@@ -96,12 +96,19 @@ svg {
   stroke: black;
 }
 
+.axis-title {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
 .text {
   font-size: 12px;
 }
 
 .title-text {
-  font-size: 12px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
 }
 
 /* Util classes */
@@ -119,13 +126,13 @@ svg {
   }
 }
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
   .data__value {
     font-size: 4rem;
   }
-}
+} */
 
-@media only screen and (max-width: 410px) {
+@media only screen and (max-width: 265px) {
   .data__value {
     font-size: 3rem;
   }
