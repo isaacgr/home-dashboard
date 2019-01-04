@@ -35,7 +35,10 @@ app.engine(
 );
 
 app.get("/api/temp/all", (request, response) => {
-  Temp.find({})
+  const limit = request.query.limit
+    ? { values: { $slice: parseInt(request.query.limit) } }
+    : {};
+  Temp.find({}, limit)
     .then(doc => {
       response.send(doc);
     })
@@ -79,9 +82,7 @@ app.get("/", (request, response) => {
 app.get("/tempgraph", (request, response) => {
   Temp.find({})
     .then(doc => {
-      response.render("tempgraph", {
-        doc: [...doc]
-      });
+      response.render("tempgraph");
     })
     .catch(error => {
       response.status(400).send({ error: error["message"] });

@@ -201,15 +201,22 @@ const data = getData()
       .append("g")
       .attr("class", "x axis")
       .attr("transform", `translate(0, ${height - margin})`)
-      .call(xAxis);
+      .call(xAxis)
+      .append("text")
+      .text("Time")
+      .attr("fill", "#000")
+      .attr("dx", "50%")
+      .attr("dy", "4rem")
+      .attr("class", "axis-title");
 
     svg
       .append("g")
       .attr("class", "y axis")
       .call(yAxis)
       .append("text")
-      .attr("y", -25)
-      .attr("transform", "rotate(-90)")
+      .attr("y", -35)
+      .attr("dx", "-15rem")
+      .attr("transform", "rotate(-90) ")
       .attr("fill", "#000")
       .text("Temperature")
       .attr("class", "axis-title");
@@ -219,7 +226,7 @@ const data = getData()
   });
 
 function getData() {
-  return fetch("/api/temp/all", {
+  return fetch("/api/temp/all?limit=216", {
     headers: {
       "Content-Type": "application/json"
     }
