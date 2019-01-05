@@ -24,6 +24,10 @@ body {
   width: 75%;
 }
 
+.heading {
+  text-align: center;
+}
+
 /* Data styling */
 .data {
   text-align: center;
@@ -84,37 +88,13 @@ body {
 
 /* D3 Graph */
 
-svg {
-  width: 100%;
-  height: 60rem;
-}
-.line {
-  stroke-width: 2;
-  fill: none;
-}
-
-.axis path {
-  stroke: black;
-}
-
-.axis-title {
-  font-size: 16px;
-  letter-spacing: 1px;
-}
-
-.text {
-  font-size: 12px;
-}
-
-.title-text {
-  font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: capitalize;
-}
-
 /* Util classes */
 .u-text-sm {
   font-size: 1.5rem;
+}
+
+.u-text-lg {
+  font-size: 3rem;
 }
 
 /* Media queries */
