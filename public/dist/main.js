@@ -49618,12 +49618,12 @@ var Graph = function Graph(_ref) {
     return parseDate(d.createdAt);
   };
 
-  var ny = function ny(d) {
+  var temp = function temp(d) {
     return d["temp"];
   };
 
-  var sf = function sf(d) {
-    return d["temp_f"];
+  var temp2 = function temp2(d) {
+    return d["temp"];
   };
 
   console.log(date); // scales
@@ -49633,9 +49633,9 @@ var Graph = function Graph(_ref) {
   });
   var yScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"])({
     domain: [Math.min.apply(Math, _toConsumableArray(data.map(function (d) {
-      return Math.min(ny(d), sf(d));
+      return Math.min(temp(d), temp2(d));
     }))), Math.max.apply(Math, _toConsumableArray(data.map(function (d) {
-      return Math.max(ny(d), sf(d));
+      return Math.max(temp(d), temp2(d));
     })))],
     nice: true
   });
@@ -49689,10 +49689,10 @@ var Graph = function Graph(_ref) {
       return xScale(date(d));
     },
     y0: function y0(d) {
-      return yScale(ny(d));
+      return yScale(temp(d));
     },
     y1: function y1(d) {
-      return yScale(sf(d));
+      return yScale(temp2(d));
     },
     clipAboveTo: 0,
     clipBelowTo: yMax,
@@ -49712,7 +49712,7 @@ var Graph = function Graph(_ref) {
       return xScale(date(d));
     },
     y: function y(d) {
-      return yScale(sf(d));
+      return yScale(temp2(d));
     },
     stroke: "#000",
     strokeWidth: 1.5,
@@ -49725,7 +49725,7 @@ var Graph = function Graph(_ref) {
       return xScale(date(d));
     },
     y: function y(d) {
-      return yScale(ny(d));
+      return yScale(temp(d));
     },
     stroke: "#000",
     strokeWidth: 1.5

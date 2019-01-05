@@ -15,8 +15,8 @@ const Graph = ({ width, height, margin, data }) => {
   console.log(data);
 
   const date = d => parseDate(d.createdAt);
-  const ny = d => d["temp"];
-  const sf = d => d["temp_f"];
+  const temp = d => d["temp"];
+  const temp2 = d => d["temp"];
   console.log(date);
 
   // scales
@@ -25,8 +25,8 @@ const Graph = ({ width, height, margin, data }) => {
   });
   const yScale = scaleLinear({
     domain: [
-      Math.min(...data.map(d => Math.min(ny(d), sf(d)))),
-      Math.max(...data.map(d => Math.max(ny(d), sf(d))))
+      Math.min(...data.map(d => Math.min(temp(d), temp2(d)))),
+      Math.max(...data.map(d => Math.max(temp(d), temp2(d))))
     ],
     nice: true
   });
@@ -72,8 +72,8 @@ const Graph = ({ width, height, margin, data }) => {
           <Threshold
             data={data}
             x={d => xScale(date(d))}
-            y0={d => yScale(ny(d))}
-            y1={d => yScale(sf(d))}
+            y0={d => yScale(temp(d))}
+            y1={d => yScale(temp2(d))}
             clipAboveTo={0}
             clipBelowTo={yMax}
             curve={curveBasis}
@@ -90,7 +90,7 @@ const Graph = ({ width, height, margin, data }) => {
             data={data}
             curve={curveBasis}
             x={d => xScale(date(d))}
-            y={d => yScale(sf(d))}
+            y={d => yScale(temp2(d))}
             stroke="#000"
             strokeWidth={1.5}
             strokeOpacity={0.8}
@@ -100,7 +100,7 @@ const Graph = ({ width, height, margin, data }) => {
             data={data}
             curve={curveBasis}
             x={d => xScale(date(d))}
-            y={d => yScale(ny(d))}
+            y={d => yScale(temp(d))}
             stroke="#000"
             strokeWidth={1.5}
           />
