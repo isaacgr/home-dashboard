@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build",
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development",
     "dev-server": "SECRET=secretsauce nodemon server/server.js",
