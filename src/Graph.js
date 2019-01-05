@@ -3,13 +3,24 @@ import { Group } from "@vx/group";
 import { curveBasis } from "@vx/curve";
 import { LinePath } from "@vx/shape";
 import { Threshold } from "@vx/threshold";
-import { scaleTime, scaleLinear } from "@vx/scale";
+import { scaleTime, scaleLinear, scaleOrdinal } from "@vx/scale";
 import { AxisLeft, AxisBottom } from "@vx/axis";
 import { GridRows, GridColumns } from "@vx/grid";
+import { LegendOrdinal } from "@vx/legend";
+
 // import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
 const parseDate = timeParse("%Y-%m-%dT%H:%M");
+
+const lineColors = [
+  "#2F4F4F",
+  "#2E8B57",
+  "#00FFFF",
+  "#1E90FF",
+  "#FF00FF",
+  "#C71585"
+];
 
 const Graph = ({ width, height, margin, data }) => {
   const date = d => parseDate(d.createdAt);
@@ -60,8 +71,18 @@ const Graph = ({ width, height, margin, data }) => {
 
   xScale.range([0, xMax]);
   yScale.range([yMax, 0]);
+
+  const locations = data.map(dataset => {
+    return dataset["location"];
+  });
+
+  const color = scaleOrdinal({
+    domain: locations,
+    range: lineColors
+  });
+
   return (
-    <div>
+    <div className="graph">
       <svg width={width} height={height}>
         <rect
           x={0}
@@ -92,7 +113,7 @@ const Graph = ({ width, height, margin, data }) => {
           />
           <AxisLeft scale={yScale} />
           <text x="-70" y="15" transform="rotate(-90)" fontSize={10}>
-            Temperature (°F)
+            Temperature (°C)
           </text>
           <Threshold
             data={data[0]["values"]}
@@ -119,14 +140,21 @@ const Graph = ({ width, height, margin, data }) => {
                 curve={curveBasis}
                 x={d => xScale(date(d))}
                 y={d => yScale(temp(d))}
-                stroke="#000"
-                strokeWidth={1.5}
+                stroke={lineColors[locations.indexOf(dataset.location)]}
+                strokeWidth={3}
                 strokeOpacity={0.8}
               />
             );
           })}
         </Group>
       </svg>
+      <div className="graph__legend" style={{ top: margin.top / 2 - 10 }}>
+        <LegendOrdinal
+          scale={color}
+          direction="row"
+          labelMargin="0 .5rem 0 0"
+        />
+      </div>
     </div>
   );
 };

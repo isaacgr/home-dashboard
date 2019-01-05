@@ -1537,6 +1537,748 @@ function Group(_ref) {
 
 /***/ }),
 
+/***/ "./node_modules/@vx/legend/dist/vx-legend.es.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@vx/legend/dist/vx-legend.es.js ***!
+  \******************************************************/
+/*! exports provided: Legend, LegendQuantile, LegendLinear, LegendOrdinal, LegendThreshold, LegendSize, LegendItem, LegendLabel, LegendShape */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Legend", function() { return Legend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendQuantile", function() { return LegendQuantile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendLinear", function() { return LegendLinear; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendOrdinal", function() { return LegendOrdinal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendThreshold", function() { return LegendThreshold; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendSize", function() { return LegendSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendItem", function() { return LegendItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendLabel", function() { return LegendLabel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendShape", function() { return LegendShape; });
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vx_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vx/group */ "./node_modules/@vx/group/dist/vx-group.es.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
+LegendItem.propTypes = {
+  flexDirection: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  alignItems: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  margin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number]),
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any
+};
+function LegendItem(_ref) {
+  var _ref$flexDirection = _ref.flexDirection,
+      flexDirection = _ref$flexDirection === void 0 ? 'row' : _ref$flexDirection,
+      _ref$alignItems = _ref.alignItems,
+      alignItems = _ref$alignItems === void 0 ? 'center' : _ref$alignItems,
+      _ref$margin = _ref.margin,
+      margin = _ref$margin === void 0 ? '0' : _ref$margin,
+      _ref$display = _ref.display,
+      display = _ref$display === void 0 ? 'flex' : _ref$display,
+      children = _ref.children,
+      restProps = _objectWithoutProperties(_ref, ["flexDirection", "alignItems", "margin", "display", "children"]);
+
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", _extends({
+    className: "vx-legend-item",
+    style: {
+      display: display,
+      alignItems: alignItems,
+      flexDirection: flexDirection,
+      margin: margin
+    }
+  }, restProps), children);
+}
+
+LegendLabel.propTypes = {
+  align: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  label: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  flex: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number]),
+  margin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number]),
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any
+};
+function LegendLabel(_ref) {
+  var _ref$flex = _ref.flex,
+      flex = _ref$flex === void 0 ? '1' : _ref$flex,
+      label = _ref.label,
+      _ref$margin = _ref.margin,
+      margin = _ref$margin === void 0 ? '5px 0' : _ref$margin,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? 'left' : _ref$align,
+      children = _ref.children;
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "vx-legend-label",
+    style: {
+      justifyContent: align,
+      display: 'flex',
+      flex: flex,
+      margin: margin
+    }
+  }, children || label);
+}
+
+ShapeRect.propTypes = {
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  width: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  height: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  style: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
+};
+function ShapeRect(_ref) {
+  var fill = _ref.fill,
+      width = _ref.width,
+      height = _ref.height,
+      style = _ref.style;
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    style: _objectSpread({
+      width: width,
+      height: height,
+      background: fill
+    }, style)
+  });
+}
+
+ShapeCircle.propTypes = {
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  width: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  height: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  style: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
+};
+function ShapeCircle(_ref) {
+  var fill = _ref.fill,
+      width = _ref.width,
+      height = _ref.height,
+      style = _ref.style;
+  if (typeof width === 'string') width = 0;
+  if (typeof height === 'string') height = 0;
+  var size = Math.max(width, height);
+  var radius = size / 2;
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
+    width: size,
+    height: size
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_vx_group__WEBPACK_IMPORTED_MODULE_1__["Group"], {
+    top: radius,
+    left: radius
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("circle", {
+    r: radius,
+    fill: fill,
+    style: style
+  })));
+}
+
+function valueOrIdentity(x) {
+  if (x && x.value) return x.value;
+  return x;
+}
+
+function renderShape(_ref) {
+  var _ref$shape = _ref.shape,
+      shape = _ref$shape === void 0 ? 'rect' : _ref$shape,
+      _ref$fill = _ref.fill,
+      fill = _ref$fill === void 0 ? valueOrIdentity : _ref$fill,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? valueOrIdentity : _ref$size,
+      width = _ref.width,
+      height = _ref.height,
+      label = _ref.label,
+      _ref$shapeStyle = _ref.shapeStyle,
+      shapeStyle = _ref$shapeStyle === void 0 ? function (x) {
+    return undefined;
+  } : _ref$shapeStyle;
+  var props = {
+    width: width,
+    height: height,
+    label: label,
+    fill: fill(_objectSpread({}, label)),
+    size: size(_objectSpread({}, label)),
+    style: shapeStyle(_objectSpread({}, label))
+  };
+
+  if (typeof shape === 'string') {
+    if (shape === 'rect') {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ShapeRect, props);
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ShapeCircle, props);
+  }
+
+  if (react__WEBPACK_IMPORTED_MODULE_2___default.a.isValidElement(shape)) {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(shape, props);
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(shape, props);
+}
+
+LegendShape.propTypes = {
+  shape: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  width: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  height: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  margin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  label: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  shapeStyle: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any
+};
+function LegendShape(_ref) {
+  var _ref$shape = _ref.shape,
+      shape = _ref$shape === void 0 ? ShapeRect : _ref$shape,
+      width = _ref.width,
+      height = _ref.height,
+      margin = _ref.margin,
+      label = _ref.label,
+      fill = _ref.fill,
+      size = _ref.size,
+      shapeStyle = _ref.shapeStyle;
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "vx-legend-shape",
+    style: {
+      display: 'flex',
+      width: !!size ? size(_objectSpread({}, label)) : width,
+      height: !!size ? size(_objectSpread({}, label)) : height,
+      margin: margin
+    }
+  }, renderShape({
+    shape: shape,
+    label: label,
+    width: width,
+    height: height,
+    fill: fill,
+    shapeStyle: shapeStyle
+  }));
+}
+
+Legend.propTypes = {
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  style: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  domain: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
+  scale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object]).isRequired,
+  shapeWidth: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  shapeHeight: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]),
+  shapeMargin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  labelAlign: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  labelFlex: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  labelMargin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  itemMargin: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  direction: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  itemDirection: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  shape: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  shapeStyle: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.any,
+  labelFormat: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelTransform: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
+};
+var defaultStyle = {
+  display: 'flex'
+};
+function Legend(_ref) {
+  var className = _ref.className,
+      _ref$style = _ref.style,
+      style = _ref$style === void 0 ? defaultStyle : _ref$style,
+      shapeStyle = _ref.shapeStyle,
+      scale = _ref.scale,
+      shape = _ref.shape,
+      domain = _ref.domain,
+      _ref$fill = _ref.fill,
+      fill = _ref$fill === void 0 ? valueOrIdentity : _ref$fill,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? valueOrIdentity : _ref$size,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? valueOrIdentity : _ref$labelFormat,
+      _ref$labelTransform = _ref.labelTransform,
+      labelTransform = _ref$labelTransform === void 0 ? defaultTransform : _ref$labelTransform,
+      _ref$shapeWidth = _ref.shapeWidth,
+      shapeWidth = _ref$shapeWidth === void 0 ? 15 : _ref$shapeWidth,
+      _ref$shapeHeight = _ref.shapeHeight,
+      shapeHeight = _ref$shapeHeight === void 0 ? 15 : _ref$shapeHeight,
+      _ref$shapeMargin = _ref.shapeMargin,
+      shapeMargin = _ref$shapeMargin === void 0 ? '2px 4px 2px 0' : _ref$shapeMargin,
+      _ref$labelAlign = _ref.labelAlign,
+      labelAlign = _ref$labelAlign === void 0 ? 'left' : _ref$labelAlign,
+      _ref$labelFlex = _ref.labelFlex,
+      labelFlex = _ref$labelFlex === void 0 ? '1' : _ref$labelFlex,
+      _ref$labelMargin = _ref.labelMargin,
+      labelMargin = _ref$labelMargin === void 0 ? '0 4px' : _ref$labelMargin,
+      _ref$itemMargin = _ref.itemMargin,
+      itemMargin = _ref$itemMargin === void 0 ? '0' : _ref$itemMargin,
+      _ref$direction = _ref.direction,
+      direction = _ref$direction === void 0 ? 'column' : _ref$direction,
+      _ref$itemDirection = _ref.itemDirection,
+      itemDirection = _ref$itemDirection === void 0 ? 'row' : _ref$itemDirection,
+      children = _ref.children,
+      restProps = _objectWithoutProperties(_ref, ["className", "style", "shapeStyle", "scale", "shape", "domain", "fill", "size", "labelFormat", "labelTransform", "shapeWidth", "shapeHeight", "shapeMargin", "labelAlign", "labelFlex", "labelMargin", "itemMargin", "direction", "itemDirection", "children"]);
+
+  domain = domain || scale.domain();
+  var labels = domain.map(labelTransform({
+    scale: scale,
+    labelFormat: labelFormat
+  }));
+  if (children) return children(labels);
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('vx-legend', className),
+    style: _objectSpread({}, style, {
+      flexDirection: direction
+    })
+  }, labels.map(function (label, i) {
+    var text = label.text;
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(LegendItem, _extends({
+      key: "legend-".concat(label, "-").concat(i),
+      margin: itemMargin,
+      flexDirection: itemDirection,
+      label: label
+    }, restProps), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(LegendShape, {
+      shape: shape,
+      height: shapeHeight,
+      width: shapeWidth,
+      margin: shapeMargin,
+      label: label,
+      fill: fill,
+      size: size,
+      shapeStyle: shapeStyle
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(LegendLabel, {
+      label: text,
+      flex: labelFlex,
+      margin: labelMargin,
+      align: labelAlign
+    }));
+  }));
+}
+
+function defaultTransform(_ref2) {
+  var scale = _ref2.scale,
+      labelFormat = _ref2.labelFormat;
+  return function (d, i) {
+    return {
+      datum: d,
+      index: i,
+      text: "".concat(labelFormat(d, i)),
+      value: scale(d)
+    };
+  };
+}
+
+LegendQuantile.propTypes = {
+  scale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  domain: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
+  labelFormat: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelTransform: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelDelimiter: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+};
+function LegendQuantile(_ref) {
+  var scale = _ref.scale,
+      domain = _ref.domain,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? function (x) {
+    return x;
+  } : _ref$labelFormat,
+      labelTransform = _ref.labelTransform,
+      _ref$labelDelimiter = _ref.labelDelimiter,
+      labelDelimiter = _ref$labelDelimiter === void 0 ? '-' : _ref$labelDelimiter,
+      restProps = _objectWithoutProperties(_ref, ["scale", "domain", "labelFormat", "labelTransform", "labelDelimiter"]);
+
+  domain = domain || scale.range();
+  labelTransform = labelTransform || defaultTransform$1({
+    labelDelimiter: labelDelimiter
+  });
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Legend, _extends({
+    scale: scale,
+    domain: domain,
+    labelFormat: labelFormat,
+    labelTransform: labelTransform
+  }, restProps));
+}
+
+function defaultTransform$1(_ref2) {
+  var labelDelimiter = _ref2.labelDelimiter;
+  return function (_ref3) {
+    var scale = _ref3.scale,
+        labelFormat = _ref3.labelFormat;
+    return function (d, i) {
+      var _scale$invertExtent = scale.invertExtent(d),
+          _scale$invertExtent2 = _slicedToArray(_scale$invertExtent, 2),
+          x0 = _scale$invertExtent2[0],
+          x1 = _scale$invertExtent2[1];
+
+      return {
+        extent: [x0, x1],
+        text: "".concat(labelFormat(x0, i), " ").concat(labelDelimiter, " ").concat(labelFormat(x1, i)),
+        value: scale(x0),
+        datum: d,
+        index: i
+      };
+    };
+  };
+}
+
+LegendLinear.propTypes = {
+  scale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  domain: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
+  steps: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number,
+  labelFormat: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelTransform: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
+};
+function LegendLinear(_ref) {
+  var scale = _ref.scale,
+      domain = _ref.domain,
+      _ref$steps = _ref.steps,
+      steps = _ref$steps === void 0 ? 5 : _ref$steps,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? function (x) {
+    return x;
+  } : _ref$labelFormat,
+      _ref$labelTransform = _ref.labelTransform,
+      labelTransform = _ref$labelTransform === void 0 ? defaultTransform$2 : _ref$labelTransform,
+      restProps = _objectWithoutProperties(_ref, ["scale", "domain", "steps", "labelFormat", "labelTransform"]);
+
+  domain = domain || defaultDomain({
+    steps: steps,
+    scale: scale
+  });
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Legend, _extends({
+    scale: scale,
+    domain: domain,
+    labelFormat: labelFormat,
+    labelTransform: labelTransform
+  }, restProps));
+}
+
+function defaultDomain(_ref2) {
+  var steps = _ref2.steps,
+      scale = _ref2.scale;
+  var domain = scale.domain();
+  var start = domain[0];
+  var end = domain[domain.length - 1];
+  var step = (end - start) / (steps - 1);
+  return new Array(steps).fill(1).reduce(function (acc, cur, i) {
+    acc.push(start + i * step);
+    return acc;
+  }, []);
+}
+
+function defaultTransform$2(_ref3) {
+  var scale = _ref3.scale,
+      labelFormat = _ref3.labelFormat;
+  return function (d, i) {
+    return {
+      text: "".concat(labelFormat(d, i)),
+      value: scale(d)
+    };
+  };
+}
+
+LegendOrdinal.propTypes = {
+  scale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  domain: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
+  labelTransform: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelFormat: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
+};
+function LegendOrdinal(_ref) {
+  var scale = _ref.scale,
+      domain = _ref.domain,
+      _ref$labelTransform = _ref.labelTransform,
+      labelTransform = _ref$labelTransform === void 0 ? defaultTransform$3 : _ref$labelTransform,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? valueOrIdentity : _ref$labelFormat,
+      restProps = _objectWithoutProperties(_ref, ["scale", "domain", "labelTransform", "labelFormat"]);
+
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Legend, _extends({
+    scale: scale,
+    domain: domain,
+    labelFormat: labelFormat,
+    labelTransform: labelTransform
+  }, restProps));
+}
+
+function defaultTransform$3(_ref2) {
+  var scale = _ref2.scale,
+      labelFormat = _ref2.labelFormat;
+  return function (d, i) {
+    return {
+      datum: d,
+      index: i,
+      text: "".concat(labelFormat(d, i)),
+      value: scale(d)
+    };
+  };
+}
+
+LegendThreshold.propTypes = {
+  scale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  domain: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
+  labelTransform: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelFormat: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  labelDelimiter: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  labelLower: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  labelUpper: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+};
+function LegendThreshold(_ref) {
+  var scale = _ref.scale,
+      domain = _ref.domain,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? function (x) {
+    return x;
+  } : _ref$labelFormat,
+      labelTransform = _ref.labelTransform,
+      _ref$labelDelimiter = _ref.labelDelimiter,
+      labelDelimiter = _ref$labelDelimiter === void 0 ? 'to' : _ref$labelDelimiter,
+      _ref$labelLower = _ref.labelLower,
+      labelLower = _ref$labelLower === void 0 ? 'Less than ' : _ref$labelLower,
+      _ref$labelUpper = _ref.labelUpper,
+      labelUpper = _ref$labelUpper === void 0 ? 'More than ' : _ref$labelUpper,
+      restProps = _objectWithoutProperties(_ref, ["scale", "domain", "labelFormat", "labelTransform", "labelDelimiter", "labelLower", "labelUpper"]);
+
+  domain = domain || scale.range();
+  labelTransform = labelTransform || defaultTransform$4({
+    labelDelimiter: labelDelimiter,
+    labelLower: labelLower,
+    labelUpper: labelUpper
+  });
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Legend, _extends({
+    scale: scale,
+    domain: domain,
+    labelFormat: labelFormat,
+    labelTransform: labelTransform
+  }, restProps));
+}
+
+function defaultTransform$4(_ref2) {
+  var labelDelimiter = _ref2.labelDelimiter,
+      labelLower = _ref2.labelLower,
+      labelUpper = _ref2.labelUpper;
+  return function (_ref3) {
+    var scale = _ref3.scale,
+        labelFormat = _ref3.labelFormat;
+
+    function format(_labelFormat, value, i) {
+      var formattedValue = _labelFormat(value, i);
+
+      if (formattedValue === 0) return '0';
+      return formattedValue || '';
+    }
+
+    return function (d, i) {
+      var _scale$invertExtent = scale.invertExtent(d),
+          _scale$invertExtent2 = _slicedToArray(_scale$invertExtent, 2),
+          x0 = _scale$invertExtent2[0],
+          x1 = _scale$invertExtent2[1];
+
+      var delimiter = " ".concat(labelDelimiter, " ");
+      var value;
+
+      if (x0 !== 0 && !x0 && (x1 === 0 || !!x1)) {
+        // lower threshold
+        value = x1 - 1;
+        delimiter = labelLower;
+      } else if ((x0 === 0 || !!x0) && (x1 === 0 || !!x1)) {
+        // threshold step
+        value = x0;
+      } else if (!x1 && (x0 === 0 || !!x0)) {
+        // upper threshold
+        value = x0 + scale.domain()[1];
+        x1 = x0;
+        x0 = undefined;
+        delimiter = labelUpper;
+      }
+
+      return {
+        extent: [x0, x1],
+        text: "".concat(format(labelFormat, x0, i)).concat(delimiter).concat(format(labelFormat, x1, i)),
+        value: scale(value),
+        datum: d,
+        index: i
+      };
+    };
+  };
+}
+
+function LegendSize(_ref) {
+  var scale = _ref.scale,
+      domain = _ref.domain,
+      _ref$steps = _ref.steps,
+      steps = _ref$steps === void 0 ? 5 : _ref$steps,
+      _ref$labelFormat = _ref.labelFormat,
+      labelFormat = _ref$labelFormat === void 0 ? function (x) {
+    return x;
+  } : _ref$labelFormat,
+      _ref$labelTransform = _ref.labelTransform,
+      labelTransform = _ref$labelTransform === void 0 ? defaultTransform$5 : _ref$labelTransform,
+      restProps = _objectWithoutProperties(_ref, ["scale", "domain", "steps", "labelFormat", "labelTransform"]);
+
+  domain = domain || defaultDomain$1({
+    steps: steps,
+    scale: scale
+  });
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Legend, _extends({
+    scale: scale,
+    domain: domain,
+    labelFormat: labelFormat,
+    labelTransform: labelTransform
+  }, restProps));
+}
+
+function defaultDomain$1(_ref2) {
+  var steps = _ref2.steps,
+      scale = _ref2.scale;
+  var domain = scale.domain();
+  var start = domain[0];
+  var end = domain[domain.length - 1];
+  var step = (end - start) / (steps - 1);
+  return new Array(steps).fill(1).reduce(function (acc, cur, i) {
+    acc.push(start + i * step);
+    return acc;
+  }, []);
+}
+
+function defaultTransform$5(_ref3) {
+  var scale = _ref3.scale,
+      labelFormat = _ref3.labelFormat;
+  return function (d, i) {
+    return {
+      text: "".concat(labelFormat(d, i)),
+      value: scale(d),
+      datum: d,
+      index: i
+    };
+  };
+}
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@vx/point/dist/vx-point.es.js":
 /*!****************************************************!*\
   !*** ./node_modules/@vx/point/dist/vx-point.es.js ***!
@@ -1604,6 +2346,985 @@ function () {
 
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@vx/responsive/dist/vx-responsive.es.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@vx/responsive/dist/vx-responsive.es.js ***!
+  \**************************************************************/
+/*! exports provided: ScaleSVG, ParentSize, withParentSize, withScreenSize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScaleSVG", function() { return ResponsiveSVG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParentSize", function() { return ParentSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withParentSize", function() { return withParentSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withScreenSize", function() { return withScreenSize; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var resize_observer_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+ResponsiveSVG.propTypes = {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  width: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  height: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  xOrigin: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  yOrigin: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  preserveAspectRatio: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  innerRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+function ResponsiveSVG(_ref) {
+  var children = _ref.children,
+      width = _ref.width,
+      height = _ref.height,
+      _ref$xOrigin = _ref.xOrigin,
+      xOrigin = _ref$xOrigin === void 0 ? 0 : _ref$xOrigin,
+      _ref$yOrigin = _ref.yOrigin,
+      yOrigin = _ref$yOrigin === void 0 ? 0 : _ref$yOrigin,
+      _ref$preserveAspectRa = _ref.preserveAspectRatio,
+      preserveAspectRatio = _ref$preserveAspectRa === void 0 ? 'xMinYMin meet' : _ref$preserveAspectRa,
+      innerRef = _ref.innerRef;
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    style: {
+      display: 'inline-block',
+      position: 'relative',
+      width: '100%',
+      verticalAlign: 'top',
+      overflow: 'hidden'
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
+    preserveAspectRatio: preserveAspectRatio,
+    viewBox: "".concat(xOrigin, " ").concat(yOrigin, " ").concat(width, " ").concat(height),
+    ref: innerRef
+  }, children));
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+var isObject_1 = isObject;
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+var _freeGlobal = freeGlobal;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = _freeGlobal || freeSelf || Function('return this')();
+
+var _root = root;
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return _root.Date.now();
+};
+
+var now_1 = now;
+
+/** Built-in value references. */
+var Symbol$1 = _root.Symbol;
+
+var _Symbol = Symbol$1;
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+var _getRawTag = getRawTag;
+
+/** Used for built-in method references. */
+var objectProto$1 = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString$1 = objectProto$1.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString$1.call(value);
+}
+
+var _objectToString = objectToString;
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag$1 && symToStringTag$1 in Object(value))
+    ? _getRawTag(value)
+    : _objectToString(value);
+}
+
+var _baseGetTag = baseGetTag;
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+var isObjectLike_1 = isObjectLike;
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike_1(value) && _baseGetTag(value) == symbolTag);
+}
+
+var isSymbol_1 = isSymbol;
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** Used to match leading and trailing whitespace. */
+var reTrim = /^\s+|\s+$/g;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol_1(value)) {
+    return NAN;
+  }
+  if (isObject_1(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject_1(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+var toNumber_1 = toNumber;
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber_1(wait) || 0;
+  if (isObject_1(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber_1(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+
+    return maxing
+      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+      : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now_1();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now_1());
+  }
+
+  function debounced() {
+    var time = now_1(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+var debounce_1 = debounce;
+
+var ParentSize =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ParentSize, _React$Component);
+
+  function ParentSize(props) {
+    var _this;
+
+    _classCallCheck(this, ParentSize);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ParentSize).call(this, props));
+    _this.state = {
+      width: 0,
+      height: 0,
+      top: 0,
+      left: 0
+    };
+    _this.resize = debounce_1(_this.resize.bind(_assertThisInitialized(_assertThisInitialized(_this))), props.debounceTime);
+    _this.setTarget = _this.setTarget.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.animationFrameID = null;
+    return _this;
+  }
+
+  _createClass(ParentSize, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.ro = new resize_observer_polyfill__WEBPACK_IMPORTED_MODULE_1__["default"](function (entries, observer) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          var _loop = function _loop() {
+            var entry = _step.value;
+            var _entry$contentRect = entry.contentRect,
+                left = _entry$contentRect.left,
+                top = _entry$contentRect.top,
+                width = _entry$contentRect.width,
+                height = _entry$contentRect.height;
+            _this2.animationFrameID = window.requestAnimationFrame(function () {
+              _this2.resize({
+                width: width,
+                height: height,
+                top: top,
+                left: left
+              });
+            });
+          };
+
+          for (var _iterator = entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            _loop();
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      });
+      this.ro.observe(this.target);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.cancelAnimationFrame(this.animationFrameID);
+      this.ro.disconnect();
+    }
+  }, {
+    key: "resize",
+    value: function resize(_ref) {
+      var width = _ref.width,
+          height = _ref.height,
+          top = _ref.top,
+          left = _ref.left;
+      this.setState(function () {
+        return {
+          width: width,
+          height: height,
+          top: top,
+          left: left
+        };
+      });
+    }
+  }, {
+    key: "setTarget",
+    value: function setTarget(ref) {
+      this.target = ref;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          className = _this$props.className,
+          children = _this$props.children,
+          debounceTime = _this$props.debounceTime,
+          restProps = _objectWithoutProperties(_this$props, ["className", "children", "debounceTime"]);
+
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", _extends({
+        style: {
+          width: '100%',
+          height: '100%'
+        },
+        ref: this.setTarget,
+        className: className
+      }, restProps), children(_objectSpread({}, this.state, {
+        ref: this.target,
+        resize: this.resize
+      })));
+    }
+  }]);
+
+  return ParentSize;
+}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+ParentSize.defaultProps = {
+  debounceTime: 300
+};
+ParentSize.propTypes = {
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func.isRequired,
+  debounceTime: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+};
+
+function withParentSize(BaseComponent) {
+  var WrappedComponent =
+  /*#__PURE__*/
+  function (_React$Component) {
+    _inherits(WrappedComponent, _React$Component);
+
+    function WrappedComponent(props) {
+      var _this;
+
+      _classCallCheck(this, WrappedComponent);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(WrappedComponent).call(this, props));
+      _this.state = {
+        parentWidth: null,
+        parentHeight: null
+      };
+      _this.animationFrameID = null;
+      _this.debouncedResize = debounce_1(_this.resize.bind(_assertThisInitialized(_assertThisInitialized(_this))), props.debounceTime).bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      return _this;
+    }
+
+    _createClass(WrappedComponent, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        this.ro = new resize_observer_polyfill__WEBPACK_IMPORTED_MODULE_1__["default"](function (entries, observer) {
+          entries.forEach(function (entry) {
+            var _entry$contentRect = entry.contentRect,
+                width = _entry$contentRect.width,
+                height = _entry$contentRect.height;
+            _this2.animationFrameID = window.requestAnimationFrame(function () {
+              _this2.debouncedResize({
+                width: width,
+                height: height
+              });
+            });
+          });
+        });
+        this.ro.observe(this.container);
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        window.cancelAnimationFrame(this.animationFrameID);
+        this.ro.disconnect();
+      }
+    }, {
+      key: "resize",
+      value: function resize(_ref) {
+        var width = _ref.width,
+            height = _ref.height;
+        this.setState({
+          parentWidth: width,
+          parentHeight: height
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        var _this$state = this.state,
+            parentWidth = _this$state.parentWidth,
+            parentHeight = _this$state.parentHeight;
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+          style: {
+            width: '100%',
+            height: '100%'
+          },
+          ref: function ref(_ref2) {
+            _this3.container = _ref2;
+          }
+        }, parentWidth !== null && parentHeight !== null && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(BaseComponent, _extends({
+          parentWidth: parentWidth,
+          parentHeight: parentHeight
+        }, this.props)));
+      }
+    }]);
+
+    return WrappedComponent;
+  }(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+
+  WrappedComponent.defaultProps = {
+    debounceTime: 300
+  };
+  return WrappedComponent;
+}
+
+function withScreenSize(BaseComponent) {
+  var WrappedComponent =
+  /*#__PURE__*/
+  function (_React$Component) {
+    _inherits(WrappedComponent, _React$Component);
+
+    function WrappedComponent(props) {
+      var _this;
+
+      _classCallCheck(this, WrappedComponent);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(WrappedComponent).call(this, props));
+      _this.state = {
+        screenWidth: null,
+        screenHeight: null
+      };
+      _this.handleResize = debounce_1(_this.resize.bind(_assertThisInitialized(_assertThisInitialized(_this))), props.windowResizeDebounceTime).bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      return _this;
+    }
+
+    _createClass(WrappedComponent, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        window.addEventListener('resize', this.handleResize, false);
+        this.resize();
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize, false);
+      }
+    }, {
+      key: "resize",
+      value: function resize(event) {
+        this.setState(function (prevState, props) {
+          return {
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight
+          };
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this$state = this.state,
+            screenWidth = _this$state.screenWidth,
+            screenHeight = _this$state.screenHeight;
+        if (!screenWidth && !screenHeight) return null;
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(BaseComponent, _extends({
+          screenWidth: screenWidth,
+          screenHeight: screenHeight
+        }, this.props));
+      }
+    }]);
+
+    return WrappedComponent;
+  }(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+
+  WrappedComponent.defaultProps = {
+    windowResizeDebounceTime: 300
+  };
+  return WrappedComponent;
+}
+
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -48352,6 +50073,1044 @@ function evalFunctionCall (string, functionIdentifier, callback, call, functionR
 
 /***/ }),
 
+/***/ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = (function () {
+    if (typeof Map !== 'undefined') {
+        return Map;
+    }
+
+    /**
+     * Returns index in provided array that matches the specified key.
+     *
+     * @param {Array<Array>} arr
+     * @param {*} key
+     * @returns {number}
+     */
+    function getIndex(arr, key) {
+        var result = -1;
+
+        arr.some(function (entry, index) {
+            if (entry[0] === key) {
+                result = index;
+
+                return true;
+            }
+
+            return false;
+        });
+
+        return result;
+    }
+
+    return (function () {
+        function anonymous() {
+            this.__entries__ = [];
+        }
+
+        var prototypeAccessors = { size: { configurable: true } };
+
+        /**
+         * @returns {boolean}
+         */
+        prototypeAccessors.size.get = function () {
+            return this.__entries__.length;
+        };
+
+        /**
+         * @param {*} key
+         * @returns {*}
+         */
+        anonymous.prototype.get = function (key) {
+            var index = getIndex(this.__entries__, key);
+            var entry = this.__entries__[index];
+
+            return entry && entry[1];
+        };
+
+        /**
+         * @param {*} key
+         * @param {*} value
+         * @returns {void}
+         */
+        anonymous.prototype.set = function (key, value) {
+            var index = getIndex(this.__entries__, key);
+
+            if (~index) {
+                this.__entries__[index][1] = value;
+            } else {
+                this.__entries__.push([key, value]);
+            }
+        };
+
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        anonymous.prototype.delete = function (key) {
+            var entries = this.__entries__;
+            var index = getIndex(entries, key);
+
+            if (~index) {
+                entries.splice(index, 1);
+            }
+        };
+
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        anonymous.prototype.has = function (key) {
+            return !!~getIndex(this.__entries__, key);
+        };
+
+        /**
+         * @returns {void}
+         */
+        anonymous.prototype.clear = function () {
+            this.__entries__.splice(0);
+        };
+
+        /**
+         * @param {Function} callback
+         * @param {*} [ctx=null]
+         * @returns {void}
+         */
+        anonymous.prototype.forEach = function (callback, ctx) {
+            var this$1 = this;
+            if ( ctx === void 0 ) ctx = null;
+
+            for (var i = 0, list = this$1.__entries__; i < list.length; i += 1) {
+                var entry = list[i];
+
+                callback.call(ctx, entry[1], entry[0]);
+            }
+        };
+
+        Object.defineProperties( anonymous.prototype, prototypeAccessors );
+
+        return anonymous;
+    }());
+})();
+
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
+
+// Returns global object of a current environment.
+var global$1 = (function () {
+    if (typeof global !== 'undefined' && global.Math === Math) {
+        return global;
+    }
+
+    if (typeof self !== 'undefined' && self.Math === Math) {
+        return self;
+    }
+
+    if (typeof window !== 'undefined' && window.Math === Math) {
+        return window;
+    }
+
+    // eslint-disable-next-line no-new-func
+    return Function('return this')();
+})();
+
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+var requestAnimationFrame$1 = (function () {
+    if (typeof requestAnimationFrame === 'function') {
+        // It's required to use a bounded function because IE sometimes throws
+        // an "Invalid calling object" error if rAF is invoked without the global
+        // object on the left hand side.
+        return requestAnimationFrame.bind(global$1);
+    }
+
+    return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+})();
+
+// Defines minimum timeout before adding a trailing call.
+var trailingTimeout = 2;
+
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+var throttle = function (callback, delay) {
+    var leadingCall = false,
+        trailingCall = false,
+        lastCallTime = 0;
+
+    /**
+     * Invokes the original callback function and schedules new invocation if
+     * the "proxy" was called during current request.
+     *
+     * @returns {void}
+     */
+    function resolvePending() {
+        if (leadingCall) {
+            leadingCall = false;
+
+            callback();
+        }
+
+        if (trailingCall) {
+            proxy();
+        }
+    }
+
+    /**
+     * Callback invoked after the specified delay. It will further postpone
+     * invocation of the original function delegating it to the
+     * requestAnimationFrame.
+     *
+     * @returns {void}
+     */
+    function timeoutCallback() {
+        requestAnimationFrame$1(resolvePending);
+    }
+
+    /**
+     * Schedules invocation of the original function.
+     *
+     * @returns {void}
+     */
+    function proxy() {
+        var timeStamp = Date.now();
+
+        if (leadingCall) {
+            // Reject immediately following calls.
+            if (timeStamp - lastCallTime < trailingTimeout) {
+                return;
+            }
+
+            // Schedule new call to be in invoked when the pending one is resolved.
+            // This is important for "transitions" which never actually start
+            // immediately so there is a chance that we might miss one if change
+            // happens amids the pending invocation.
+            trailingCall = true;
+        } else {
+            leadingCall = true;
+            trailingCall = false;
+
+            setTimeout(timeoutCallback, delay);
+        }
+
+        lastCallTime = timeStamp;
+    }
+
+    return proxy;
+};
+
+// Minimum delay before invoking the update of observers.
+var REFRESH_DELAY = 20;
+
+// A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
+
+// Check if MutationObserver is available.
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+var ResizeObserverController = function() {
+    this.connected_ = false;
+    this.mutationEventsAdded_ = false;
+    this.mutationsObserver_ = null;
+    this.observers_ = [];
+
+    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+};
+
+/**
+ * Adds observer to observers list.
+ *
+ * @param {ResizeObserverSPI} observer - Observer to be added.
+ * @returns {void}
+ */
+
+
+/**
+ * Holds reference to the controller's instance.
+ *
+ * @private {ResizeObserverController}
+ */
+
+
+/**
+ * Keeps reference to the instance of MutationObserver.
+ *
+ * @private {MutationObserver}
+ */
+
+/**
+ * Indicates whether DOM listeners have been added.
+ *
+ * @private {boolean}
+ */
+ResizeObserverController.prototype.addObserver = function (observer) {
+    if (!~this.observers_.indexOf(observer)) {
+        this.observers_.push(observer);
+    }
+
+    // Add listeners if they haven't been added yet.
+    if (!this.connected_) {
+        this.connect_();
+    }
+};
+
+/**
+ * Removes observer from observers list.
+ *
+ * @param {ResizeObserverSPI} observer - Observer to be removed.
+ * @returns {void}
+ */
+ResizeObserverController.prototype.removeObserver = function (observer) {
+    var observers = this.observers_;
+    var index = observers.indexOf(observer);
+
+    // Remove observer if it's present in registry.
+    if (~index) {
+        observers.splice(index, 1);
+    }
+
+    // Remove listeners if controller has no connected observers.
+    if (!observers.length && this.connected_) {
+        this.disconnect_();
+    }
+};
+
+/**
+ * Invokes the update of observers. It will continue running updates insofar
+ * it detects changes.
+ *
+ * @returns {void}
+ */
+ResizeObserverController.prototype.refresh = function () {
+    var changesDetected = this.updateObservers_();
+
+    // Continue running updates if changes have been detected as there might
+    // be future ones caused by CSS transitions.
+    if (changesDetected) {
+        this.refresh();
+    }
+};
+
+/**
+ * Updates every observer from observers list and notifies them of queued
+ * entries.
+ *
+ * @private
+ * @returns {boolean} Returns "true" if any observer has detected changes in
+ *  dimensions of it's elements.
+ */
+ResizeObserverController.prototype.updateObservers_ = function () {
+    // Collect observers that have active observations.
+    var activeObservers = this.observers_.filter(function (observer) {
+        return observer.gatherActive(), observer.hasActive();
+    });
+
+    // Deliver notifications in a separate cycle in order to avoid any
+    // collisions between observers, e.g. when multiple instances of
+    // ResizeObserver are tracking the same element and the callback of one
+    // of them changes content dimensions of the observed target. Sometimes
+    // this may result in notifications being blocked for the rest of observers.
+    activeObservers.forEach(function (observer) { return observer.broadcastActive(); });
+
+    return activeObservers.length > 0;
+};
+
+/**
+ * Initializes DOM listeners.
+ *
+ * @private
+ * @returns {void}
+ */
+ResizeObserverController.prototype.connect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already added.
+    if (!isBrowser || this.connected_) {
+        return;
+    }
+
+    // Subscription to the "Transitionend" event is used as a workaround for
+    // delayed transitions. This way it's possible to capture at least the
+    // final state of an element.
+    document.addEventListener('transitionend', this.onTransitionEnd_);
+
+    window.addEventListener('resize', this.refresh);
+
+    if (mutationObserverSupported) {
+        this.mutationsObserver_ = new MutationObserver(this.refresh);
+
+        this.mutationsObserver_.observe(document, {
+            attributes: true,
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    } else {
+        document.addEventListener('DOMSubtreeModified', this.refresh);
+
+        this.mutationEventsAdded_ = true;
+    }
+
+    this.connected_ = true;
+};
+
+/**
+ * Removes DOM listeners.
+ *
+ * @private
+ * @returns {void}
+ */
+ResizeObserverController.prototype.disconnect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already removed.
+    if (!isBrowser || !this.connected_) {
+        return;
+    }
+
+    document.removeEventListener('transitionend', this.onTransitionEnd_);
+    window.removeEventListener('resize', this.refresh);
+
+    if (this.mutationsObserver_) {
+        this.mutationsObserver_.disconnect();
+    }
+
+    if (this.mutationEventsAdded_) {
+        document.removeEventListener('DOMSubtreeModified', this.refresh);
+    }
+
+    this.mutationsObserver_ = null;
+    this.mutationEventsAdded_ = false;
+    this.connected_ = false;
+};
+
+/**
+ * "Transitionend" event handler.
+ *
+ * @private
+ * @param {TransitionEvent} event
+ * @returns {void}
+ */
+ResizeObserverController.prototype.onTransitionEnd_ = function (ref) {
+        var propertyName = ref.propertyName; if ( propertyName === void 0 ) propertyName = '';
+
+    // Detect whether transition may affect dimensions of an element.
+    var isReflowProperty = transitionKeys.some(function (key) {
+        return !!~propertyName.indexOf(key);
+    });
+
+    if (isReflowProperty) {
+        this.refresh();
+    }
+};
+
+/**
+ * Returns instance of the ResizeObserverController.
+ *
+ * @returns {ResizeObserverController}
+ */
+ResizeObserverController.getInstance = function () {
+    if (!this.instance_) {
+        this.instance_ = new ResizeObserverController();
+    }
+
+    return this.instance_;
+};
+
+ResizeObserverController.instance_ = null;
+
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+var defineConfigurable = (function (target, props) {
+    for (var i = 0, list = Object.keys(props); i < list.length; i += 1) {
+        var key = list[i];
+
+        Object.defineProperty(target, key, {
+            value: props[key],
+            enumerable: false,
+            writable: false,
+            configurable: true
+        });
+    }
+
+    return target;
+});
+
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+var getWindowOf = (function (target) {
+    // Assume that the element is an instance of Node, which means that it
+    // has the "ownerDocument" property from which we can retrieve a
+    // corresponding global object.
+    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+
+    // Return the local global object if it's not possible extract one from
+    // provided element.
+    return ownerGlobal || global$1;
+});
+
+// Placeholder of an empty content rectangle.
+var emptyRect = createRectInit(0, 0, 0, 0);
+
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+function getBordersSize(styles) {
+    var positions = [], len = arguments.length - 1;
+    while ( len-- > 0 ) positions[ len ] = arguments[ len + 1 ];
+
+    return positions.reduce(function (size, position) {
+        var value = styles['border-' + position + '-width'];
+
+        return size + toFloat(value);
+    }, 0);
+}
+
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+function getPaddings(styles) {
+    var positions = ['top', 'right', 'bottom', 'left'];
+    var paddings = {};
+
+    for (var i = 0, list = positions; i < list.length; i += 1) {
+        var position = list[i];
+
+        var value = styles['padding-' + position];
+
+        paddings[position] = toFloat(value);
+    }
+
+    return paddings;
+}
+
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getSVGContentRect(target) {
+    var bbox = target.getBBox();
+
+    return createRectInit(0, 0, bbox.width, bbox.height);
+}
+
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+function getHTMLElementContentRect(target) {
+    // Client width & height properties can't be
+    // used exclusively as they provide rounded values.
+    var clientWidth = target.clientWidth;
+    var clientHeight = target.clientHeight;
+
+    // By this condition we can catch all non-replaced inline, hidden and
+    // detached elements. Though elements with width & height properties less
+    // than 0.5 will be discarded as well.
+    //
+    // Without it we would need to implement separate methods for each of
+    // those cases and it's not possible to perform a precise and performance
+    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+    // gives wrong results for elements with width & height less than 0.5.
+    if (!clientWidth && !clientHeight) {
+        return emptyRect;
+    }
+
+    var styles = getWindowOf(target).getComputedStyle(target);
+    var paddings = getPaddings(styles);
+    var horizPad = paddings.left + paddings.right;
+    var vertPad = paddings.top + paddings.bottom;
+
+    // Computed styles of width & height are being used because they are the
+    // only dimensions available to JS that contain non-rounded values. It could
+    // be possible to utilize the getBoundingClientRect if only it's data wasn't
+    // affected by CSS transformations let alone paddings, borders and scroll bars.
+    var width = toFloat(styles.width),
+        height = toFloat(styles.height);
+
+    // Width & height include paddings and borders when the 'border-box' box
+    // model is applied (except for IE).
+    if (styles.boxSizing === 'border-box') {
+        // Following conditions are required to handle Internet Explorer which
+        // doesn't include paddings and borders to computed CSS dimensions.
+        //
+        // We can say that if CSS dimensions + paddings are equal to the "client"
+        // properties then it's either IE, and thus we don't need to subtract
+        // anything, or an element merely doesn't have paddings/borders styles.
+        if (Math.round(width + horizPad) !== clientWidth) {
+            width -= getBordersSize(styles, 'left', 'right') + horizPad;
+        }
+
+        if (Math.round(height + vertPad) !== clientHeight) {
+            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+        }
+    }
+
+    // Following steps can't be applied to the document's root element as its
+    // client[Width/Height] properties represent viewport area of the window.
+    // Besides, it's as well not necessary as the <html> itself neither has
+    // rendered scroll bars nor it can be clipped.
+    if (!isDocumentElement(target)) {
+        // In some browsers (only in Firefox, actually) CSS width & height
+        // include scroll bars size which can be removed at this step as scroll
+        // bars are the only difference between rounded dimensions + paddings
+        // and "client" properties, though that is not always true in Chrome.
+        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
+
+        // Chrome has a rather weird rounding of "client" properties.
+        // E.g. for an element with content width of 314.2px it sometimes gives
+        // the client width of 315px and for the width of 314.7px it may give
+        // 314px. And it doesn't happen all the time. So just ignore this delta
+        // as a non-relevant.
+        if (Math.abs(vertScrollbar) !== 1) {
+            width -= vertScrollbar;
+        }
+
+        if (Math.abs(horizScrollbar) !== 1) {
+            height -= horizScrollbar;
+        }
+    }
+
+    return createRectInit(paddings.left, paddings.top, width, height);
+}
+
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+var isSVGGraphicsElement = (function () {
+    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+    // interface.
+    if (typeof SVGGraphicsElement !== 'undefined') {
+        return function (target) { return target instanceof getWindowOf(target).SVGGraphicsElement; };
+    }
+
+    // If it's so, then check that element is at least an instance of the
+    // SVGElement and that it has the "getBBox" method.
+    // eslint-disable-next-line no-extra-parens
+    return function (target) { return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function'; };
+})();
+
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+function isDocumentElement(target) {
+    return target === getWindowOf(target).document.documentElement;
+}
+
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getContentRect(target) {
+    if (!isBrowser) {
+        return emptyRect;
+    }
+
+    if (isSVGGraphicsElement(target)) {
+        return getSVGContentRect(target);
+    }
+
+    return getHTMLElementContentRect(target);
+}
+
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+function createReadOnlyRect(ref) {
+    var x = ref.x;
+    var y = ref.y;
+    var width = ref.width;
+    var height = ref.height;
+
+    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+    var rect = Object.create(Constr.prototype);
+
+    // Rectangle's properties are not writable and non-enumerable.
+    defineConfigurable(rect, {
+        x: x, y: y, width: width, height: height,
+        top: y,
+        right: x + width,
+        bottom: height + y,
+        left: x
+    });
+
+    return rect;
+}
+
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+function createRectInit(x, y, width, height) {
+    return { x: x, y: y, width: width, height: height };
+}
+
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+var ResizeObservation = function(target) {
+    this.broadcastWidth = 0;
+    this.broadcastHeight = 0;
+    this.contentRect_ = createRectInit(0, 0, 0, 0);
+
+    this.target = target;
+};
+
+/**
+ * Updates content rectangle and tells whether it's width or height properties
+ * have changed since the last broadcast.
+ *
+ * @returns {boolean}
+ */
+
+
+/**
+ * Reference to the last observed content rectangle.
+ *
+ * @private {DOMRectInit}
+ */
+
+
+/**
+ * Broadcasted width of content rectangle.
+ *
+ * @type {number}
+ */
+ResizeObservation.prototype.isActive = function () {
+    var rect = getContentRect(this.target);
+
+    this.contentRect_ = rect;
+
+    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
+};
+
+/**
+ * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+ * from the corresponding properties of the last observed content rectangle.
+ *
+ * @returns {DOMRectInit} Last observed content rectangle.
+ */
+ResizeObservation.prototype.broadcastRect = function () {
+    var rect = this.contentRect_;
+
+    this.broadcastWidth = rect.width;
+    this.broadcastHeight = rect.height;
+
+    return rect;
+};
+
+var ResizeObserverEntry = function(target, rectInit) {
+    var contentRect = createReadOnlyRect(rectInit);
+
+    // According to the specification following properties are not writable
+    // and are also not enumerable in the native implementation.
+    //
+    // Property accessors are not being used as they'd require to define a
+    // private WeakMap storage which may cause memory leaks in browsers that
+    // don't support this type of collections.
+    defineConfigurable(this, { target: target, contentRect: contentRect });
+};
+
+var ResizeObserverSPI = function(callback, controller, callbackCtx) {
+    this.activeObservations_ = [];
+    this.observations_ = new MapShim();
+
+    if (typeof callback !== 'function') {
+        throw new TypeError('The callback provided as parameter 1 is not a function.');
+    }
+
+    this.callback_ = callback;
+    this.controller_ = controller;
+    this.callbackCtx_ = callbackCtx;
+};
+
+/**
+ * Starts observing provided element.
+ *
+ * @param {Element} target - Element to be observed.
+ * @returns {void}
+ */
+
+
+/**
+ * Registry of the ResizeObservation instances.
+ *
+ * @private {Map<Element, ResizeObservation>}
+ */
+
+
+/**
+ * Public ResizeObserver instance which will be passed to the callback
+ * function and used as a value of it's "this" binding.
+ *
+ * @private {ResizeObserver}
+ */
+
+/**
+ * Collection of resize observations that have detected changes in dimensions
+ * of elements.
+ *
+ * @private {Array<ResizeObservation>}
+ */
+ResizeObserverSPI.prototype.observe = function (target) {
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    // Do nothing if current environment doesn't have the Element interface.
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+        return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+        throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_;
+
+    // Do nothing if element is already being observed.
+    if (observations.has(target)) {
+        return;
+    }
+
+    observations.set(target, new ResizeObservation(target));
+
+    this.controller_.addObserver(this);
+
+    // Force the update of observations.
+    this.controller_.refresh();
+};
+
+/**
+ * Stops observing provided element.
+ *
+ * @param {Element} target - Element to stop observing.
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.unobserve = function (target) {
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    // Do nothing if current environment doesn't have the Element interface.
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+        return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+        throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_;
+
+    // Do nothing if element is not being observed.
+    if (!observations.has(target)) {
+        return;
+    }
+
+    observations.delete(target);
+
+    if (!observations.size) {
+        this.controller_.removeObserver(this);
+    }
+};
+
+/**
+ * Stops observing all elements.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.disconnect = function () {
+    this.clearActive();
+    this.observations_.clear();
+    this.controller_.removeObserver(this);
+};
+
+/**
+ * Collects observation instances the associated element of which has changed
+ * it's content rectangle.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.gatherActive = function () {
+        var this$1 = this;
+
+    this.clearActive();
+
+    this.observations_.forEach(function (observation) {
+        if (observation.isActive()) {
+            this$1.activeObservations_.push(observation);
+        }
+    });
+};
+
+/**
+ * Invokes initial callback function with a list of ResizeObserverEntry
+ * instances collected from active resize observations.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.broadcastActive = function () {
+    // Do nothing if observer doesn't have active observations.
+    if (!this.hasActive()) {
+        return;
+    }
+
+    var ctx = this.callbackCtx_;
+
+    // Create ResizeObserverEntry instance for every active observation.
+    var entries = this.activeObservations_.map(function (observation) {
+        return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+    });
+
+    this.callback_.call(ctx, entries, ctx);
+    this.clearActive();
+};
+
+/**
+ * Clears the collection of active observations.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.clearActive = function () {
+    this.activeObservations_.splice(0);
+};
+
+/**
+ * Tells whether observer has active observations.
+ *
+ * @returns {boolean}
+ */
+ResizeObserverSPI.prototype.hasActive = function () {
+    return this.activeObservations_.length > 0;
+};
+
+// Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+var ResizeObserver = function(callback) {
+    if (!(this instanceof ResizeObserver)) {
+        throw new TypeError('Cannot call a class as a function.');
+    }
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    var controller = ResizeObserverController.getInstance();
+    var observer = new ResizeObserverSPI(callback, controller, this);
+
+    observers.set(this, observer);
+};
+
+// Expose public methods of ResizeObserver.
+['observe', 'unobserve', 'disconnect'].forEach(function (method) {
+    ResizeObserver.prototype[method] = function () {
+        return (ref = observers.get(this))[method].apply(ref, arguments);
+        var ref;
+    };
+});
+
+var index = (function () {
+    // Export existing implementation if available.
+    if (typeof global$1.ResizeObserver !== 'undefined') {
+        return global$1.ResizeObserver;
+    }
+
+    return ResizeObserver;
+})();
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/scheduler/cjs/scheduler-tracing.development.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler-tracing.development.js ***!
@@ -49586,7 +52345,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vx_scale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vx/scale */ "./node_modules/@vx/scale/dist/vx-scale.es.js");
 /* harmony import */ var _vx_axis__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @vx/axis */ "./node_modules/@vx/axis/dist/vx-axis.es.js");
 /* harmony import */ var _vx_grid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @vx/grid */ "./node_modules/@vx/grid/dist/vx-grid.es.js");
-/* harmony import */ var d3_time_format__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! d3-time-format */ "./node_modules/d3-time-format/src/index.js");
+/* harmony import */ var _vx_legend__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @vx/legend */ "./node_modules/@vx/legend/dist/vx-legend.es.js");
+/* harmony import */ var d3_time_format__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! d3-time-format */ "./node_modules/d3-time-format/src/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -49602,10 +52362,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+
  // import { cityTemperature as data } from "@vx/mock-data";
 
 
-var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_8__["timeParse"])("%Y-%m-%dT%H:%M");
+var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M");
+var lineColors = ["#2F4F4F", "#2E8B57", "#00FFFF", "#1E90FF", "#FF00FF", "#C71585"];
 
 var Graph = function Graph(_ref) {
   var width = _ref.width,
@@ -49651,7 +52413,16 @@ var Graph = function Graph(_ref) {
   var yMax = height - margin.top - margin.bottom;
   xScale.range([0, xMax]);
   yScale.range([yMax, 0]);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+  var locations = data.map(function (dataset) {
+    return dataset["location"];
+  });
+  var color = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleOrdinal"])({
+    domain: locations,
+    range: lineColors
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "graph"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
     width: width,
     height: height
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("rect", {
@@ -49691,7 +52462,7 @@ var Graph = function Graph(_ref) {
     y: "15",
     transform: "rotate(-90)",
     fontSize: 10
-  }, "Temperature (\xB0F)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_threshold__WEBPACK_IMPORTED_MODULE_4__["Threshold"], {
+  }, "Temperature (\xB0C)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_threshold__WEBPACK_IMPORTED_MODULE_4__["Threshold"], {
     data: data[0]["values"],
     x: function x(d) {
       return xScale(date(d));
@@ -49724,11 +52495,20 @@ var Graph = function Graph(_ref) {
       y: function y(d) {
         return yScale(temp(d));
       },
-      stroke: "#000",
-      strokeWidth: 1.5,
+      stroke: lineColors[locations.indexOf(dataset.location)],
+      strokeWidth: 3,
       strokeOpacity: 0.8
     });
-  }))));
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "graph__legend",
+    style: {
+      top: margin.top / 2 - 10
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_legend__WEBPACK_IMPORTED_MODULE_8__["LegendOrdinal"], {
+    scale: color,
+    direction: "row",
+    labelMargin: "0 .5rem 0 0"
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Graph);
@@ -49749,11 +52529,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Graph_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Graph.js */ "./src/Graph.js");
+/* harmony import */ var _vx_responsive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/responsive */ "./node_modules/@vx/responsive/dist/vx-responsive.es.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 console.log("JS Running");
+
 
 
 
@@ -49799,17 +52581,25 @@ function () {
 }();
 
 var data = json().then(function (data) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Graph_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    height: 600,
-    width: 1000,
-    margin: {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 30
-    },
-    data: data
-  }), document.getElementById("root"));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "app-graph"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_responsive__WEBPACK_IMPORTED_MODULE_3__["ParentSize"], {
+    className: "graph-container"
+  }, function (_ref2) {
+    var w = _ref2.width,
+        h = _ref2.height;
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Graph_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      height: h,
+      width: w,
+      margin: {
+        top: 30,
+        right: 30,
+        bottom: 40,
+        left: 40
+      },
+      data: data
+    });
+  })), document.getElementById("root"));
 });
 
 /***/ }),

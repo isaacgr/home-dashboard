@@ -86,7 +86,22 @@ body {
   color: #3498db;
 }
 
-/* D3 Graph */
+/* Graph */
+
+.graph {
+  position: relative;
+  margin-top: 2rem;
+  height: 60rem;
+}
+
+.graph__legend {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
 
 /* Util classes */
 .u-text-sm {
@@ -105,13 +120,22 @@ body {
   .nav {
     justify-content: center;
   }
+
+  .graph__legend {
+    font-size: 1rem;
+  }
+
+  .vx-legend-shape > div {
+    height: 8px !important;
+    width: 8px !important;
+  }
 }
 
-/* @media only screen and (max-width: 480px) {
-  .data__value {
-    font-size: 4rem;
+@media only screen and (max-width: 480px) {
+  .graph__legend {
+    font-size: 0.8rem;
   }
-} */
+}
 
 @media only screen and (max-width: 265px) {
   .data__value {
