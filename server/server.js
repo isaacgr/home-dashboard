@@ -89,10 +89,6 @@ app.get("/tempgraph", (request, response) => {
     });
 });
 
-app.get("/lights", (request, response) => {
-  response.render("lights");
-});
-
 app.post("/api/temp", (request, response) => {
   if (request.body.key !== process.env.SECRET) {
     console.log({ error: "invalid key" });
