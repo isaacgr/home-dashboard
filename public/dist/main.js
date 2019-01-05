@@ -49605,7 +49605,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  // import { cityTemperature as data } from "@vx/mock-data";
 
 
-var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_8__["timeParse"])("%Y%m%d");
+var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_8__["timeParse"])("%Y-%m-%dT%H:%M");
 
 var Graph = function Graph(_ref) {
   var width = _ref.width,
@@ -49624,8 +49624,9 @@ var Graph = function Graph(_ref) {
 
   var sf = function sf(d) {
     return d["temp_f"];
-  }; // scales
+  };
 
+  console.log(date); // scales
 
   var xScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleTime"])({
     domain: [Math.min.apply(Math, _toConsumableArray(data.map(date))), Math.max.apply(Math, _toConsumableArray(data.map(date)))]

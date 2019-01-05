@@ -9,7 +9,7 @@ import { GridRows, GridColumns } from "@vx/grid";
 // import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
-const parseDate = timeParse("%Y%m%d");
+const parseDate = timeParse("%Y-%m-%dT%H:%M");
 
 const Graph = ({ width, height, margin, data }) => {
   console.log(data);
@@ -17,6 +17,7 @@ const Graph = ({ width, height, margin, data }) => {
   const date = d => parseDate(d.createdAt);
   const ny = d => d["temp"];
   const sf = d => d["temp_f"];
+  console.log(date);
 
   // scales
   const xScale = scaleTime({
