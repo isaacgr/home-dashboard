@@ -49612,7 +49612,6 @@ var Graph = function Graph(_ref) {
       height = _ref.height,
       margin = _ref.margin,
       data = _ref.data;
-  console.log(data);
 
   var date = function date(d) {
     return parseDate(d.createdAt);
@@ -49622,21 +49621,30 @@ var Graph = function Graph(_ref) {
     return d["temp"];
   };
 
-  var temp2 = function temp2(d) {
-    return d["temp"];
-  };
-
-  console.log(date); // scales
+  var dates = data.map(function (dataset) {
+    return dataset["values"].map(date);
+  });
+  var temps = data.map(function (dataset) {
+    return dataset["values"].map(temp);
+  });
+  var minDate = Math.min.apply(Math, _toConsumableArray(dates.map(function (mins) {
+    return Math.min.apply(Math, _toConsumableArray(mins));
+  })));
+  var maxDate = Math.max.apply(Math, _toConsumableArray(dates.map(function (maxs) {
+    return Math.max.apply(Math, _toConsumableArray(maxs));
+  })));
+  var minTemp = Math.min.apply(Math, _toConsumableArray(temps.map(function (mins) {
+    return Math.min.apply(Math, _toConsumableArray(mins));
+  })));
+  var maxTemp = Math.max.apply(Math, _toConsumableArray(temps.map(function (maxs) {
+    return Math.max.apply(Math, _toConsumableArray(maxs));
+  }))); // scales
 
   var xScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleTime"])({
-    domain: [Math.min.apply(Math, _toConsumableArray(data.map(date))), Math.max.apply(Math, _toConsumableArray(data.map(date)))]
+    domain: [minDate, maxDate]
   });
   var yScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"])({
-    domain: [Math.min.apply(Math, _toConsumableArray(data.map(function (d) {
-      return Math.min(temp(d), temp2(d));
-    }))), Math.max.apply(Math, _toConsumableArray(data.map(function (d) {
-      return Math.max(temp(d), temp2(d));
-    })))],
+    domain: [minTemp, maxTemp],
     nice: true
   });
   var xMax = width - margin.left - margin.right;
@@ -49684,15 +49692,15 @@ var Graph = function Graph(_ref) {
     transform: "rotate(-90)",
     fontSize: 10
   }, "Temperature (\xB0F)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_threshold__WEBPACK_IMPORTED_MODULE_4__["Threshold"], {
-    data: data,
+    data: data[0]["values"],
     x: function x(d) {
       return xScale(date(d));
     },
     y0: function y0(d) {
-      return yScale(temp(d));
+      return yScale(22.2);
     },
     y1: function y1(d) {
-      return yScale(temp2(d));
+      return yScale(temp(d));
     },
     clipAboveTo: 0,
     clipBelowTo: yMax,
@@ -49702,33 +49710,24 @@ var Graph = function Graph(_ref) {
       fillOpacity: 0.4
     },
     aboveAreaProps: {
-      fill: "green",
+      fill: "lightskyblue",
       fillOpacity: 0.4
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_shape__WEBPACK_IMPORTED_MODULE_3__["LinePath"], {
-    data: data,
-    curve: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveBasis"],
-    x: function x(d) {
-      return xScale(date(d));
-    },
-    y: function y(d) {
-      return yScale(temp2(d));
-    },
-    stroke: "#000",
-    strokeWidth: 1.5,
-    strokeOpacity: 0.8,
-    strokeDasharray: "1,2"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_shape__WEBPACK_IMPORTED_MODULE_3__["LinePath"], {
-    data: data,
-    curve: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveBasis"],
-    x: function x(d) {
-      return xScale(date(d));
-    },
-    y: function y(d) {
-      return yScale(temp(d));
-    },
-    stroke: "#000",
-    strokeWidth: 1.5
+  }), data.map(function (dataset) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_shape__WEBPACK_IMPORTED_MODULE_3__["LinePath"], {
+      key: dataset["values"]["createdAt"],
+      data: dataset["values"],
+      curve: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveBasis"],
+      x: function x(d) {
+        return xScale(date(d));
+      },
+      y: function y(d) {
+        return yScale(temp(d));
+      },
+      stroke: "#000",
+      strokeWidth: 1.5,
+      strokeOpacity: 0.8
+    });
   }))));
 };
 
@@ -49784,7 +49783,7 @@ function () {
 
           case 5:
             json = _context.sent;
-            return _context.abrupt("return", json[0]["values"]);
+            return _context.abrupt("return", json);
 
           case 7:
           case "end":

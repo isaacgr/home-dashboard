@@ -12,22 +12,47 @@ import { timeParse } from "d3-time-format";
 const parseDate = timeParse("%Y-%m-%dT%H:%M");
 
 const Graph = ({ width, height, margin, data }) => {
-  console.log(data);
-
   const date = d => parseDate(d.createdAt);
   const temp = d => d["temp"];
-  const temp2 = d => d["temp"];
-  console.log(date);
+
+  const dates = data.map(dataset => {
+    return dataset["values"].map(date);
+  });
+
+  const temps = data.map(dataset => {
+    return dataset["values"].map(temp);
+  });
+
+  const minDate = Math.min(
+    ...dates.map(mins => {
+      return Math.min(...mins);
+    })
+  );
+
+  const maxDate = Math.max(
+    ...dates.map(maxs => {
+      return Math.max(...maxs);
+    })
+  );
+
+  const minTemp = Math.min(
+    ...temps.map(mins => {
+      return Math.min(...mins);
+    })
+  );
+
+  const maxTemp = Math.max(
+    ...temps.map(maxs => {
+      return Math.max(...maxs);
+    })
+  );
 
   // scales
   const xScale = scaleTime({
-    domain: [Math.min(...data.map(date)), Math.max(...data.map(date))]
+    domain: [minDate, maxDate]
   });
   const yScale = scaleLinear({
-    domain: [
-      Math.min(...data.map(d => Math.min(temp(d), temp2(d)))),
-      Math.max(...data.map(d => Math.max(temp(d), temp2(d))))
-    ],
+    domain: [minTemp, maxTemp],
     nice: true
   });
   const xMax = width - margin.left - margin.right;
@@ -70,10 +95,10 @@ const Graph = ({ width, height, margin, data }) => {
             Temperature (°F)
           </text>
           <Threshold
-            data={data}
+            data={data[0]["values"]}
             x={d => xScale(date(d))}
-            y0={d => yScale(temp(d))}
-            y1={d => yScale(temp2(d))}
+            y0={d => yScale(22.2)}
+            y1={d => yScale(temp(d))}
             clipAboveTo={0}
             clipBelowTo={yMax}
             curve={curveBasis}
@@ -82,28 +107,24 @@ const Graph = ({ width, height, margin, data }) => {
               fillOpacity: 0.4
             }}
             aboveAreaProps={{
-              fill: "green",
+              fill: "lightskyblue",
               fillOpacity: 0.4
             }}
           />
-          <LinePath
-            data={data}
-            curve={curveBasis}
-            x={d => xScale(date(d))}
-            y={d => yScale(temp2(d))}
-            stroke="#000"
-            strokeWidth={1.5}
-            strokeOpacity={0.8}
-            strokeDasharray="1,2"
-          />
-          <LinePath
-            data={data}
-            curve={curveBasis}
-            x={d => xScale(date(d))}
-            y={d => yScale(temp(d))}
-            stroke="#000"
-            strokeWidth={1.5}
-          />
+          {data.map(dataset => {
+            return (
+              <LinePath
+                key={dataset["values"]["createdAt"]}
+                data={dataset["values"]}
+                curve={curveBasis}
+                x={d => xScale(date(d))}
+                y={d => yScale(temp(d))}
+                stroke="#000"
+                strokeWidth={1.5}
+                strokeOpacity={0.8}
+              />
+            );
+          })}
         </Group>
       </svg>
     </div>

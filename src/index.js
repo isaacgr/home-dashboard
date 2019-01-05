@@ -11,7 +11,7 @@ const json = async () => {
     }
   });
   const json = await response.json();
-  return json[0]["values"];
+  return json;
 };
 
 const data = json().then(data => {
