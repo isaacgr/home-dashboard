@@ -48,31 +48,65 @@ app.get("/api/temp/all", (request, response) => {
 });
 
 app.get("/api/temp", (request, response) => {
-  Temp.aggregate()
-    .unwind("values")
-    .sort({ "values.createdAt": -1 })
-    .limit(1)
+  let data = [];
+  Temp.find()
     .then(doc => {
-      response.send(doc);
+      return new Promise((resolve, reject) => {
+        doc.map((dataset, idx, arr) => {
+          Temp.aggregate([{ $match: dataset }])
+            .unwind("values")
+            .sort({ "values.createdAt": -1 })
+            .limit(1)
+            .then(doc => {
+              data.push(doc[0]);
+              if (data.length === arr.length) {
+                resolve(data);
+              }
+            })
+            .catch(error => {
+              return response.status(400).send({ error: error["message"] });
+            });
+        });
+      });
+    })
+    .then(data => {
+      response.status(200).send({ data });
     })
     .catch(error => {
-      response.status(400).send({ error: error["message"] });
+      return response.status(400).send({ error: error["message"] });
     });
 });
 
 app.get("/", (request, response) => {
-  Temp.aggregate()
-    .unwind("values")
-    .sort({ "values.createdAt": -1 })
-    .limit(1)
+  let data = [];
+  Temp.find()
     .then(doc => {
-      response.render("home", {
-        ...doc[0],
-        values: {
-          ...doc[0].values,
-          createdAt: moment(doc[0].values.createdAt).format("LLL")
-        }
+      return new Promise((resolve, reject) => {
+        doc.map((dataset, idx, arr) => {
+          Temp.aggregate([{ $match: dataset }])
+            .unwind("values")
+            .sort({ "values.createdAt": -1 })
+            .limit(1)
+            .then(doc => {
+              data.push({
+                ...doc[0],
+                values: {
+                  ...doc[0].values,
+                  createdAt: moment(doc[0].values.createdAt).format("LLL")
+                }
+              });
+              if (data.length === arr.length) {
+                resolve(data);
+              }
+            })
+            .catch(error => {
+              return response.status(400).send({ error: error["message"] });
+            });
+        });
       });
+    })
+    .then(data => {
+      response.render("home", { data });
     })
     .catch(error => {
       return response.status(400).send({ error: error["message"] });
@@ -105,7 +139,7 @@ app.post("/api/temp", (request, response) => {
             temp: request.body.temp,
             humid: request.body.humid,
             temp_f: request.body.temp_f,
-            createdAt: date.format("YYYY-MM-DDTHH:mm")
+            createdAt: date.format("YYYY-MM-DDTHH:mm:ss")
           }
         ]
       }
