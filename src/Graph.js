@@ -11,7 +11,7 @@ import { LegendOrdinal } from "@vx/legend";
 // import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
-const parseDate = timeParse("%Y-%m-%dT%H:%M");
+const parseDate = timeParse("%Y-%m-%dT%H:%M:%S");
 
 const lineColors = [
   "#2F4F4F",
@@ -60,7 +60,8 @@ const Graph = ({ width, height, margin, data }) => {
 
   // scales
   const xScale = scaleTime({
-    domain: [minDate, maxDate]
+    domain: [minDate, maxDate],
+    nice: true
   });
   const yScale = scaleLinear({
     domain: [minTemp, maxTemp],

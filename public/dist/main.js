@@ -52366,7 +52366,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  // import { cityTemperature as data } from "@vx/mock-data";
 
 
-var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M");
+var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M:%S");
 var lineColors = ["#2F4F4F", "#2E8B57", "#00FFFF", "#1E90FF", "#FF00FF", "#C71585"];
 
 var Graph = function Graph(_ref) {
@@ -52403,7 +52403,8 @@ var Graph = function Graph(_ref) {
   }))); // scales
 
   var xScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleTime"])({
-    domain: [minDate, maxDate]
+    domain: [minDate, maxDate],
+    nice: true
   });
   var yScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"])({
     domain: [minTemp, maxTemp],
