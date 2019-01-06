@@ -11,8 +11,8 @@ import { LegendOrdinal } from "@vx/legend";
 // import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
-const parseDate = timeParse("%Y-%m-%dT%H:%M:%S");
-
+const parseDateSeconds = timeParse("%Y-%m-%dT%H:%M:%S");
+const parseDateOld = timeParse("%Y-%m-%dT%H:%M");
 const lineColors = [
   "#2F4F4F",
   "#2E8B57",
@@ -23,7 +23,7 @@ const lineColors = [
 ];
 
 const Graph = ({ width, height, margin, data }) => {
-  const date = d => parseDate(d.createdAt);
+  const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   const temp = d => d["temp"];
 
   const dates = data.map(dataset => {

@@ -52366,7 +52366,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  // import { cityTemperature as data } from "@vx/mock-data";
 
 
-var parseDate = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M:%S");
+var parseDateSeconds = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M:%S");
+var parseDateOld = Object(d3_time_format__WEBPACK_IMPORTED_MODULE_9__["timeParse"])("%Y-%m-%dT%H:%M");
 var lineColors = ["#2F4F4F", "#2E8B57", "#00FFFF", "#1E90FF", "#FF00FF", "#C71585"];
 
 var Graph = function Graph(_ref) {
@@ -52376,7 +52377,7 @@ var Graph = function Graph(_ref) {
       data = _ref.data;
 
   var date = function date(d) {
-    return parseDate(d.createdAt);
+    return parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   };
 
   var temp = function temp(d) {
