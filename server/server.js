@@ -36,7 +36,11 @@ app.engine(
 
 app.get("/api/temp/all", (request, response) => {
   const limit = request.query.limit
-    ? { values: { $slice: parseInt(request.query.limit) } }
+    ? {
+        values: {
+          $slice: parseInt(request.query.limit)
+        }
+      }
     : {};
   Temp.find({}, limit)
     .then(doc => {
