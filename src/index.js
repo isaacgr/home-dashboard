@@ -6,7 +6,7 @@ import Graph from "./Graph.js";
 import { ParentSize } from "@vx/responsive";
 
 const json = async () => {
-  const response = await fetch("/api/temp/all?limit=-216", {
+  const response = await fetch("/api/temp/all?limit=-504", {
     headers: {
       "Content-Type": "application/json"
     }
