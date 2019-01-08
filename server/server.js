@@ -3,7 +3,7 @@ const exphbs = require("express-handlebars");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const validator = require("express-validator");
-const mongoose = require("./db/mongoose");
+const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const moment = require("moment");
 
@@ -153,11 +153,11 @@ app.post("/api/temp", (request, response) => {
 
   temp
     .then(doc => {
-      data = request.body;
       console.log("OK");
       response.status(200).send("OK");
     })
     .catch(error => {
+      console.log(error);
       response.status(400).send({ error: error["message"] });
     });
 });
@@ -165,3 +165,5 @@ app.post("/api/temp", (request, response) => {
 app.listen(port, () => {
   console.log(`Server started on ${port}`);
 });
+
+module.exports = { app };

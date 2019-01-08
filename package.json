@@ -11,7 +11,9 @@
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development",
     "dev-server": "SECRET=secretsauce nodemon server/server.js",
-    "start-dev": "concurrently 'yarn run build-dev' 'yarn run dev-server' "
+    "start-dev": "concurrently 'yarn run build-dev' 'yarn run dev-server' ",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest",
+    "test-watch": "yarn test --watch"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
@@ -29,6 +31,8 @@
     "@vx/scale": "^0.0.182",
     "@vx/shape": "^0.0.183",
     "@vx/threshold": "^0.0.183",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
     "d3": "^5.7.0",
     "d3-time-format": "^2.1.3",
@@ -41,9 +45,13 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.4.1",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "regenerator-runtime": "^0.13.1"
   },
   "devDependencies": {
+    "jest": "^23.6.0",
+    "superagent": "^4.1.0",
+    "supertest": "^3.3.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0"
   }

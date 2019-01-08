@@ -17,4 +17,10 @@ mongoose.connect(
   }
 );
 
+// mongoose.disconnect(() => {
+//   mongoose.connection.close(function() {
+//     console.log("Mongoose connection disconnected");
+//   });
+// });
+
 module.exports = { mongoose };
