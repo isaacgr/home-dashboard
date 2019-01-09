@@ -1,4 +1,5 @@
 const path = require("path");
+
 module.exports = (env, options) => {
   return {
     watch: options.mode === "development" ? true : false,

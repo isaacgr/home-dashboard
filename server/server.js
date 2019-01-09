@@ -2,7 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
-const validator = require("express-validator");
+const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const moment = require("moment");
@@ -127,40 +127,61 @@ app.get("/tempgraph", (request, response) => {
     });
 });
 
-app.post("/api/temp", (request, response) => {
-  if (request.body.key !== process.env.SECRET) {
-    console.log({ error: "invalid key" });
-    return response.status(400).send({ error: "invalid key" });
+app.post(
+  "/api/temp",
+  [
+    check("temp")
+      .exists()
+      .isNumeric(),
+    check("humid")
+      .exists()
+      .isNumeric(),
+    check("loc")
+      .exists()
+      .isString()
+  ],
+  check("key")
+    .equals(process.env.SECRET)
+    .withMessage("invalid key"),
+  (request, response) => {
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+      return response
+        .status(422)
+        .send({ errors: errors.array({ onlyFirstError: true }) });
+    }
+
+    const date = new moment();
+
+    const temp = Temp.updateOne(
+      { location: request.body.loc },
+      {
+        $push: {
+          values: [
+            {
+              temp: request.body.temp,
+              humid: request.body.humid,
+              temp_f: request.body.temp_f,
+              createdAt: date.format("YYYY-MM-DDTHH:mm:ss")
+            }
+          ]
+        }
+      },
+      { upsert: true }
+    );
+
+    temp
+      .then(doc => {
+        console.log("OK");
+        response.status(200).send("OK");
+      })
+      .catch(error => {
+        console.log(error);
+        response.status(400).send({ error: error["message"] });
+      });
   }
-  const date = new moment();
-
-  const temp = Temp.updateOne(
-    { location: request.body.loc },
-    {
-      $push: {
-        values: [
-          {
-            temp: request.body.temp,
-            humid: request.body.humid,
-            temp_f: request.body.temp_f,
-            createdAt: date.format("YYYY-MM-DDTHH:mm:ss")
-          }
-        ]
-      }
-    },
-    { upsert: true }
-  );
-
-  temp
-    .then(doc => {
-      console.log("OK");
-      response.status(200).send("OK");
-    })
-    .catch(error => {
-      console.log(error);
-      response.status(400).send({ error: error["message"] });
-    });
-});
+);
 
 app.listen(port, () => {
   console.log(`Server started on ${port}`);
