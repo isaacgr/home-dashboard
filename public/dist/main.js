@@ -52404,8 +52404,7 @@ var Graph = function Graph(_ref) {
   }))); // scales
 
   var xScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleTime"])({
-    domain: [minDate, maxDate],
-    nice: true
+    domain: [minDate, maxDate]
   });
   var yScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"])({
     domain: [minTemp, maxTemp],

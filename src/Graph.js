@@ -60,8 +60,7 @@ const Graph = ({ width, height, margin, data }) => {
 
   // scales
   const xScale = scaleTime({
-    domain: [minDate, maxDate],
-    nice: true
+    domain: [minDate, maxDate]
   });
   const yScale = scaleLinear({
     domain: [minTemp, maxTemp],
