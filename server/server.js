@@ -34,6 +34,8 @@ app.engine(
   })
 );
 
+// GET /api/temp/all
+
 app.get("/api/temp/all", (request, response) => {
   const limit = request.query.limit
     ? {
@@ -117,6 +119,8 @@ app.get("/", (request, response) => {
     });
 });
 
+// GET /tempgraph
+
 app.get("/tempgraph", (request, response) => {
   Temp.find({})
     .then(doc => {
@@ -126,6 +130,8 @@ app.get("/tempgraph", (request, response) => {
       response.status(400).send({ error: error["message"] });
     });
 });
+
+// POST to /api/temp
 
 app.post(
   "/api/temp",
