@@ -52374,21 +52374,23 @@ var Graph = function Graph(_ref) {
   var width = _ref.width,
       height = _ref.height,
       margin = _ref.margin,
-      data = _ref.data;
+      data = _ref.data,
+      dataValue = _ref.dataValue;
 
   var date = function date(d) {
     return parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   };
 
-  var temp = function temp(d) {
-    return d["temp"];
+  var value = function value(d) {
+    return d[dataValue];
   };
 
+  var thresholdValue = value === "temp" ? 22.2 : 30;
   var dates = data.map(function (dataset) {
     return dataset["values"].map(date);
   });
-  var temps = data.map(function (dataset) {
-    return dataset["values"].map(temp);
+  var values = data.map(function (dataset) {
+    return dataset["values"].map(value);
   });
   var minDate = Math.min.apply(Math, _toConsumableArray(dates.map(function (mins) {
     return Math.min.apply(Math, _toConsumableArray(mins));
@@ -52396,10 +52398,10 @@ var Graph = function Graph(_ref) {
   var maxDate = Math.max.apply(Math, _toConsumableArray(dates.map(function (maxs) {
     return Math.max.apply(Math, _toConsumableArray(maxs));
   })));
-  var minTemp = Math.min.apply(Math, _toConsumableArray(temps.map(function (mins) {
+  var minValue = Math.min.apply(Math, _toConsumableArray(values.map(function (mins) {
     return Math.min.apply(Math, _toConsumableArray(mins));
   })));
-  var maxTemp = Math.max.apply(Math, _toConsumableArray(temps.map(function (maxs) {
+  var maxValue = Math.max.apply(Math, _toConsumableArray(values.map(function (maxs) {
     return Math.max.apply(Math, _toConsumableArray(maxs));
   }))); // scales
 
@@ -52407,7 +52409,7 @@ var Graph = function Graph(_ref) {
     domain: [minDate, maxDate]
   });
   var yScale = Object(_vx_scale__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"])({
-    domain: [minTemp, maxTemp],
+    domain: [minValue, maxValue],
     nice: true
   });
   var xMax = width - margin.left - margin.right;
@@ -52463,26 +52465,26 @@ var Graph = function Graph(_ref) {
     y: "15",
     transform: "rotate(-90)",
     fontSize: 10
-  }, "Temperature (\xB0C)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_threshold__WEBPACK_IMPORTED_MODULE_4__["Threshold"], {
+  }, dataValue === "temp" ? "Temperature (°C)" : "Humidity (%)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_threshold__WEBPACK_IMPORTED_MODULE_4__["Threshold"], {
     data: data[0]["values"],
     x: function x(d) {
       return xScale(date(d));
     },
     y0: function y0(d) {
-      return yScale(22.2);
+      return yScale(thresholdValue);
     },
     y1: function y1(d) {
-      return yScale(temp(d));
+      return yScale(value(d));
     },
     clipAboveTo: 0,
     clipBelowTo: yMax,
     curve: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveBasis"],
     belowAreaProps: {
-      fill: "red",
+      fill: "mediumseagreen",
       fillOpacity: 0.4
     },
     aboveAreaProps: {
-      fill: "lightskyblue",
+      fill: "gold",
       fillOpacity: 0.4
     }
   }), data.map(function (dataset) {
@@ -52494,7 +52496,7 @@ var Graph = function Graph(_ref) {
         return xScale(date(d));
       },
       y: function y(d) {
-        return yScale(temp(d));
+        return yScale(value(d));
       },
       stroke: lineColors[locations.indexOf(dataset.location)],
       strokeWidth: 3,
@@ -52598,7 +52600,25 @@ var data = json().then(function (data) {
         bottom: 40,
         left: 40
       },
-      data: data
+      data: data,
+      dataValue: "temp"
+    });
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_vx_responsive__WEBPACK_IMPORTED_MODULE_3__["ParentSize"], {
+    className: "graph-container"
+  }, function (_ref3) {
+    var w = _ref3.width,
+        h = _ref3.height;
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Graph_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      height: h,
+      width: w,
+      margin: {
+        top: 30,
+        right: 30,
+        bottom: 40,
+        left: 40
+      },
+      data: data,
+      dataValue: "humid"
     });
   })), document.getElementById("root"));
 });

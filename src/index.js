@@ -26,6 +26,20 @@ const data = json().then(data => {
               width={w}
               margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
               data={data}
+              dataValue={"temp"}
+            />
+          );
+        }}
+      </ParentSize>
+      <ParentSize className="graph-container">
+        {({ width: w, height: h }) => {
+          return (
+            <Graph
+              height={h}
+              width={w}
+              margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
+              data={data}
+              dataValue={"humid"}
             />
           );
         }}

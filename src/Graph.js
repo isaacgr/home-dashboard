@@ -22,16 +22,16 @@ const lineColors = [
   "#C71585"
 ];
 
-const Graph = ({ width, height, margin, data }) => {
+const Graph = ({ width, height, margin, data, dataValue }) => {
   const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
-  const temp = d => d["temp"];
-
+  const value = d => d[dataValue];
+  const thresholdValue = value === "temp" ? 22.2 : 30;
   const dates = data.map(dataset => {
     return dataset["values"].map(date);
   });
 
-  const temps = data.map(dataset => {
-    return dataset["values"].map(temp);
+  const values = data.map(dataset => {
+    return dataset["values"].map(value);
   });
 
   const minDate = Math.min(
@@ -46,14 +46,14 @@ const Graph = ({ width, height, margin, data }) => {
     })
   );
 
-  const minTemp = Math.min(
-    ...temps.map(mins => {
+  const minValue = Math.min(
+    ...values.map(mins => {
       return Math.min(...mins);
     })
   );
 
-  const maxTemp = Math.max(
-    ...temps.map(maxs => {
+  const maxValue = Math.max(
+    ...values.map(maxs => {
       return Math.max(...maxs);
     })
   );
@@ -63,7 +63,7 @@ const Graph = ({ width, height, margin, data }) => {
     domain: [minDate, maxDate]
   });
   const yScale = scaleLinear({
-    domain: [minTemp, maxTemp],
+    domain: [minValue, maxValue],
     nice: true
   });
   const xMax = width - margin.left - margin.right;
@@ -113,22 +113,22 @@ const Graph = ({ width, height, margin, data }) => {
           />
           <AxisLeft scale={yScale} />
           <text x="-70" y="15" transform="rotate(-90)" fontSize={10}>
-            Temperature (°C)
+            {dataValue === "temp" ? "Temperature (°C)" : "Humidity (%)"}
           </text>
           <Threshold
             data={data[0]["values"]}
             x={d => xScale(date(d))}
-            y0={d => yScale(22.2)}
-            y1={d => yScale(temp(d))}
+            y0={d => yScale(thresholdValue)}
+            y1={d => yScale(value(d))}
             clipAboveTo={0}
             clipBelowTo={yMax}
             curve={curveBasis}
             belowAreaProps={{
-              fill: "red",
+              fill: "mediumseagreen",
               fillOpacity: 0.4
             }}
             aboveAreaProps={{
-              fill: "lightskyblue",
+              fill: "gold",
               fillOpacity: 0.4
             }}
           />
@@ -139,7 +139,7 @@ const Graph = ({ width, height, margin, data }) => {
                 data={dataset["values"]}
                 curve={curveBasis}
                 x={d => xScale(date(d))}
-                y={d => yScale(temp(d))}
+                y={d => yScale(value(d))}
                 stroke={lineColors[locations.indexOf(dataset.location)]}
                 strokeWidth={3}
                 strokeOpacity={0.8}
