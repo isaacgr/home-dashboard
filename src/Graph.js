@@ -25,7 +25,10 @@ const lineColors = [
 const Graph = ({ width, height, margin, data, dataValue }) => {
   const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   const value = d => d[dataValue];
-  const thresholdValue = value === "temp" ? 22.2 : 30;
+  const thresholdValue = dataValue === "temp" ? 22.2 : 40;
+  const underFill = dataValue === "temp" ? "red" : "mediumseagreen";
+  const overFill = dataValue === "temp" ? "lightskyblue" : "gold";
+
   const dates = data.map(dataset => {
     return dataset["values"].map(date);
   });
@@ -124,11 +127,11 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
             clipBelowTo={yMax}
             curve={curveBasis}
             belowAreaProps={{
-              fill: "mediumseagreen",
+              fill: underFill,
               fillOpacity: 0.4
             }}
             aboveAreaProps={{
-              fill: "gold",
+              fill: overFill,
               fillOpacity: 0.4
             }}
           />
