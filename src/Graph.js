@@ -7,7 +7,7 @@ import { scaleTime, scaleLinear, scaleOrdinal } from "@vx/scale";
 import { AxisLeft, AxisBottom } from "@vx/axis";
 import { GridRows, GridColumns } from "@vx/grid";
 import { LegendOrdinal } from "@vx/legend";
-
+import uuidv4 from "uuid/v4";
 // import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
@@ -25,7 +25,7 @@ const lineColors = [
 const Graph = ({ width, height, margin, data, dataValue }) => {
   const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   const value = d => d[dataValue];
-  const thresholdValue = dataValue === "temp" ? 22.2 : 40;
+  const thresholdValue = dataValue === "temp" ? 22.2 : 30;
   const underFill = dataValue === "temp" ? "red" : "mediumseagreen";
   const overFill = dataValue === "temp" ? "lightskyblue" : "gold";
 
@@ -119,6 +119,7 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
             {dataValue === "temp" ? "Temperature (°C)" : "Humidity (%)"}
           </text>
           <Threshold
+            id={uuidv4()}
             data={data[0]["values"]}
             x={d => xScale(date(d))}
             y0={d => yScale(thresholdValue)}
@@ -138,7 +139,7 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
           {data.map(dataset => {
             return (
               <LinePath
-                key={dataset["values"]["createdAt"]}
+                key={uuidv4()}
                 data={dataset["values"]}
                 curve={curveBasis}
                 x={d => xScale(date(d))}
