@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
+const { devSeedData } = require("./tests/seed/devSeedData");
 const moment = require("moment");
 
 const path = require("path");
@@ -188,6 +189,22 @@ app.post(
       });
   }
 );
+
+// POST /api/temp/seed
+// only while running local host, not for production
+app.post("/api/temp/seed", (request, response) => {
+  if (process.env.NODE_ENV !== "development") {
+    return response.status(400).send({ error: "only for development testing" });
+  }
+  Temp.remove({})
+    .then(() => {
+      const seed = new Temp(devSeedData[0]).save();
+      Promise.resolve(seed);
+    })
+    .then(() => {
+      return response.status(200).send({ success: "db seeded" });
+    });
+});
 
 app.listen(port, () => {
   console.log(`Server started on ${port}`);
