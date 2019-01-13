@@ -10,7 +10,7 @@
     "heroku-postbuild": "yarn run build",
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development",
-    "dev-server": "SECRET=secretsauce nodemon server/server.js",
+    "dev-server": "SECRET=secretsauce NODE_ENV=development nodemon server/server.js",
     "start-dev": "concurrently 'yarn run build-dev' 'yarn run dev-server' ",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest",
     "test-watch": "yarn test --watch"
@@ -38,7 +38,8 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.4.1",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
