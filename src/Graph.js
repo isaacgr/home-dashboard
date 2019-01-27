@@ -8,7 +8,6 @@ import { AxisLeft, AxisBottom } from "@vx/axis";
 import { GridRows, GridColumns } from "@vx/grid";
 import { LegendOrdinal } from "@vx/legend";
 import uuidv4 from "uuid/v4";
-// import { cityTemperature as data } from "@vx/mock-data";
 import { timeParse } from "d3-time-format";
 
 const parseDateSeconds = timeParse("%Y-%m-%dT%H:%M:%S");
@@ -118,24 +117,28 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
           <text x="-70" y="15" transform="rotate(-90)" fontSize={10}>
             {dataValue === "temp" ? "Temperature (°C)" : "Humidity (%)"}
           </text>
-          <Threshold
-            id={uuidv4()}
-            data={data[0]["values"]}
-            x={d => xScale(date(d))}
-            y0={d => yScale(thresholdValue)}
-            y1={d => yScale(value(d))}
-            clipAboveTo={0}
-            clipBelowTo={yMax}
-            curve={curveBasis}
-            belowAreaProps={{
-              fill: underFill,
-              fillOpacity: 0.4
-            }}
-            aboveAreaProps={{
-              fill: overFill,
-              fillOpacity: 0.4
-            }}
-          />
+          {data.map(dataset => {
+            return (
+              <Threshold
+                id={uuidv4()}
+                data={dataset["values"]}
+                x={d => xScale(date(d))}
+                y0={d => yScale(thresholdValue)}
+                y1={d => yScale(value(d))}
+                clipAboveTo={0}
+                clipBelowTo={yMax}
+                curve={curveBasis}
+                belowAreaProps={{
+                  fill: underFill,
+                  fillOpacity: 0.4
+                }}
+                aboveAreaProps={{
+                  fill: overFill,
+                  fillOpacity: 0.4
+                }}
+              />
+            );
+          })}
           {data.map(dataset => {
             return (
               <LinePath
