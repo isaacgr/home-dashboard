@@ -22,6 +22,8 @@ const lineColors = [
 ];
 
 const Graph = ({ width, height, margin, data, dataValue }) => {
+  console.log(data);
+
   const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   const value = d => d[dataValue];
   const thresholdValue = dataValue === "temp" ? 22.2 : 30;

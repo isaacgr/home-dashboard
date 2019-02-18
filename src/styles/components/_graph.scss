@@ -1,0 +1,14 @@
+.graph {
+  position: relative;
+  margin-top: 2rem;
+  height: 60rem;
+}
+
+.graph__legend {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
