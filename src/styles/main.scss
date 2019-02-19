@@ -1,16 +1,25 @@
 @charset 'UTF-8';
 
 // 1. Configuration and helpers
-@import "abstracts/variables", "abstracts/functions", "abstracts/mixins";
+@import "abstracts/variables";
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/media";
+
+// Custom CSS framework
 
 // 2. Vendors
 @import "vendors/normalize";
 
 // 3. Base stuff
-@import "base/base", "base/fonts", "base/typography", "base/helpers";
+@import "base/base";
+@import "base/fonts";
+@import "base/typography";
+@import "base/helpers";
 
 // 4. Layout-related sections
-@import "layout/header", "layout/footer";
+@import "layout/header";
+@import "layout/footer";
 @import "layout/data";
 
 // 5. Components

@@ -50,7 +50,7 @@ class HomePage extends Component {
               </div>
             ))
           ) : (
-            <h1>Loading</h1>
+            <h1 className="has-text-primary">Loading</h1>
           )}
         </div>
       </section>

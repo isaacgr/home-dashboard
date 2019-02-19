@@ -16,8 +16,6 @@
     "test-watch": "yarn test --watch"
   },
   "dependencies": {
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
     "@vx/axis": "^0.0.183",
     "@vx/curve": "^0.0.182",
     "@vx/grid": "^0.0.183",

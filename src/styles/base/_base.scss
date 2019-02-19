@@ -20,7 +20,7 @@ html {
 body {
   box-sizing: border-box;
   background-color: #f7f7f7;
-  height: 100%;
+  min-height: 100%;
 }
 
 .container {
@@ -28,15 +28,12 @@ body {
   width: 75%;
 }
 
-/**
- * Basic styles for links
- */
-a {
-  color: $brand-color;
-  text-decoration: none;
+// a {
+//   color: $brand-color;
+//   text-decoration: none;
 
-  @include on-event {
-    color: $text-color;
-    text-decoration: underline;
-  }
-}
+//   @include on-event {
+//     color: $text-color;
+//     text-decoration: none;
+//   }
+// }

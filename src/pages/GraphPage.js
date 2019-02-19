@@ -23,7 +23,7 @@ class GraphPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.state.data ? (
           <div className="app-graph">
             <ParentSize className="graph-container">
