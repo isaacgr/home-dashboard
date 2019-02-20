@@ -1,6 +1,31 @@
-import React from "react";
+import React, { Component } from "react";
 
-const NavBar = () => (
+class GooeyMenu extends Component {
+  render() {
+    return (
+      <nav className="menu">
+        <input type="checkbox" className="menu__checkbox" id="menu__checkbox" />
+        <label className="menu__button u-raised" htmlFor="menu__checkbox">
+          <span className="menu__icon" />
+        </label>
+        <a href="/" className="menu__item">
+          <i className="fas fa-home" />
+        </a>
+        <a href="/tempgraph" className="menu__item">
+          <i className="far fa-chart-bar" />
+        </a>
+        <a href="#" className="menu__item">
+          <i className="fas fa-video" />
+        </a>
+        <a href="#" className="menu__item">
+          <i className="fa fa-envelope" />
+        </a>
+      </nav>
+    );
+  }
+}
+
+const SimpleNavBar = () => (
   <nav class="navbar u-raised fixed-top navbar-expand-lg navbar-light bg-secondary">
     <button
       class="navbar-toggler"
@@ -31,4 +56,4 @@ const NavBar = () => (
   </nav>
 );
 
-export default NavBar;
+export { GooeyMenu, SimpleNavBar as default };

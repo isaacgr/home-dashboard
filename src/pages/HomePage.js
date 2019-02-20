@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "../components/NavBar";
+import { GooeyMenu } from "../components/NavBar";
 import { Loader } from "../components/Loader";
 class HomePage extends Component {
   state = {
@@ -21,7 +21,7 @@ class HomePage extends Component {
   render() {
     return (
       <section className="data">
-        <NavBar />
+        <GooeyMenu />
         <div className="container">
           {this.state.data ? (
             this.state.data.map(dataset => (

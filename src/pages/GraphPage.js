@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Graph from "../components/Graph";
 import { ParentSize } from "@vx/responsive";
 import { Loader } from "../components/Loader";
-import NavBar from "../components/NavBar";
+import { GooeyMenu } from "../components/NavBar";
 class GraphPage extends Component {
   state = {
     data: undefined
@@ -25,7 +25,7 @@ class GraphPage extends Component {
   render() {
     return (
       <section className="data">
-        <NavBar />
+        <GooeyMenu />
         <div className="container">
           {this.state.data ? (
             <div className="app-graph">
