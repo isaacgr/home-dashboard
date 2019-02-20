@@ -2,10 +2,19 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
+// Colors
+
+$primary: #05668d;
+$secondary: #61a2bd;
+// $info: #028090;
+$info: #51697f;
+$light: #e9e5e5;
+$dark: #15141d;
+
 /// Regular font family
 /// @type List
-$text-font-stack: "Open Sans", "Helvetica Neue Light", "Helvetica Neue",
-  "Helvetica", "Arial", sans-serif !default;
+$text-font-stack: "Roboto", "Open Sans", "Helvetica Neue Light",
+  "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
 
 /// Code (monospace) font family
 /// @type List

@@ -1,8 +1,6 @@
-/**
- * Basic typography style for copy text
- */
 body {
-  font: normal 125% / 1.4 $text-font-stack;
+  font-family: $text-font-stack;
+  line-height: 1.5;
 }
 
 .heading {

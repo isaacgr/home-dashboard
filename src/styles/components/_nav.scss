@@ -1,0 +1,22 @@
+.nav__link {
+  font-weight: 300;
+  text-align: left;
+  text-decoration: none !important;
+  color: theme-color("light");
+  transition: all 0.3s;
+  padding: 1rem;
+  font-size: 2.3rem;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: theme-color("info");
+    background-color: rgba(theme-color("light"), $alpha: 0.2);
+    border-radius: 5px;
+  }
+
+  &:active {
+    border: 1px solid theme-color("primary");
+    border-radius: 5px;
+    backface-visibility: hidden;
+  }
+}

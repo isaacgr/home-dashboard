@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import NavBar from "../components/NavBar";
+import { Loader } from "../components/Loader";
 class HomePage extends Component {
   state = {
     data: undefined
@@ -20,6 +21,7 @@ class HomePage extends Component {
   render() {
     return (
       <section className="data">
+        <NavBar />
         <div className="container">
           {this.state.data ? (
             this.state.data.map(dataset => (
@@ -50,7 +52,9 @@ class HomePage extends Component {
               </div>
             ))
           ) : (
-            <h1 className="has-text-primary">Loading</h1>
+            <div className="container">
+              <Loader />
+            </div>
           )}
         </div>
       </section>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Graph from "../components/Graph";
 import { ParentSize } from "@vx/responsive";
-
+import { Loader } from "../components/Loader";
+import NavBar from "../components/NavBar";
 class GraphPage extends Component {
   state = {
     data: undefined
@@ -23,40 +24,43 @@ class GraphPage extends Component {
 
   render() {
     return (
-      <div className="container">
-        {this.state.data ? (
-          <div className="app-graph">
-            <ParentSize className="graph-container">
-              {({ width: w, height: h }) => {
-                return (
-                  <Graph
-                    height={h}
-                    width={w}
-                    margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
-                    data={this.state.data}
-                    dataValue={"temp"}
-                  />
-                );
-              }}
-            </ParentSize>
-            <ParentSize className="graph-container">
-              {({ width: w, height: h }) => {
-                return (
-                  <Graph
-                    height={h}
-                    width={w}
-                    margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
-                    data={this.state.data}
-                    dataValue={"humid"}
-                  />
-                );
-              }}
-            </ParentSize>
-          </div>
-        ) : (
-          <h1>Loading</h1>
-        )}
-      </div>
+      <section className="data">
+        <NavBar />
+        <div className="container">
+          {this.state.data ? (
+            <div className="app-graph">
+              <ParentSize className="graph-container">
+                {({ width: w, height: h }) => {
+                  return (
+                    <Graph
+                      height={h}
+                      width={w}
+                      margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
+                      data={this.state.data}
+                      dataValue={"temp"}
+                    />
+                  );
+                }}
+              </ParentSize>
+              <ParentSize className="graph-container">
+                {({ width: w, height: h }) => {
+                  return (
+                    <Graph
+                      height={h}
+                      width={w}
+                      margin={{ top: 30, right: 30, bottom: 40, left: 40 }}
+                      data={this.state.data}
+                      dataValue={"humid"}
+                    />
+                  );
+                }}
+              </ParentSize>
+            </div>
+          ) : (
+            <Loader />
+          )}
+        </div>
+      </section>
     );
   }
 }
