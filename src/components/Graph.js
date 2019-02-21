@@ -157,7 +157,7 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
           })}
         </Group>
       </svg>
-      <div className="graph__legend" style={{ top: margin.top / 2 - 10 }}>
+      <div className="graph__legend" style={{ top: -5 }}>
         <LegendOrdinal
           scale={color}
           direction="row"

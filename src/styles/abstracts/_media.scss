@@ -2,6 +2,11 @@
   .data__block {
     padding: 0 1rem;
   }
+
+  .data {
+    margin-top: 10rem;
+  }
+
   .nav {
     justify-content: center;
   }
@@ -18,6 +23,8 @@
   .menu {
     top: 2rem;
     left: 2rem;
+    width: 100%;
+    height: 8rem;
   }
 
   .menu__button,
@@ -44,7 +51,7 @@
     @for $i from 1 through 4 {
       &:nth-child(#{$i + 2}) {
         transition-duration: 90ms+ (150ms * $i);
-        transform: translate3d(0, 60px * $i, 0);
+        transform: translate3d(70px * $i, 0, 0);
       }
     }
   }
