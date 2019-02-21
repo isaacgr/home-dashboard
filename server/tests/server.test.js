@@ -87,6 +87,28 @@ describe("POST /api/temp", () => {
   });
 });
 
+describe("GET /api/temp", () => {
+  it("should return a single document", done => {
+    request(app)
+      .get("/api/temp")
+      .expect(200)
+      .expect(response => {
+        expect(response.body["data"].length).toBe(2);
+        expect(response.body["data"][1]["values"]).toMatchObject({
+          temp: 30,
+          temp_f: 78,
+          humid: 60
+        });
+        expect(response.body["data"][0]["values"]).toMatchObject({
+          temp: 23,
+          temp_f: 72,
+          humid: 30
+        });
+      })
+      .end(done);
+  });
+});
+
 describe("GET /api/temp/all", () => {
   it("should return all documents", done => {
     request(app)
