@@ -5,7 +5,6 @@
 @import "abstracts/variables";
 @import "abstracts/functions";
 @import "abstracts/mixins";
-@import "abstracts/media";
 
 // 7. Themes before bootstrap but after variables
 @import "themes/default";
@@ -36,3 +35,4 @@
 @import "pages/home";
 
 @import "vendors/util";
+@import "abstracts/media";

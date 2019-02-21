@@ -14,6 +14,40 @@
     height: 8px !important;
     width: 8px !important;
   }
+
+  .menu {
+    top: 2rem;
+    left: 2rem;
+  }
+
+  .menu__button,
+  .menu__item {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .menu__item {
+    font-size: 1.5rem;
+  }
+
+  .menu__icon {
+    top: -14px;
+
+    &,
+    &::before,
+    &::after {
+      width: 2rem;
+    }
+  }
+
+  .menu__checkbox:checked ~ .menu__item {
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i + 2}) {
+        transition-duration: 90ms+ (150ms * $i);
+        transform: translate3d(0, 60px * $i, 0);
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 480px) {

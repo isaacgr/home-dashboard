@@ -2,12 +2,13 @@
   background-color: theme-color("primary");
   border-radius: 50%;
   font-size: 3rem;
-  width: 80px;
-  height: 80px;
+  width: 8rem;
+  height: 8rem;
   position: absolute;
   color: theme-color("light");
   text-align: center;
-  line-height: 80px;
+  left: 0;
+  top: 0;
 }
 
 .menu {
@@ -17,16 +18,13 @@
   top: 3rem;
   left: 6rem;
   height: 100%;
-  width: 80px;
+  width: 8rem;
   &__checkbox {
     display: none;
   }
 
   &__button {
     @extend %ball;
-    left: 0;
-    top: 0;
-    line-height: 60px;
     z-index: 2000;
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transition-duration: 400ms;
@@ -41,6 +39,7 @@
     position: relative;
     margin-top: 1rem;
     height: 2px;
+    top: 5px;
     &,
     &::before,
     &::after {
@@ -69,15 +68,20 @@
 
   &__item {
     @extend %ball;
-    left: 0;
-    top: 0;
     transform: translate3d(0, 0, 0);
-    transition: transform ease-out 200ms;
+    transition: all ease-out 200ms;
     z-index: 1000;
 
     &:hover {
       color: darken(theme-color("info"), $amount: 10);
       background-color: theme-color("secondary");
+    }
+
+    & > i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
