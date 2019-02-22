@@ -4,12 +4,19 @@
 
 // Colors
 
-$primary: #05668d;
-$secondary: #61a2bd;
-// $info: #028090;
-$info: #51697f;
-$light: #e9e5e5;
-$dark: #15141d;
+$default-primary: #05668d;
+$default-secondary: #61a2bd;
+$default-info: #51697f;
+$default-light: #e9e5e5;
+$default-dark: #15141d;
+
+$red-base-primary: #ea4961;
+$red-base-secondary: #bc3e52;
+$red-base-info: #8293a5;
+$red-base-light: #f3f7f3;
+$red-base-dark: #221622;
+
+///
 
 /// Regular font family
 /// @type List

@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { GooeyMenu } from "../components/NavBar";
 import { Loader } from "../components/Loader";
+import Card from "../components/Card";
+// import Footer from "../components/Footer";
 class HomePage extends Component {
   state = {
-    data: undefined
+    temperatureData: {
+      data: undefined
+    }
   };
   componentDidMount() {
     fetch("/api/temp/", {
@@ -15,7 +19,13 @@ class HomePage extends Component {
         return response.json();
       })
       .then(json => {
-        this.setState({ data: json["data"] });
+        console.log(json);
+
+        this.setState({
+          temperatureData: {
+            data: json["data"]
+          }
+        });
       });
   }
   render() {
@@ -23,33 +33,21 @@ class HomePage extends Component {
       <section className="data">
         <GooeyMenu />
         <div className="container">
-          {this.state.data ? (
-            this.state.data.map(dataset => (
-              <div className="dataset">
-                <div className="heading">
-                  <h1 className="data__header data__header--location">
-                    {dataset.location}
-                  </h1>
-                  <p className="data__value--alt u-text-sm">
-                    {dataset.values.createdAt}
-                  </p>
-                </div>
-                <div className="data__block">
-                  <h1 className="data__header">Temperature</h1>
-                  <p className="data__value">{dataset.values.temp} &#176; C</p>
-                  {dataset.values.temp_f ? (
-                    <p className="data__value--alt">
-                      {dataset.values.temp_f} &#176; F
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="data__block">
-                  <h1 className="data__header">Humidity</h1>
-                  <p className="data__value">{dataset.values.humid}%</p>
-                </div>
-              </div>
+          {this.state.temperatureData["data"] ? (
+            this.state.temperatureData["data"].map(dataset => (
+              <Card
+                title={"Comfort"}
+                contentTitle={dataset.location}
+                icon={"fas fa-thermometer-half"}
+                values={[
+                  `${dataset.values.temp} \xB0C`,
+                  `${dataset.values.humid} %`
+                ]}
+                footerContent={{
+                  title: "Updated",
+                  content: dataset.values.createdAt
+                }}
+              />
             ))
           ) : (
             <div className="container">
