@@ -1,9 +1,9 @@
 %ball {
-  background-color: theme-color("dark");
+  background-color: theme-color("primary");
   border-radius: 50%;
   font-size: 3rem;
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   position: absolute;
   color: theme-color("light");
   text-align: center;
@@ -18,7 +18,7 @@
   top: 3rem;
   left: 6rem;
   height: 100%;
-  width: 8rem;
+  width: 6rem;
   &__checkbox {
     display: none;
   }
@@ -38,8 +38,8 @@
   &__icon {
     position: relative;
     margin-top: 1rem;
-    height: 2px;
-    top: 5px;
+    height: 3px;
+    top: -3px;
     &,
     &::before,
     &::after {
@@ -91,7 +91,7 @@
   @for $i from 1 through 4 {
     &:nth-child(#{$i + 2}) {
       transition-duration: 90ms+ (150ms * $i);
-      transform: translate3d(0, 110px * $i, 0);
+      transform: translate3d(0, 90px * $i, 0);
     }
   }
 }

@@ -37,6 +37,7 @@ class HomePage extends Component {
             this.state.temperatureData["data"].map(dataset => (
               <Card
                 title={"Comfort"}
+                classes={"u-bg-color-red-dark"}
                 contentTitle={dataset.location}
                 icon={"fas fa-bed"}
                 values={[

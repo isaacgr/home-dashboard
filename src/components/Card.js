@@ -1,7 +1,7 @@
 import React from "react";
 
 const Card = props => (
-  <div className="card">
+  <div className={`card u-raised ${props.classes}`}>
     <div className="card__header">
       <i className={`card__icon ${props.icon}`} />
       <h6 className="card__title">{props.title}</h6>

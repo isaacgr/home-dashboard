@@ -5,7 +5,7 @@ class GooeyMenu extends Component {
     return (
       <nav className="menu">
         <input type="checkbox" className="menu__checkbox" id="menu__checkbox" />
-        <label className="menu__button u-raised" htmlFor="menu__checkbox">
+        <label className="menu__button" htmlFor="menu__checkbox">
           <span className="menu__icon" />
         </label>
         <a href="/" className="menu__item">
@@ -26,7 +26,7 @@ class GooeyMenu extends Component {
 }
 
 const SimpleNavBar = () => (
-  <nav class="navbar u-raised fixed-top navbar-expand-lg navbar-light bg-secondary">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-secondary">
     <button
       class="navbar-toggler"
       type="button"
