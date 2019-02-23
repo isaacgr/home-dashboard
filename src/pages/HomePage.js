@@ -38,13 +38,19 @@ class HomePage extends Component {
               <Card
                 title={"Comfort"}
                 contentTitle={dataset.location}
-                icon={"fas fa-thermometer-half"}
+                icon={"fas fa-bed"}
                 values={[
-                  `${dataset.values.temp} \xB0C`,
-                  `${dataset.values.humid} %`
+                  {
+                    content: `${dataset.values.temp} \xB0C`,
+                    icon: "fas fa-thermometer-half"
+                  },
+                  {
+                    content: `${dataset.values.humid} %`,
+                    icon: "fas fa-tint"
+                  }
                 ]}
                 footerContent={{
-                  title: "Updated",
+                  title: "Last Updated",
                   content: dataset.values.createdAt
                 }}
               />

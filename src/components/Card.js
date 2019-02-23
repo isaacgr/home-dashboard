@@ -7,9 +7,12 @@ const Card = props => (
       <h6 className="card__title">{props.title}</h6>
     </div>
     <div className="card__content">
-      <h1 className="card__content--title">{props.contentTitle}</h1>
+      <h1 className="card__content__title">{props.contentTitle}</h1>
       {props.values.map(value => (
-        <h2 className="card__content--value">{value}</h2>
+        <div className="card__content--block">
+          <i className={`card__icon ${value.icon}`} />
+          <h2 className="card__content__value">{value.content}</h2>
+        </div>
       ))}
     </div>
     <CardFooter footerContent={props.footerContent} />

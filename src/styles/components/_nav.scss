@@ -1,5 +1,5 @@
 %ball {
-  background-color: theme-color("primary");
+  background-color: theme-color("dark");
   border-radius: 50%;
   font-size: 3rem;
   width: 8rem;
@@ -73,7 +73,7 @@
     z-index: 1000;
 
     &:hover {
-      color: darken(theme-color("info"), $amount: 10);
+      color: darken(theme-color("info"), $amount: 50);
       background-color: theme-color("secondary");
     }
 
