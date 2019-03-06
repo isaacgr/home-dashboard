@@ -25,11 +25,13 @@
 @import "layout/header";
 @import "layout/footer";
 @import "layout/data";
+@import "layout/section";
 
 // 5. Components
 @import "components/button";
 @import "components/graph";
 @import "components/nav";
+@import "components/card";
 
 // 6. Page-specific styles
 @import "pages/home";

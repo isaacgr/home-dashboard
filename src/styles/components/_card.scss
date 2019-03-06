@@ -1,0 +1,70 @@
+.card {
+  border-radius: 1rem;
+  background-color: theme-color("secondary");
+  color: theme-color("light");
+  position: relative;
+  z-index: -1;
+  &:not(:first-child) {
+    margin-top: 5rem;
+  }
+  &__header {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    top: 1rem;
+    left: 4rem;
+    text-align: left;
+  }
+
+  &__icon {
+    display: inline-block;
+    margin: 0 1rem 0 0;
+    font-size: 2rem;
+  }
+
+  &__title {
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    margin-top: 6rem;
+    display: inline-block;
+    &__title {
+      text-transform: capitalize;
+      letter-spacing: 1px;
+      font-weight: 300;
+      font-size: 3rem;
+    }
+
+    &__value {
+      display: inline-block;
+      font-weight: 400;
+      font-size: 3.3rem;
+    }
+
+    &--block {
+      &:not(:last-child) {
+        margin-top: 3rem;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 5rem;
+    text-align: left;
+    margin-left: 4rem;
+    &__title {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      font-weight: 300;
+    }
+
+    &__content {
+      font-size: 2.5rem;
+    }
+  }
+}

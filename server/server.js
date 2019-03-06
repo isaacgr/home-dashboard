@@ -35,36 +35,6 @@ app.get("/api/temp/all", (request, response) => {
     });
 });
 
-// app.get("/api/temp", (request, response) => {
-//   let data = [];
-//   Temp.find()
-//     .then(doc => {
-//       return new Promise((resolve, reject) => {
-//         doc.map((dataset, idx, arr) => {
-//           Temp.aggregate([{ $match: dataset }])
-//             .unwind("values")
-//             .sort({ "values.createdAt": -1 })
-//             .limit(1)
-//             .then(doc => {
-//               data.push(doc[0]);
-//               if (data.length === arr.length) {
-//                 resolve(data);
-//               }
-//             })
-//             .catch(error => {
-//               return response.status(400).send({ error: error["message"] });
-//             });
-//         });
-//       });
-//     })
-//     .then(data => {
-//       response.status(200).send({ data });
-//     })
-//     .catch(error => {
-//       return response.status(400).send({ error: error["message"] });
-//     });
-// });
-
 app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
@@ -100,20 +70,6 @@ app.get("/api/temp", (request, response) => {
       return response.status(400).send({ error: error["message"] });
     });
 });
-
-// GET /tempgraph
-
-// app.get("/tempgraph", (request, response) => {
-//   Temp.find({})
-//     .then(doc => {
-//       response.status(200).send({ doc });
-//     })
-//     .catch(error => {
-//       response.status(400).send({ error: error["message"] });
-//     });
-// });
-
-// POST to /api/temp
 
 app.post(
   "/api/temp",
