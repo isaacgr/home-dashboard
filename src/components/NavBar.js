@@ -14,7 +14,7 @@ class GooeyMenu extends Component {
         <a href="/tempgraph" className="menu__item">
           <i className="far fa-chart-bar" />
         </a>
-        <a href="#" className="menu__item">
+        <a href="/camera" className="menu__item">
           <i className="fas fa-video" />
         </a>
         <a href="#" className="menu__item">
