@@ -1,0 +1,36 @@
+.data {
+  text-align: center;
+  margin-top: 5rem;
+  line-height: 5rem;
+}
+
+.data__header {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: theme-color("primary");
+}
+
+.data__header--location {
+  font-size: 3rem;
+  text-transform: capitalize;
+}
+
+.data__value {
+  font-size: 5rem;
+  font-weight: 100;
+  letter-spacing: 1px;
+  color: theme-color("info");
+}
+
+.data__value--alt {
+  font-size: 2rem;
+  line-height: 2.3rem;
+  color: theme-color("info");
+}
+
+.data__block {
+  padding: 1rem 5rem;
+  display: inline-block;
+  vertical-align: top;
+}

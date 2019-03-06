@@ -1,0 +1,70 @@
+@media only screen and (max-width: 640px) {
+  .data__block {
+    padding: 0 1rem;
+  }
+
+  .data {
+    margin-top: 10rem;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .graph__legend {
+    font-size: 1rem;
+  }
+
+  .vx-legend-shape > div {
+    height: 8px !important;
+    width: 8px !important;
+  }
+
+  .menu {
+    top: 2rem;
+    left: 2rem;
+    width: 100%;
+    height: 8rem;
+  }
+
+  .menu__button,
+  .menu__item {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .menu__item {
+    font-size: 1.5rem;
+  }
+
+  .menu__icon {
+    top: -14px;
+
+    &,
+    &::before,
+    &::after {
+      width: 2rem;
+    }
+  }
+
+  .menu__checkbox:checked ~ .menu__item {
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i + 2}) {
+        transition-duration: 90ms+ (150ms * $i);
+        transform: translate3d(70px * $i, 0, 0);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .graph__legend {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 265px) {
+  .data__value {
+    font-size: 3rem;
+  }
+}

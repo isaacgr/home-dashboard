@@ -22,6 +22,8 @@ const lineColors = [
 ];
 
 const Graph = ({ width, height, margin, data, dataValue }) => {
+  console.log(data);
+
   const date = d => parseDateSeconds(d.createdAt) || parseDateOld(d.createdAt);
   const value = d => d[dataValue];
   const thresholdValue = dataValue === "temp" ? 22.2 : 30;
@@ -155,7 +157,7 @@ const Graph = ({ width, height, margin, data, dataValue }) => {
           })}
         </Group>
       </svg>
-      <div className="graph__legend" style={{ top: margin.top / 2 - 10 }}>
+      <div className="graph__legend" style={{ top: -5 }}>
         <LegendOrdinal
           scale={color}
           direction="row"
