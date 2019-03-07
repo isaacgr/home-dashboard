@@ -5,8 +5,11 @@ import Hls from "hls.js";
 class CameraPage extends Component {
   componentDidMount() {
     const video = this.player;
+    const config = {
+      manifestLoadingTimeOut: 30000
+    };
     if (Hls.isSupported()) {
-      const hls = new Hls();
+      const hls = new Hls(config);
       hls.loadSource("http://142.116.5.24/streaming.m3u8");
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, function() {
