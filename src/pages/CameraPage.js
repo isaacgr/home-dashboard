@@ -20,6 +20,7 @@ class CameraPage extends Component {
         const errorDetails = data.details;
         const errorFatal = data.fatal;
         console.log(`ERROR: ${errorType}, ${errorDetails}, ${errorFatal}`);
+        hls.startLoad();
       });
     }
     // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
