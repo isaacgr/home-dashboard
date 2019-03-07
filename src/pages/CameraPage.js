@@ -6,7 +6,7 @@ class CameraPage extends Component {
   componentDidMount() {
     const video = this.player;
     const config = {
-      manifestLoadingTimeOut: 30000
+      manifestLoadingTimeOut: 60000
     };
     if (Hls.isSupported()) {
       const hls = new Hls(config);
@@ -14,6 +14,12 @@ class CameraPage extends Component {
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, function() {
         video.play();
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        const errorType = data.type;
+        const errorDetails = data.details;
+        const errorFatal = data.fatal;
+        console.log(`ERROR: ${errorType}, ${errorDetails}, ${errorFatal}`);
       });
     }
     // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
