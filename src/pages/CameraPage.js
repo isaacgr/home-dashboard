@@ -6,7 +6,8 @@ class CameraPage extends Component {
   componentDidMount() {
     const video = this.player;
     const config = {
-      manifestLoadingTimeOut: 60000
+      manifestLoadingTimeOut: 60000,
+      fragLoadingTimeOut: 60000
     };
     if (Hls.isSupported()) {
       const hls = new Hls(config);
