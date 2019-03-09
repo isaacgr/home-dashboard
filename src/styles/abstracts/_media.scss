@@ -29,8 +29,8 @@
 
   .menu__button,
   .menu__item {
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 
   .menu__item {
@@ -38,7 +38,7 @@
   }
 
   .menu__icon {
-    top: -14px;
+    top: -10px;
 
     &,
     &::before,
@@ -54,6 +54,10 @@
         transform: translate3d(70px * $i, 0, 0);
       }
     }
+  }
+
+  .video-source {
+    margin-top: 5rem;
   }
 }
 
