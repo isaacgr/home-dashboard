@@ -6,22 +6,32 @@ class CameraPage extends Component {
   componentDidMount() {
     const video = this.player;
     const config = {
-      manifestLoadingTimeOut: 60000,
-      fragLoadingTimeOut: 60000
+      manifestLoadingTimeOut: 5000,
+      fragLoadingTimeOut: 20000
     };
     if (Hls.isSupported()) {
       const hls = new Hls(config);
-      hls.loadSource("http://142.116.5.24:6969/streaming.m3u8");
+      console.log("Attempting to load video source");
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function() {
-        video.play();
-      });
+      hls.loadSource("http://142.116.5.24:6969/streaming.m3u8");
       hls.on(Hls.Events.ERROR, (event, data) => {
         const errorType = data.type;
         const errorDetails = data.details;
         const errorFatal = data.fatal;
         console.log(`ERROR: ${errorType}, ${errorDetails}, ${errorFatal}`);
-        hls.startLoad();
+        switch (data.details) {
+          case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
+            hls.attachMedia(video);
+            console.log("Attempting to load video source");
+            hls.loadSource("http://192.168.2.48/streaming.m3u8");
+            break;
+          default:
+            break;
+        }
+      });
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log("Video loaded");
+        video.play();
       });
     }
     // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
@@ -31,25 +41,24 @@ class CameraPage extends Component {
     // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
     else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = "http://142.116.5.24:6969/streaming.m3u8";
-      video.addEventListener("loadedmetadata", function() {
+      video.addEventListener("loadedmetadata", () => {
         video.play();
       });
     }
   }
   render() {
     return (
-      <>
+      <section className="video-section">
         <GooeyMenu />
-        <section className="video-section">
-          <div className="container">
-            <video
-              width="100%"
-              ref={player => (this.player = player)}
-              controls
-            />
-          </div>
-        </section>
-      </>
+        <div className="container">
+          <video
+            className="video-source"
+            width="100%"
+            ref={player => (this.player = player)}
+            controls
+          />
+        </div>
+      </section>
     );
   }
 }
