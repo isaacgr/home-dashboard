@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
-const { Temp } = require("./models/temp");
+const { Temp, Data } = require("./models/temp");
 const { devSeedData } = require("./tests/seed/devSeedData");
 const moment = require("moment");
 
@@ -69,6 +69,11 @@ app.get("/api/temp", (request, response) => {
     .catch(error => {
       return response.status(400).send({ error: error["message"] });
     });
+});
+
+app.post("/api/data", (request, response) => {
+  console.log(request.body);
+  return response.status(200).send("OK");
 });
 
 app.post(
