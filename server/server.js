@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
-const { Temp, Data } = require("./models/temp");
+const { Temp } = require("./models/temp");
+const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { devSeedData } = require("./tests/seed/devSeedData");
 const moment = require("moment");
 
@@ -84,10 +85,6 @@ app.post(
       .isString(),
     check("data").exists()
   ],
-  check("key")
-    .exists()
-    .equals(process.env.SECRET)
-    .withMessage("invalid key"),
   (request, response) => {
     const errors = validationResult(request);
 
@@ -98,6 +95,20 @@ app.post(
     }
 
     const date = new moment();
+    let Data = null;
+
+    switch (request.body.type) {
+      case "network speed":
+        Data = NetworkSpeed;
+        break;
+      case "network address":
+        Data = NetworkAddress;
+        break;
+      default:
+        return response
+          .status(400)
+          .send({ error: "data type model does not exist" });
+    }
 
     const data = Data.updateOne(
       { type: request.body.type },
@@ -122,6 +133,21 @@ app.post(
   }
 );
 
+app.get("/api/data", (request, response) => {
+  switch (request.query.data) {
+    case "ip":
+      NetworkAddress.find()
+        .then(doc => {
+          response.send(doc[0]);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    default:
+      return response.status(404).send({ error: "no such data type" });
+  }
+});
 // POST /api/temp
 // post the temperature data
 app.post(

@@ -14,18 +14,6 @@ const tempSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const dataSchema = new mongoose.Schema(
-  {
-    type: { type: String, required: true },
-    data: {
-      createdAt: { type: String, default: null },
-      values: {}
-    }
-  },
-  { versionKey: false }
-);
-
 const Temp = mongoose.model("Temperature", tempSchema, "dashboard");
-const Data = mongoose.model("Data", dataSchema);
 
-module.exports = { Temp, Data };
+module.exports = { Temp };
