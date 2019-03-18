@@ -20,7 +20,6 @@ class HomePage extends Component {
       })
       .then(json => {
         console.log(json);
-
         this.setState({
           temperatureData: {
             data: json["data"]
