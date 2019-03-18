@@ -17,7 +17,7 @@ app.use(express.static(publicPath));
 app.use(bodyParser.json());
 
 // GET /api/temp/all
-
+// get all temperature values in collection
 app.get("/api/temp/all", (request, response) => {
   const limit = request.query.limit
     ? {
@@ -35,10 +35,13 @@ app.get("/api/temp/all", (request, response) => {
     });
 });
 
+// GET /api/temp
+// get the most recent temperature value
 app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
     .then(doc => {
+      console.log(doc);
       return new Promise((resolve, reject) => {
         doc.map((dataset, idx, arr) => {
           Temp.aggregate([{ $match: dataset }])
@@ -71,11 +74,56 @@ app.get("/api/temp", (request, response) => {
     });
 });
 
-app.post("/api/data", (request, response) => {
-  console.log(request.body);
-  return response.status(200).send("OK");
-});
+// POST /api/data
+// post the generic data to be read in by the dashboard
+app.post(
+  "/api/data",
+  [
+    check("type")
+      .exists()
+      .isString(),
+    check("data").exists()
+  ],
+  check("key")
+    .exists()
+    .equals(process.env.SECRET)
+    .withMessage("invalid key"),
+  (request, response) => {
+    const errors = validationResult(request);
 
+    if (!errors.isEmpty()) {
+      return response
+        .status(422)
+        .send({ errors: errors.array({ onlyFirstError: true }) });
+    }
+
+    const date = new moment();
+
+    const data = Data.updateOne(
+      { type: request.body.type },
+      {
+        data: {
+          createdAt: date.format("YYYY-MM-DDTHH:mm:ss"),
+          values: request.body.data
+        }
+      },
+      { upsert: true }
+    );
+
+    data
+      .then(doc => {
+        console.log("Received Data");
+        response.status(200).send({ error: null, body: request.body });
+      })
+      .catch(error => {
+        console.log(error);
+        response.status(400).send({ error: error["message"] });
+      });
+  }
+);
+
+// POST /api/temp
+// post the temperature data
 app.post(
   "/api/temp",
   [
@@ -122,7 +170,7 @@ app.post(
 
     temp
       .then(doc => {
-        console.log("OK");
+        console.log("Received Temperature");
         response.status(200).send("OK");
       })
       .catch(error => {
