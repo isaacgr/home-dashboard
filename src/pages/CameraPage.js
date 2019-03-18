@@ -13,7 +13,7 @@ class CameraPage extends Component {
       const hls = new Hls(config);
       console.log("Attempting to load video source");
       hls.attachMedia(video);
-      hls.loadSource("http://142.116.5.24:6969/streaming.m3u8");
+      hls.loadSource("http://142.184.162.3:6969/streaming.m3u8");
       hls.on(Hls.Events.ERROR, (event, data) => {
         const errorType = data.type;
         const errorDetails = data.details;
@@ -40,7 +40,7 @@ class CameraPage extends Component {
     // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
     // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
     else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      video.src = "http://142.116.5.24:6969/streaming.m3u8";
+      video.src = "http://142.184.162.3:6969/streaming.m3u8";
       video.addEventListener("loadedmetadata", () => {
         video.play();
       });
