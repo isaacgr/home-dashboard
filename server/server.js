@@ -5,6 +5,7 @@ const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { devSeedData } = require("./tests/seed/devSeedData");
+const { findAllData } = require("./functions/findData");
 const moment = require("moment");
 
 const path = require("path");
@@ -42,7 +43,6 @@ app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
     .then(doc => {
-      console.log(doc);
       return new Promise((resolve, reject) => {
         doc.map((dataset, idx, arr) => {
           Temp.aggregate([{ $match: dataset }])
@@ -54,7 +54,7 @@ app.get("/api/temp", (request, response) => {
                 ...doc[0],
                 values: {
                   ...doc[0].values,
-                  createdAt: moment(doc[0].values.createdAt).format("LLL")
+                  createdAt: doc[0].values.createdAt
                 }
               });
               if (data.length === arr.length) {
@@ -97,7 +97,7 @@ app.post(
     const date = new moment();
     let Data = null;
 
-    switch (request.body.type) {
+    switch (request.body.description) {
       case "network speed":
         Data = NetworkSpeed;
         break;
@@ -111,8 +111,10 @@ app.post(
     }
 
     const data = Data.updateOne(
-      { type: request.body.type },
+      {},
       {
+        type: request.body.type,
+        description: request.body.description,
         data: {
           createdAt: date.format("YYYY-MM-DDTHH:mm:ss"),
           values: request.body.data
@@ -124,6 +126,7 @@ app.post(
     data
       .then(doc => {
         console.log("Received Data");
+        console.log(doc);
         response.status(200).send({ error: null, body: request.body });
       })
       .catch(error => {
@@ -139,6 +142,24 @@ app.get("/api/data", (request, response) => {
       NetworkAddress.find()
         .then(doc => {
           response.send(doc[0]);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    case "netspeed":
+      NetworkSpeed.find()
+        .then(doc => {
+          response.send(doc[0]);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    case "all":
+      findAllData()
+        .then(result => {
+          response.send(result);
         })
         .catch(error => {
           response.status(400).send({ error: error["message"] });
