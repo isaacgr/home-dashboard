@@ -34,7 +34,7 @@ module.exports = (env, options) => {
       publicPath: "/dist",
       proxy: {
         "/api/*": {
-          target: "http://localhost:3000"
+          target: "http://localhost:3069"
         }
       }
     }
