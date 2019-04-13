@@ -14,6 +14,6 @@ const tempSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const Temp = mongoose.model("Dashboard", tempSchema);
+const Temp = mongoose.model("Temperature", tempSchema, "dashboard");
 
 module.exports = { Temp };

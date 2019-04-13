@@ -3,7 +3,9 @@ const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
+const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { devSeedData } = require("./tests/seed/devSeedData");
+const { findAllData } = require("./functions/findData");
 const moment = require("moment");
 
 const path = require("path");
@@ -17,7 +19,7 @@ app.use(express.static(publicPath));
 app.use(bodyParser.json());
 
 // GET /api/temp/all
-
+// get all temperature values in collection
 app.get("/api/temp/all", (request, response) => {
   const limit = request.query.limit
     ? {
@@ -35,6 +37,8 @@ app.get("/api/temp/all", (request, response) => {
     });
 });
 
+// GET /api/temp
+// get the most recent temperature value
 app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
@@ -50,7 +54,7 @@ app.get("/api/temp", (request, response) => {
                 ...doc[0],
                 values: {
                   ...doc[0].values,
-                  createdAt: moment(doc[0].values.createdAt).format("LLL")
+                  createdAt: doc[0].values.createdAt
                 }
               });
               if (data.length === arr.length) {
@@ -71,6 +75,102 @@ app.get("/api/temp", (request, response) => {
     });
 });
 
+// POST /api/data
+// post the generic data to be read in by the dashboard
+app.post(
+  "/api/data",
+  [
+    check("type")
+      .exists()
+      .isString(),
+    check("data").exists()
+  ],
+  (request, response) => {
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+      return response
+        .status(422)
+        .send({ errors: errors.array({ onlyFirstError: true }) });
+    }
+
+    const date = new moment();
+    let Data = null;
+
+    switch (request.body.description) {
+      case "network speed":
+        Data = NetworkSpeed;
+        break;
+      case "network address":
+        Data = NetworkAddress;
+        break;
+      default:
+        return response
+          .status(400)
+          .send({ error: "data type model does not exist" });
+    }
+
+    const data = Data.updateOne(
+      {},
+      {
+        type: request.body.type,
+        description: request.body.description,
+        data: {
+          createdAt: date.format("YYYY-MM-DDTHH:mm:ss"),
+          values: request.body.data
+        }
+      },
+      { upsert: true }
+    );
+
+    data
+      .then(doc => {
+        console.log("Received Data");
+        console.log(doc);
+        response.status(200).send({ error: null, body: request.body });
+      })
+      .catch(error => {
+        console.log(error);
+        response.status(400).send({ error: error["message"] });
+      });
+  }
+);
+
+app.get("/api/data", (request, response) => {
+  switch (request.query.data) {
+    case "ip":
+      NetworkAddress.find()
+        .then(doc => {
+          response.send(doc[0]);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    case "netspeed":
+      NetworkSpeed.find()
+        .then(doc => {
+          response.send(doc[0]);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    case "all":
+      findAllData()
+        .then(result => {
+          response.send(result);
+        })
+        .catch(error => {
+          response.status(400).send({ error: error["message"] });
+        });
+      break;
+    default:
+      return response.status(404).send({ error: "no such data type" });
+  }
+});
+// POST /api/temp
+// post the temperature data
 app.post(
   "/api/temp",
   [
@@ -117,7 +217,7 @@ app.post(
 
     temp
       .then(doc => {
-        console.log("OK");
+        console.log("Received Temperature");
         response.status(200).send("OK");
       })
       .catch(error => {
