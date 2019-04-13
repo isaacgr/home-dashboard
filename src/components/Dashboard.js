@@ -1,5 +1,4 @@
 import React from "react";
-import { Loader } from "../components/Loader";
 import Card from "../components/Card";
 import { AppContext } from "../pages/HomePage";
 import moment from "moment";

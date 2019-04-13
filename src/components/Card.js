@@ -15,7 +15,7 @@ const Card = props => (
         </div>
       ))}
     </div>
-    <CardFooter footerContent={props.footerContent} />
+    <CardFooter key={props.footerContent} footerContent={props.footerContent} />
   </div>
 );
 

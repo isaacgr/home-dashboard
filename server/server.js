@@ -10,7 +10,7 @@ const moment = require("moment");
 
 const path = require("path");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3069;
 const app = express();
 
 const publicPath = path.join(__dirname, "..", "public");
@@ -125,8 +125,7 @@ app.post(
 
     data
       .then(doc => {
-        console.log("Received Data");
-        console.log(doc);
+        console.log(`Received data: ${JSON.stringify(request.body)}`);
         response.status(200).send({ error: null, body: request.body });
       })
       .catch(error => {
@@ -136,6 +135,8 @@ app.post(
   }
 );
 
+// GET /api/data
+// get the generic data
 app.get("/api/data", (request, response) => {
   switch (request.query.data) {
     case "ip":
@@ -217,7 +218,7 @@ app.post(
 
     temp
       .then(doc => {
-        console.log("Received Temperature");
+        console.log(`Received Temperature ${JSON.stringify(request.body)}`);
         response.status(200).send("OK");
       })
       .catch(error => {
