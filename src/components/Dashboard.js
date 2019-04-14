@@ -2,9 +2,10 @@ import React from "react";
 import Card from "../components/Card";
 import { AppContext } from "../pages/HomePage";
 import moment from "moment";
+import { cardProps } from "../icons/cardProps";
 
 const Dashboard = () => (
-  <>
+  <div className="card--container">
     <TemperatureCard />
     <AppContext.Consumer>
       {context =>
@@ -13,8 +14,14 @@ const Dashboard = () => (
             <Card
               title={data.type}
               contentTitle={data.description}
-              icon={"fas fa-bed"}
-              values={[]}
+              icon={cardProps[data.type].icon}
+              classes={cardProps[data.type].classes}
+              values={Object.keys(data.data.values).map(value => {
+                return {
+                  content: `${data.data.values[value]}`,
+                  description: `${value}`
+                };
+              })}
               footerContent={{
                 title: "Last Updated",
                 content: moment(data.data.createdAt).format("LLL")
@@ -25,7 +32,7 @@ const Dashboard = () => (
         )
       }
     </AppContext.Consumer>
-  </>
+  </div>
 );
 
 // Legacy stuff, dont want to touch hardware to fix post data format
@@ -37,6 +44,7 @@ const TemperatureCard = () => (
           title={"Comfort"}
           contentTitle={dataset.location}
           icon={"fas fa-bed"}
+          classes={"card--red"}
           values={[
             {
               content: `${dataset.values.temp} \xB0C`,

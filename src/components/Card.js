@@ -10,7 +10,13 @@ const Card = props => (
       <h1 className="card__content__title">{props.contentTitle}</h1>
       {props.values.map(value => (
         <div className="card__content--block">
-          <i className={`card__icon ${value.icon}`} />
+          {value.icon ? (
+            <i className={`card__icon ${value.icon}`} />
+          ) : (
+            <h5 className="card__content__value--description">
+              {value.description}
+            </h5>
+          )}
           <h2 className="card__content__value">{value.content}</h2>
         </div>
       ))}

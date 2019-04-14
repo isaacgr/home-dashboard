@@ -12,7 +12,8 @@ class HomePage extends Component {
     },
     cardData: []
   };
-  componentDidMount() {
+
+  getCardData = () => {
     fetch("/api/temp/", {
       headers: {
         "Content-Type": "application/json"
@@ -31,6 +32,13 @@ class HomePage extends Component {
     fetchData().then(result => {
       this.setState({ cardData: result });
     });
+  };
+
+  componentDidMount() {
+    this.getCardData();
+    setInterval(() => {
+      this.getCardData();
+    }, 30000);
   }
   render() {
     return (
