@@ -1,4 +1,12 @@
 @media only screen and (max-width: 640px) {
+  .card--container {
+    display: block;
+  }
+
+  .card {
+    width: 100%;
+  }
+
   .data__block {
     padding: 0 1rem;
   }
