@@ -20,6 +20,11 @@ const app = express();
 const publicPath = path.join(__dirname, "..", "public");
 
 app.use(express.static(publicPath));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 app.use(bodyParser.json());
 
 // GET /api/temp/all
@@ -232,7 +237,7 @@ app.post(
   }
 );
 
-app.post("/register", (request, response) => {
+app.post("/api/register", (request, response) => {
   const userData = _.pick(request.body, ["username", "email"]);
   let user = new User();
   user.username = userData.username;
@@ -242,22 +247,22 @@ app.post("/register", (request, response) => {
   user.save((error, User) => {
     if (error) {
       console.log(error["message"]);
-      return response.status(400).send({
+      return response.status(400).json({
         message: "failed to add user",
         reason: error["message"]
       });
     } else {
-      return response.status(201).send({
+      return response.status(201).json({
         message: "user added successfully"
       });
     }
   });
 });
 
-app.post("/login", (request, response) => {
+app.post("/api/login", (request, response) => {
   User.findOne({ username: request.body.username }, (error, user) => {
     if (user === null) {
-      return response.status(400).send({
+      return response.status(400).json({
         message: "user not found"
       });
     } else {
@@ -273,7 +278,7 @@ app.post("/login", (request, response) => {
           }
         );
       }
-      return response.status(400).send({
+      return response.status(400).json({
         message: "incorrect password"
       });
     }
