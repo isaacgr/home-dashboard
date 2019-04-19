@@ -4,13 +4,17 @@ const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
+const { User } = require("./models/user");
+
 const { devSeedData } = require("./tests/seed/devSeedData");
 const { findAllData } = require("./functions/findData");
 const moment = require("moment");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 
 const path = require("path");
 
-const port = process.env.PORT || 3069;
+const port = process.env.PORT || 3000;
 const app = express();
 
 const publicPath = path.join(__dirname, "..", "public");
@@ -227,6 +231,54 @@ app.post(
       });
   }
 );
+
+app.post("/register", (request, response) => {
+  const userData = _.pick(request.body, ["username", "email"]);
+  let user = new User();
+  user.username = userData.username;
+  user.email = userData.email;
+  user.setPassword(request.body.password);
+
+  user.save((error, User) => {
+    if (error) {
+      console.log(error["message"]);
+      return response.status(400).send({
+        message: "failed to add user",
+        reason: error["message"]
+      });
+    } else {
+      return response.status(201).send({
+        message: "user added successfully"
+      });
+    }
+  });
+});
+
+app.post("/login", (request, response) => {
+  User.findOne({ username: request.body.username }, (error, user) => {
+    if (user === null) {
+      return response.status(400).send({
+        message: "user not found"
+      });
+    } else {
+      if (user.validPassword(request.body.password)) {
+        return jwt.sign(
+          { user },
+          "secretkey",
+          { expiresIn: "15m" },
+          (error, token) => {
+            response.json({
+              token
+            });
+          }
+        );
+      }
+      return response.status(400).send({
+        message: "incorrect password"
+      });
+    }
+  });
+});
 
 // POST /api/temp/seed
 // only while running local host, not for production
