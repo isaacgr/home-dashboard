@@ -9,7 +9,7 @@ class GooeyMenu extends Component {
         <label className="menu__button" htmlFor="menu__checkbox">
           <span className="menu__icon" />
         </label>
-        <a href="/" className="menu__item">
+        <a href="/home" className="menu__item">
           <i className="fas fa-home" />
         </a>
         <a href="/tempgraph" className="menu__item">
