@@ -70,7 +70,7 @@ const Login = ({ history }) => {
             />
           </div>
           <button className="form__button btn btn-primary btn-lg" type="submit">
-            Submit
+            Login
           </button>
           <Message message={message} />
         </form>
