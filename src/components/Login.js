@@ -42,7 +42,7 @@ const Login = ({ history }) => {
   return (
     <section className="login-section">
       <div className="container">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form u-raised" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form__label" htmlFor="username">
               Username

@@ -40,7 +40,7 @@ class AuthService {
 
   isTokenValid(token) {
     try {
-      return jwt.verify(token, "secretkey", (error, auth) => {
+      return jwt.verify(token, process.env.SECRET, (error, auth) => {
         if (error) {
           return false;
         } else {

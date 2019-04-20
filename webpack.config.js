@@ -1,6 +1,12 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = (env, options) => {
+  if (options.mode === "development") {
+    require("dotenv").config({ path: ".env.test" });
+  } else {
+    require("dotenv").config({ path: ".env.production" });
+  }
   return {
     watch: options.mode === "development" ? true : false,
     entry: ["./src/index.js"],
@@ -28,6 +34,11 @@ module.exports = (env, options) => {
         }
       ]
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.SECRET": JSON.stringify(process.env.SECRET)
+      })
+    ],
     devServer: {
       contentBase: path.join(__dirname, "public"),
       historyApiFallback: true,

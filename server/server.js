@@ -318,7 +318,7 @@ app.post("/api/login", (request, response) => {
       if (user.validPassword(request.body.password)) {
         return jwt.sign(
           { user },
-          "secretkey",
+          process.env.SECRET,
           { expiresIn: "15m" },
           (error, token) => {
             response.json({
