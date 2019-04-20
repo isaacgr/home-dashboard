@@ -179,6 +179,7 @@ app.get("/api/data", (request, response) => {
       return response.status(404).send({ error: "no such data type" });
   }
 });
+
 // POST /api/temp
 // post the temperature data
 app.post(
@@ -237,28 +238,76 @@ app.post(
   }
 );
 
-app.post("/api/register", (request, response) => {
-  const userData = _.pick(request.body, ["username", "email"]);
-  let user = new User();
-  user.username = userData.username;
-  user.email = userData.email;
-  user.setPassword(request.body.password);
+// POST /api/register
+// Register a user
+app.post(
+  "/api/register",
+  check("key")
+    .equals(process.env.SECRET)
+    .withMessage("invalid key"),
+  (request, response) => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response
+        .status(422)
+        .send({ errors: errors.array({ onlyFirstError: true }) });
+    }
+    const userData = _.pick(request.body, ["username", "email"]);
+    let user = new User();
+    user.username = userData.username;
+    user.email = userData.email;
+    user.setPassword(request.body.password);
 
-  user.save((error, User) => {
+    user.save((error, User) => {
+      if (error) {
+        console.log(error["message"]);
+        return response.status(400).json({
+          message: "failed to add user",
+          reason: error["message"]
+        });
+      } else {
+        return response.status(201).json({
+          message: "user added successfully"
+        });
+      }
+    });
+  }
+);
+
+// POST /api/verify
+// verify token being used
+
+app.post("/api/verify", verifyToken, (request, response) => {
+  jwt.verify(request.token, "secretkey", (error, authData) => {
     if (error) {
-      console.log(error["message"]);
-      return response.status(400).json({
-        message: "failed to add user",
-        reason: error["message"]
+      return response.status(403).json({
+        message: "unauthorized"
       });
     } else {
-      return response.status(201).json({
-        message: "user added successfully"
+      return response.json({
+        authorized: true,
+        authData
       });
     }
   });
 });
 
+function verifyToken(request, response, next) {
+  // get auth header
+  const bearerHeader = request.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const token = bearerHeader.split(" ")[1];
+    request.token = token;
+    next();
+  } else {
+    return response.status(403).json({
+      message: "unauthorized"
+    });
+  }
+}
+
+// POST /api/login
+// Login handling for users
 app.post("/api/login", (request, response) => {
   User.findOne({ username: request.body.username }, (error, user) => {
     if (user === null) {

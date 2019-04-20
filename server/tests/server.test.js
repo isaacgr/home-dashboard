@@ -137,15 +137,16 @@ describe("GET /api/temp/all", () => {
   });
 });
 
-describe("POST /register", () => {
+describe("POST /api/register", () => {
   it("should return success message", done => {
     const body = {
       username: "irowell",
       email: "irowell@evertz.com",
-      password: "testicles"
+      password: "testicles",
+      key: "secretsauce"
     };
     request(app)
-      .post("/register")
+      .post("/api/register")
       .send(body)
       .expect(201)
       .expect(response => {
@@ -157,7 +158,7 @@ describe("POST /register", () => {
   });
 });
 
-describe("POST /login", () => {
+describe("POST /api/login", () => {
   it("should return success message", done => {
     const body = {
       username: "irowell",
@@ -165,7 +166,7 @@ describe("POST /login", () => {
       password: "testicles"
     };
     request(app)
-      .post("/login")
+      .post("/api/login")
       .send(body)
       .expect(200)
       .expect(response => {

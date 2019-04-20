@@ -1,13 +1,7 @@
 import decode from "jwt-decode";
-import axios from "axios";
+import jwt from "jsonwebtoken";
 
 class AuthService {
-  constructor() {
-    this.fetch = this.fetch.bind(this);
-    this.login = this.login.bind(this);
-    this.getProfile = this.getProfile.bind(this);
-  }
-
   login(username, password) {
     // Get a token from api server using the fetch api
     const data = {
@@ -33,19 +27,44 @@ class AuthService {
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken(); // Getting token from localstorage
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+    return !!token && this.isTokenValid(token);
+
+    // return this.isTokenValid(token)
+    //   .then(isValid => {
+    //     return isValid;
+    //   })
+    //   .then(result => {
+    //     return result;
+    //   });
   }
 
-  isTokenExpired(token) {
+  isTokenValid(token) {
     try {
-      const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) {
-        // Checking if token is expired. N
-        return true;
-      } else return false;
+      return jwt.verify(token, "secretkey", (error, auth) => {
+        if (error) {
+          return false;
+        } else {
+          return true;
+        }
+      });
     } catch (err) {
-      return true;
+      return false;
     }
+    // try {
+    //   return this.fetch("/api/verify", {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: "Bearer " + this.getToken()
+    //     },
+    //     body: JSON.stringify({ token })
+    //   }).then(response => {
+    //     if (response.authorized === true) {
+    //       return true;
+    //     } else return false;
+    //   });
+    // } catch (error) {
+    //   return false;
+    // }
   }
 
   setToken(idToken) {
@@ -75,12 +94,6 @@ class AuthService {
       "Content-Type": "application/json"
     };
 
-    // Setting Authorization header
-    // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-    if (this.loggedIn()) {
-      headers["Authorization"] = "Bearer " + this.getToken();
-    }
-
     return fetch(url, {
       headers,
       ...options
@@ -106,4 +119,6 @@ class AuthService {
   }
 }
 
-export default AuthService;
+let Auth = new AuthService();
+
+export default Auth;

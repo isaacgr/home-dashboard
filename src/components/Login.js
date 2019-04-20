@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import AuthService from "../routes/AuthService";
+import Auth from "../functions/AuthService";
 import Message from "./Message";
 
 const Login = ({ history }) => {
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  let Auth = new AuthService();
 
-  useEffect(() => {
-    if (Auth.loggedIn()) {
-      history.replace("/home");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Auth.loggedIn()) {
+  //     history.replace("/home");
+  //   }
+  // }, []);
 
   const handleChange = e => {
     const name = e.target.name;
@@ -41,26 +40,42 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          placeholder="Username"
-          type="text"
-          name="username"
-          onChange={handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          placeholder="Password"
-          type="password"
-          name="password"
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-        <Message message={message} />
-      </form>
-    </div>
+    <section className="login-section">
+      <div className="container">
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form__label" htmlFor="username">
+              Username
+            </label>
+            <input
+              className="form__input form-control"
+              placeholder="Username"
+              type="text"
+              name="username"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="form__input form-control"
+              placeholder="Password"
+              type="password"
+              name="password"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <button className="form__button btn btn-primary btn-lg" type="submit">
+            Submit
+          </button>
+          <Message message={message} />
+        </form>
+      </div>
+    </section>
   );
 };
 

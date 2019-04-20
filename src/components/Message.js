@@ -2,7 +2,7 @@ import React from "react";
 
 const Message = ({ message }) => (
   <>
-    <p className="text-info">{message}</p>
+    <p className="message text-info">{message}</p>
   </>
 );
 

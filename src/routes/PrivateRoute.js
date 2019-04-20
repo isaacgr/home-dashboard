@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
-import AuthService from "./AuthService";
+import Auth from "../functions/AuthService";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let Auth = new AuthService();
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const [answer, setAnswer] = useState(false);
+
+  // useEffect(() => {
+  //   let isSubscribed = true;
+  //   Auth.loggedIn()
+  //     .then(isValid => {
+  //       return isValid;
+  //     })
+  //     .then(res => {
+  //       if (isSubscribed) {
+  //         setLoggedIn(res);
+  //         setAnswer(true);
+  //       }
+  //     });
+  //   return () => (isSubscribed = false);
+  // });
   return (
     <Route
       {...rest}

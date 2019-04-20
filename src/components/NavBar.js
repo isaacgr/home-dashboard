@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthService from "../routes/AuthService";
+import Auth from "../functions/AuthService";
 
 class GooeyMenu extends Component {
   render() {
@@ -18,7 +18,7 @@ class GooeyMenu extends Component {
         <a href="/camera" className="menu__item">
           <i className="fas fa-video" />
         </a>
-        <a href="/" className="menu__item">
+        <a href="/" onClick={() => Auth.logout()} className="menu__item">
           <i className="fas fa-sign-out-alt" />
         </a>
       </nav>
