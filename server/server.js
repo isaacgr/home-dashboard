@@ -1,3 +1,4 @@
+require("dotenv").config({ path: ".env.production" });
 const express = require("express");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator/check");
@@ -5,6 +6,10 @@ const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { User } = require("./models/user");
+const digestRequest = require("request-digest")(
+  process.env.CAMERA_USER,
+  process.env.CAMERA_PASS
+);
 
 const { devSeedData } = require("./tests/seed/devSeedData");
 const { findAllData } = require("./functions/findData");
@@ -276,7 +281,6 @@ app.post(
 
 // POST /api/verify
 // verify token being used
-
 app.post("/api/verify", verifyToken, (request, response) => {
   jwt.verify(request.token, "secretkey", (error, authData) => {
     if (error) {
@@ -334,6 +338,37 @@ app.post("/api/login", (request, response) => {
   });
 });
 
+// POST /api/preset
+// send preset commands to the camera
+// unused as camera is on local network
+// app.post("/api/preset", (request, response) => {
+//   const { preset } = request.query;
+//   digestRequest
+//     .requestAsync({
+//       host: `http://${process.env.CAMERA_IP}`,
+//       path: `/cgi-bin/ptz.cgi?action=start&channel=0&code=GotoPreset&arg1=0&arg2=${preset}&arg3=0&arg4=0`,
+//       port: 80,
+//       method: "POST"
+//     })
+//     .then(result => {
+//       console.log(`Camera response: ${result.body}`);
+//       if (result.body !== "OK\r\n") {
+//         return response.status(400).json({
+//           message: `bad request`
+//         });
+//       }
+//       return response.json({
+//         message: `${result.body}`
+//       });
+//     })
+//     .catch(error => {
+//       console.error(error);
+//       return response.status(500).json({
+//         message: `internal server error`
+//       });
+//     });
+// });
+
 // POST /api/temp/seed
 // only while running local host, not for production
 app.post("/api/temp/seed", (request, response) => {
@@ -353,7 +388,7 @@ app.post("/api/temp/seed", (request, response) => {
 app.listen(port, () => {
   console.log(`Server started on ${port}`);
   app.get("*", (request, response) => {
-    response.sendfile(path.join(publicPath, "index.html"));
+    response.sendFile(path.join(publicPath, "index.html"));
   });
 });
 

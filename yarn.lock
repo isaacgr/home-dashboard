@@ -1346,6 +1346,11 @@ bluebird@3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
+bluebird@^3.3.3:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
+  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
+
 bluebird@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
@@ -5933,6 +5938,15 @@ repeating@^2.0.0:
   resolved "https://registry.yarnpkg.com/repeating/-/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
   dependencies:
     is-finite "^1.0.0"
+
+request-digest@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/request-digest/-/request-digest-1.0.13.tgz#7de56ad5fdb5aa110a04b22d7ca1b4b91eb6536d"
+  integrity sha512-GWYaPD4pU9cScpqod9YfXCmYqPQITMuhjaxjMPwhqo1hIxHuR0P2qMErqhse0KAN6kmSJ8Px+ww6MR+mlz3ehA==
+  dependencies:
+    bluebird "^3.3.3"
+    lodash "^4.17.11"
+    request "^2.88.0"
 
 request-promise-core@1.1.1:
   version "1.1.1"

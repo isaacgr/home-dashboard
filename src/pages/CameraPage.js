@@ -25,6 +25,24 @@ class CameraPage extends Component {
       });
   }
 
+  setPreset = e => {
+    const value = e.target.value;
+    console.log(value);
+    fetch(`http://${this.state.addr}:8080/api/preset?preset=${value}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      mode: "no-cors"
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   renderVideo = () => {
     const video = this.player;
     const config = {
@@ -46,6 +64,7 @@ class CameraPage extends Component {
             hls.attachMedia(video);
             console.log("Attempting to load video source");
             hls.loadSource("http://192.168.2.48/streaming.m3u8");
+            this.setState(() => ({ addr: "192.168.2.48" }));
             break;
           default:
             break;
@@ -79,6 +98,46 @@ class CameraPage extends Component {
             ref={player => (this.player = player)}
             controls
           />
+        </div>
+        <div className="container">
+          <h1 className="heading">Presets</h1>
+          <div className="row">
+            <button
+              onClick={this.setPreset}
+              value="1"
+              className="btn btn-lg btn-primary col-sm m-2"
+            >
+              Full View
+            </button>
+            <button
+              onClick={this.setPreset}
+              value="2"
+              className="btn btn-lg btn-primary col-sm m-2"
+            >
+              Plants
+            </button>
+            <button
+              onClick={this.setPreset}
+              value="3"
+              className="btn btn-lg btn-primary col-sm m-2"
+            >
+              Car Port
+            </button>
+            <button
+              onClick={this.setPreset}
+              value="4"
+              className="btn btn-lg btn-primary col-sm m-2"
+            >
+              Door
+            </button>
+            <button
+              onClick={this.setPreset}
+              value="5"
+              className="btn btn-lg btn-primary col-sm m-2"
+            >
+              Table
+            </button>
+          </div>
         </div>
       </section>
     );
