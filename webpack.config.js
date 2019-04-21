@@ -36,7 +36,8 @@ module.exports = (env, options) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.SECRET": JSON.stringify(process.env.SECRET)
+        "process.env.SECRET": JSON.stringify(process.env.SECRET),
+        "process.env.CAMERA_IP": JSON.stringify(process.env.CAMERA_IP)
       })
     ],
     devServer: {

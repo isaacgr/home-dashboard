@@ -27,7 +27,6 @@ class CameraPage extends Component {
 
   setPreset = e => {
     const value = e.target.value;
-    console.log(value);
     fetch(`http://${this.state.addr}:8080/api/preset?preset=${value}`, {
       method: "POST",
       headers: {
@@ -63,8 +62,8 @@ class CameraPage extends Component {
           case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
             hls.attachMedia(video);
             console.log("Attempting to load video source");
-            hls.loadSource("http://192.168.2.48/streaming.m3u8");
-            this.setState(() => ({ addr: "192.168.2.48" }));
+            hls.loadSource(`http://${process.env.CAMERA_IP}/streaming.m3u8`);
+            this.setState(() => ({ addr: `${process.env.CAMERA_IP}` }));
             break;
           default:
             break;
