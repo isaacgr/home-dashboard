@@ -248,7 +248,7 @@ app.post(
 app.post(
   "/api/register",
   check("key")
-    .equals(process.env.SECRET)
+    .equals(process.env.REGISTER_KEY)
     .withMessage("invalid key"),
   (request, response) => {
     const errors = validationResult(request);

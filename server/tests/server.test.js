@@ -143,7 +143,7 @@ describe("POST /api/register", () => {
       username: "irowell",
       email: "irowell@evertz.com",
       password: "testicles",
-      key: "secretsauce"
+      key: "topsecret"
     };
     request(app)
       .post("/api/register")
