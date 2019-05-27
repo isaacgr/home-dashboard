@@ -6,7 +6,7 @@ import _ from "lodash";
 
 class CameraPage extends Component {
   state = {
-    addr: "192.168.69.69"
+    addr: "192.168.1.1"
   };
   plugin = null;
 
@@ -28,14 +28,14 @@ class CameraPage extends Component {
         Janus.init({
           debug: true,
           callback: () => {
-            this.onJanusInit(this.state.addr, 69);
+            this.onJanusInit(this.state.addr, "6969", 69);
           }
         });
       });
   }
 
-  onJanusInit(host, outputId) {
-    let janus_server = `http://${host}:8088/janus`;
+  onJanusInit(host, port, outputId) {
+    let janus_server = `http://${host}:${port}/stream/janus`;
     this.janus = new Janus({
       server: janus_server,
       success: () => {
@@ -101,10 +101,31 @@ class CameraPage extends Component {
             }
           },
           onData: data => console.log(data),
-          onCleanup: () => console.log("Cleaning up")
+          onCleanup: () => console.log("Cleaning up"),
+          slowlink: (uplink, nacks) => {
+            console.log(
+              "Janus reports problems " +
+                (uplink ? "sending" : "receiving") +
+                " packets on this PeerConnection (" +
+                nacks +
+                " NACKs/s " +
+                (uplink ? "received" : "sent") +
+                ")"
+            );
+          }
         });
       },
-      error: error => console.log(error)
+      error: error => {
+        console.log(error);
+        // might be network error, retry
+        Janus.init({
+          debug: true,
+          callback: () => {
+            this.setState(() => ({ addr: `${process.env.CAMERA_IP}` }));
+            this.onJanusInit(process.env.CAMERA_IP, "6969", 69);
+          }
+        });
+      }
     });
   }
 

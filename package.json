@@ -10,7 +10,7 @@
     "heroku-postbuild": "yarn run build",
     "build": "webpack --mode production",
     "build-dev": "webpack-dev-server --mode development",
-    "dev-server": "SECRET=secretsauce NODE_ENV=development nodemon server/server.js",
+    "dev-server": "SECRET=secretsauce REGISTER_KEY=topsecret NODE_ENV=development nodemon server/server.js",
     "start-dev": "concurrently 'yarn run build-dev' 'yarn run dev-server' ",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest",
     "test-watch": "yarn test --watch"
