@@ -28,20 +28,20 @@ class CameraPage extends Component {
         Janus.init({
           debug: true,
           callback: () => {
-            this.onJanusInit("192.168.2.48", 69);
+            this.onJanusInit(this.state.addr, 69);
           }
         });
       });
   }
 
   onJanusInit(host, outputId) {
-    let janus_server = `http://${host}/stream/janus`;
+    let janus_server = `http://${host}:8088/janus`;
     this.janus = new Janus({
       server: janus_server,
       success: () => {
         this.janus.attach({
           plugin: "janus.plugin.streaming",
-          opaqueId: `${Janus.randomString(12)}`,
+          opaqueId: `streamingtest-${Janus.randomString(12)}`,
           success: handle => {
             this.plugin = handle;
             this.plugin.send({
@@ -65,7 +65,7 @@ class CameraPage extends Component {
           error: err => {
             console.log(err);
           },
-          onmessage: (message, jesp) => {
+          onmessage: (message, jsep) => {
             let { error, result } = message;
             if (error) {
               console.log(error);
@@ -73,15 +73,15 @@ class CameraPage extends Component {
             } else if (result) {
               console.log(result);
             }
-            if (jesp) {
-              console.log(jesp);
+            if (jsep) {
+              console.log(jsep);
               this.plugin.createAnswer({
-                media: { audioSend: false, videoSend: false, data: false },
-                jesp: jesp,
-                success: jesp => {
+                media: { audioSend: false, videoSend: false, data: true },
+                jsep: jsep,
+                success: jsep => {
                   this.plugin.send({
-                    message: { request: "start" },
-                    jesp: jesp,
+                    message: { request: "start", jsep },
+                    jsep: jsep,
                     success: result => {
                       console.log("start: " + result);
                     }
