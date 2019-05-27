@@ -313,29 +313,36 @@ function verifyToken(request, response, next) {
 // POST /api/login
 // Login handling for users
 app.post("/api/login", (request, response) => {
-  User.findOne({ username: request.body.username }, (error, user) => {
-    if (user === null) {
-      return response.status(400).json({
-        message: "user not found"
-      });
-    } else {
-      if (user.validPassword(request.body.password)) {
-        return jwt.sign(
-          { user },
-          process.env.SECRET,
-          { expiresIn: "15m" },
-          (error, token) => {
-            response.json({
-              token
-            });
-          }
-        );
+  User.findOne(
+    {
+      username: {
+        $regex: new RegExp(request.body.username)
       }
-      return response.status(400).json({
-        message: "incorrect password"
-      });
+    },
+    (error, user) => {
+      if (user === null) {
+        return response.status(400).json({
+          message: "user not found"
+        });
+      } else {
+        if (user.validPassword(request.body.password)) {
+          return jwt.sign(
+            { user },
+            process.env.SECRET,
+            { expiresIn: "15m" },
+            (error, token) => {
+              response.json({
+                token
+              });
+            }
+          );
+        }
+        return response.status(400).json({
+          message: "incorrect password"
+        });
+      }
     }
-  });
+  );
 });
 
 // POST /api/preset

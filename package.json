@@ -48,10 +48,13 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "request-digest": "^1.0.13",
+    "rtcpeerconnection": "^8.4.0",
     "sass-loader": "^7.1.0",
+    "sdp": "^2.9.0",
     "style-loader": "^0.23.1",
     "uuid": "^3.3.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webrtc-adapter": "^7.2.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
