@@ -122,7 +122,7 @@ class CameraPage extends Component {
           debug: true,
           callback: () => {
             this.setState(() => ({ addr: `${process.env.CAMERA_IP}` }));
-            this.onJanusInit(process.env.CAMERA_IP, "6969", 69);
+            this.onJanusInit(process.env.CAMERA_IP, "80", 69);
           }
         });
       }
