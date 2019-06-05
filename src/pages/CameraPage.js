@@ -28,7 +28,7 @@ class CameraPage extends Component {
         Janus.init({
           debug: true,
           callback: () => {
-            this.onJanusInit(this.state.addr, "6969", 69);
+            this.onJanusInit("192.168.2.48", "80", 69);
           }
         });
       });
@@ -76,7 +76,7 @@ class CameraPage extends Component {
             if (jsep) {
               console.log(jsep);
               this.plugin.createAnswer({
-                media: { audioSend: false, videoSend: false, data: true },
+                media: { audioSend: false, videoSend: false },
                 jsep: jsep,
                 success: jsep => {
                   this.plugin.send({

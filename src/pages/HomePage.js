@@ -2,44 +2,39 @@ import React, { Component } from "react";
 import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
 import { fetchData } from "../functions/fetchData";
+import openSocket from "socket.io-client";
+
+const socket = openSocket("http://localhost:7070");
 
 const AppContext = React.createContext({});
 
 class HomePage extends Component {
-  state = {
-    temperatureData: {
-      data: []
-    },
-    cardData: []
-  };
+  constructor() {
+    super();
+    this.getCardData();
+    this.state = {
+      temperatureData: {
+        data: []
+      },
+      cardData: []
+    };
+  }
 
-  getCardData = () => {
-    fetch("/api/temp/", {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.setState({
-          temperatureData: {
-            data: json["data"]
-          }
-        });
+  getCardData() {
+    socket.emit("getTemp");
+    socket.on("tempData", data => {
+      this.setState({
+        temperatureData: {
+          data: data["data"]
+        }
       });
+    });
+    socket.on("error", error => console.log(error));
     fetchData().then(result => {
       this.setState({ cardData: result });
     });
-  };
-
-  componentDidMount() {
-    this.getCardData();
-    setInterval(() => {
-      this.getCardData();
-    }, 30000);
   }
+
   render() {
     return (
       <section className="data">

@@ -6,10 +6,11 @@ const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { User } = require("./models/user");
-const digestRequest = require("request-digest")(
-  process.env.CAMERA_USER,
-  process.env.CAMERA_PASS
-);
+const io = require("socket.io")();
+// const digestRequest = require("request-digest")(
+//   process.env.CAMERA_USER,
+//   process.env.CAMERA_PASS
+// );
 
 const { devSeedData } = require("./tests/seed/devSeedData");
 const { findAllData } = require("./functions/findData");
@@ -31,6 +32,49 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+/** socket stuff
+ *
+ *
+ */
+io.listen(7070);
+io.on("connection", client => {
+  client.on("getTemp", () => {
+    let data = [];
+    Temp.find()
+      .then(doc => {
+        return new Promise((resolve, reject) => {
+          doc.map((dataset, idx, arr) => {
+            Temp.aggregate([{ $match: dataset }])
+              .unwind("values")
+              .sort({ "values.createdAt": -1 })
+              .limit(1)
+              .then(doc => {
+                data.push({
+                  ...doc[0],
+                  values: {
+                    ...doc[0].values,
+                    createdAt: doc[0].values.createdAt
+                  }
+                });
+                if (data.length === arr.length) {
+                  resolve(data);
+                }
+              })
+              .catch(error => {
+                client.emit("error", { error: error["message"] });
+              });
+          });
+        });
+      })
+      .then(data => {
+        client.emit("tempData", { data });
+      })
+      .catch(error => {
+        client.emit("error", { error: error["message"] });
+      });
+  });
+});
 
 // GET /api/temp/all
 // get all temperature values in collection
