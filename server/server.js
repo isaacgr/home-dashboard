@@ -37,19 +37,21 @@ app.use(bodyParser.json());
  *
  *
  */
+let socketClient = undefined;
 io.listen(7070);
-io.on("connection", client => {
+io.on("connection", (client) => {
+  socketClient = client;
   client.on("getTemp", () => {
     let data = [];
     Temp.find()
-      .then(doc => {
+      .then((doc) => {
         return new Promise((resolve, reject) => {
           doc.map((dataset, idx, arr) => {
             Temp.aggregate([{ $match: dataset }])
               .unwind("values")
               .sort({ "values.createdAt": -1 })
               .limit(1)
-              .then(doc => {
+              .then((doc) => {
                 data.push({
                   ...doc[0],
                   values: {
@@ -61,20 +63,33 @@ io.on("connection", client => {
                   resolve(data);
                 }
               })
-              .catch(error => {
+              .catch((error) => {
                 client.emit("error", { error: error["message"] });
               });
           });
         });
       })
-      .then(data => {
+      .then((data) => {
         client.emit("tempData", { data });
       })
-      .catch(error => {
+      .catch((error) => {
         client.emit("error", { error: error["message"] });
       });
   });
+  client.on("getData", () => {
+    findAllData()
+      .then((result) => {
+        client.emit("allData", { result });
+      })
+      .catch((error) => {
+        lient.emit("error", { error: error["message"] });
+      });
+  });
 });
+
+/**
+ *
+ */
 
 // GET /api/temp/all
 // get all temperature values in collection
@@ -87,10 +102,10 @@ app.get("/api/temp/all", (request, response) => {
       }
     : {};
   Temp.find({}, limit)
-    .then(doc => {
+    .then((doc) => {
       response.send(doc);
     })
-    .catch(error => {
+    .catch((error) => {
       response.status(400).send({ error: error["message"] });
     });
 });
@@ -100,14 +115,14 @@ app.get("/api/temp/all", (request, response) => {
 app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
-    .then(doc => {
+    .then((doc) => {
       return new Promise((resolve, reject) => {
         doc.map((dataset, idx, arr) => {
           Temp.aggregate([{ $match: dataset }])
             .unwind("values")
             .sort({ "values.createdAt": -1 })
             .limit(1)
-            .then(doc => {
+            .then((doc) => {
               data.push({
                 ...doc[0],
                 values: {
@@ -119,16 +134,16 @@ app.get("/api/temp", (request, response) => {
                 resolve(data);
               }
             })
-            .catch(error => {
+            .catch((error) => {
               return response.status(400).send({ error: error["message"] });
             });
         });
       });
     })
-    .then(data => {
+    .then((data) => {
       response.status(200).send({ data });
     })
-    .catch(error => {
+    .catch((error) => {
       return response.status(400).send({ error: error["message"] });
     });
 });
@@ -182,11 +197,11 @@ app.post(
     );
 
     data
-      .then(doc => {
+      .then((doc) => {
         console.log(`Received data: ${JSON.stringify(request.body)}`);
         response.status(200).send({ error: null, body: request.body });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         response.status(400).send({ error: error["message"] });
       });
@@ -199,28 +214,28 @@ app.get("/api/data", (request, response) => {
   switch (request.query.data) {
     case "ip":
       NetworkAddress.find()
-        .then(doc => {
+        .then((doc) => {
           response.send(doc[0]);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
     case "netspeed":
       NetworkSpeed.find()
-        .then(doc => {
+        .then((doc) => {
           response.send(doc[0]);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
     case "all":
       findAllData()
-        .then(result => {
+        .then((result) => {
           response.send(result);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
@@ -276,11 +291,11 @@ app.post(
     );
 
     temp
-      .then(doc => {
+      .then((doc) => {
         console.log(`Received Temperature ${JSON.stringify(request.body)}`);
         response.status(200).send("OK");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         response.status(400).send({ error: error["message"] });
       });
