@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
-import openSocket from "socket.io-client";
-
-const socket = openSocket("http://localhost:7070");
+const Jaysonic = require("jaysonic/lib/client-ws");
+const socket = new Jaysonic.wsclient({ url: "ws://localhost:9999" });
 
 const AppContext = React.createContext({});
 
@@ -19,23 +18,33 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    this.getCardData();
+    socket
+      .connect()
+      .then(() => {
+        this.getCardData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getCardData() {
-    socket.emit("getTemp");
-    socket.emit("getData");
-    socket.on("tempData", (data) => {
-      this.setState({
-        temperatureData: {
-          data: data["data"]
-        }
+    socket
+      .request()
+      .send("get.temp", [])
+      .then((data) => {
+        this.setState({
+          temperatureData: {
+            data: data["data"]
+          }
+        });
       });
-    });
-    socket.on("allData", (data) => {
-      this.setState({ cardData: data.result });
-    });
-    socket.on("error", (error) => console.log(error));
+    socket
+      .request()
+      .send("get.data", [])
+      .then((data) => {
+        this.setState({ cardData: data.result });
+      });
   }
 
   render() {

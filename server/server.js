@@ -6,7 +6,7 @@ const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
 const { User } = require("./models/user");
-const io = require("socket.io")();
+const Jaysonic = require("jaysonic");
 // const digestRequest = require("request-digest")(
 //   process.env.CAMERA_USER,
 //   process.env.CAMERA_PASS
@@ -37,13 +37,12 @@ app.use(bodyParser.json());
  *
  *
  */
-let socketClient = undefined;
-io.listen(7070);
-io.on("connection", (client) => {
-  socketClient = client;
-  client.on("getTemp", () => {
+
+const server = new Jaysonic.server.ws({ port: 9999 });
+server.listen().then(() => {
+  server.method("get.temp", ([]) => {
     let data = [];
-    Temp.find()
+    return Temp.find()
       .then((doc) => {
         return new Promise((resolve, reject) => {
           doc.map((dataset, idx, arr) => {
@@ -64,25 +63,25 @@ io.on("connection", (client) => {
                 }
               })
               .catch((error) => {
-                client.emit("error", { error: error["message"] });
+                reject(error["message"]);
               });
           });
         });
       })
       .then((data) => {
-        client.emit("tempData", { data });
+        return data;
       })
       .catch((error) => {
-        client.emit("error", { error: error["message"] });
+        return error["message"];
       });
   });
-  client.on("getData", () => {
-    findAllData()
+  server.method("get.data", ([]) => {
+    return findAllData()
       .then((result) => {
-        client.emit("allData", { result });
+        return result;
       })
       .catch((error) => {
-        lient.emit("error", { error: error["message"] });
+        return error["message"];
       });
   });
 });
