@@ -33,16 +33,16 @@ app.use(
 );
 app.use(bodyParser.json());
 
-/** socket stuff
+/** websocket stuff
  *
  *
  */
 
 const server = new Jaysonic.server.ws({ port: 9999 });
 server.listen().then(() => {
-  server.method("get.temp", ([]) => {
+  setInterval(() => {
     let data = [];
-    return Temp.find()
+    Temp.find()
       .then((doc) => {
         return new Promise((resolve, reject) => {
           doc.map((dataset, idx, arr) => {
@@ -69,21 +69,20 @@ server.listen().then(() => {
         });
       })
       .then((data) => {
-        return data;
+        server.notify("update.temp", data);
       })
       .catch((error) => {
-        return error["message"];
+        server.notify("error", error);
       });
-  });
-  server.method("get.data", ([]) => {
-    return findAllData()
+
+    findAllData()
       .then((result) => {
-        return result;
+        server.notify("update.data", result);
       })
       .catch((error) => {
-        return error["message"];
+        server.notify("error", error);
       });
-  });
+  }, 1000);
 });
 
 /**

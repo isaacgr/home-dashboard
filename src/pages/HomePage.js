@@ -17,7 +17,7 @@ class HomePage extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     socket
       .connect()
       .then(() => {
@@ -29,22 +29,20 @@ class HomePage extends Component {
   }
 
   getCardData() {
-    socket
-      .request()
-      .send("get.temp", [])
-      .then((data) => {
-        this.setState({
-          temperatureData: {
-            data: data["data"]
-          }
-        });
+    socket.subscribe("update.temp", (error, result) => {
+      this.setState({
+        temperatureData: {
+          data: result.params
+        }
       });
-    socket
-      .request()
-      .send("get.data", [])
-      .then((data) => {
-        this.setState({ cardData: data.result });
-      });
+    });
+    socket.subscribe("update.data", (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.setState({ cardData: result.params });
+      }
+    });
   }
 
   render() {
