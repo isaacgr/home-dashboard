@@ -24,7 +24,6 @@ class CameraPage extends Component {
         this.setState(() => ({ addr: ip }));
         return true;
       })
-<<<<<<< HEAD
       .then((success) => {
         if (
           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -40,15 +39,6 @@ class CameraPage extends Component {
             }
           });
         }
-=======
-      .then(success => {
-        Janus.init({
-          debug: true,
-          callback: () => {
-            this.onJanusInit("192.168.2.48", "80", 69);
-          }
-        });
->>>>>>> improvement/socket.io
       });
   }
 
