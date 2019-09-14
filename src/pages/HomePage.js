@@ -7,21 +7,19 @@ const socket = new Jaysonic.wsclient({ url: "ws://localhost:9999" });
 const AppContext = React.createContext({});
 
 class HomePage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      temperatureData: {
-        data: []
-      },
-      cardData: []
-    };
-  }
+  state = {
+    temperatureData: {
+      data: []
+    },
+    cardData: []
+  };
 
-  componentWillMount() {
+  componentDidMount() {
     socket
       .connect()
       .then(() => {
         this.getCardData();
+        this.subscribeCardData();
       })
       .catch((error) => {
         console.log(error);
@@ -29,18 +27,58 @@ class HomePage extends Component {
   }
 
   getCardData() {
-    socket.subscribe("update.temp", (error, result) => {
-      this.setState({
-        temperatureData: {
-          data: result.params
-        }
+    socket
+      .request()
+      .send("get.temp", [])
+      .then((response) => {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: response.result[0]
+          }
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
       });
+    socket
+      .request()
+      .send("get.data", [])
+      .then((response) => {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: response.result[0]
+          }
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  subscribeCardData() {
+    socket.subscribe("update.temp", (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: result.params
+          }
+        }));
+      }
     });
     socket.subscribe("update.data", (error, result) => {
       if (error) {
         console.log(error);
       } else {
-        this.setState({ cardData: result.params });
+        console.log(result);
+        this.setState((prevState) => ({
+          ...prevState,
+          cardData: result.params
+        }));
       }
     });
   }
