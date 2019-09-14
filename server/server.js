@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 
 const server = new Jaysonic.server.ws({ port: 9999 });
 server.listen().then(() => {
+  server.clientConnected(({ host, port }) => console.log({ host, port }));
   server.method("get.temp", () => {
     return new Promise((resolve, reject) => {
       let data = [];
