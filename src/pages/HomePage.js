@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
 const Jaysonic = require("jaysonic/lib/client-ws");
-const socket = new Jaysonic.wsclient({ url: "ws://localhost:9999" });
+const socket = new Jaysonic.wsclient({
+  url: "ws://irowell-temperature.herokuapp.com:9999"
+});
 
 const AppContext = React.createContext({});
 
