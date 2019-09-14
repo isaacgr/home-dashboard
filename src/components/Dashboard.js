@@ -8,15 +8,15 @@ const Dashboard = () => (
   <div className="card--container">
     <TemperatureCard />
     <AppContext.Consumer>
-      {context =>
-        context.cardData.map(doc =>
-          doc.map(data => (
+      {(context) =>
+        context.cardData.map((doc) =>
+          doc.map((data) => (
             <Card
               title={data.type}
               contentTitle={data.description}
               icon={cardProps[data.type].icon}
               classes={cardProps[data.type].classes}
-              values={Object.keys(data.data.values).map(value => {
+              values={Object.keys(data.data.values).map((value) => {
                 return {
                   content: `${data.data.values[value]}`,
                   description: `${value}`
@@ -38,8 +38,8 @@ const Dashboard = () => (
 // Legacy stuff, dont want to touch hardware to fix post data format
 const TemperatureCard = () => (
   <AppContext.Consumer>
-    {context => {
-      return context.temperatureData["data"].map(dataset => (
+    {(context) => {
+      return context.temperatureData["data"].map((dataset) => (
         <Card
           title={"Comfort"}
           contentTitle={dataset.location}

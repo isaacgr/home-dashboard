@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
-import { fetchData } from "../functions/fetchData";
+const Jaysonic = require("jaysonic/lib/client-ws");
+const socket = new Jaysonic.wsclient({ url: "ws://localhost:9999" });
 
 const AppContext = React.createContext({});
 
@@ -13,33 +14,75 @@ class HomePage extends Component {
     cardData: []
   };
 
-  getCardData = () => {
-    fetch("/api/temp/", {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.setState({
-          temperatureData: {
-            data: json["data"]
-          }
-        });
-      });
-    fetchData().then(result => {
-      this.setState({ cardData: result });
-    });
-  };
-
   componentDidMount() {
-    this.getCardData();
-    setInterval(() => {
-      this.getCardData();
-    }, 30000);
+    socket
+      .connect()
+      .then(() => {
+        this.getCardData();
+        this.subscribeCardData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
+
+  getCardData() {
+    socket
+      .request()
+      .send("get.temp", [])
+      .then((response) => {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: response.result[0]
+          }
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    socket
+      .request()
+      .send("get.data", [])
+      .then((response) => {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: response.result[0]
+          }
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  subscribeCardData() {
+    socket.subscribe("update.temp", (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.setState((prevState) => ({
+          ...prevState,
+          temperatureData: {
+            data: result.params
+          }
+        }));
+      }
+    });
+    socket.subscribe("update.data", (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+        this.setState((prevState) => ({
+          ...prevState,
+          cardData: result.params
+        }));
+      }
+    });
+  }
+
   render() {
     return (
       <section className="data">

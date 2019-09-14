@@ -5,11 +5,9 @@ const { check, validationResult } = require("express-validator/check");
 const { mongoose } = require("./db/mongoose");
 const { Temp } = require("./models/temp");
 const { NetworkSpeed, NetworkAddress } = require("./models/network");
+const { ISSLocation } = require("./models/issLocation");
 const { User } = require("./models/user");
-const digestRequest = require("request-digest")(
-  process.env.CAMERA_USER,
-  process.env.CAMERA_PASS
-);
+const Jaysonic = require("jaysonic");
 
 const { devSeedData } = require("./tests/seed/devSeedData");
 const { findAllData } = require("./functions/findData");
@@ -32,6 +30,68 @@ app.use(
 );
 app.use(bodyParser.json());
 
+/** websocket stuff
+ *
+ *
+ */
+
+const server = new Jaysonic.server.ws({ port: 9999 });
+server.listen().then(() => {
+  server.method("get.temp", () => {
+    return new Promise((resolve, reject) => {
+      let data = [];
+      Temp.find()
+        .then((doc) => {
+          return new Promise((resolve, reject) => {
+            doc.map((dataset, idx, arr) => {
+              Temp.aggregate([{ $match: dataset }])
+                .unwind("values")
+                .sort({ "values.createdAt": -1 })
+                .limit(1)
+                .then((doc) => {
+                  data.push({
+                    ...doc[0],
+                    values: {
+                      ...doc[0].values,
+                      createdAt: doc[0].values.createdAt
+                    }
+                  });
+                  if (data.length === arr.length) {
+                    resolve(data);
+                  }
+                })
+                .catch((error) => {
+                  reject(error["message"]);
+                });
+            });
+          });
+        })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  });
+
+  server.method("get.data", () => {
+    return new Promise((resolve, reject) => {
+      findAllData()
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  });
+});
+
+/**
+ *
+ */
+
 // GET /api/temp/all
 // get all temperature values in collection
 app.get("/api/temp/all", (request, response) => {
@@ -43,10 +103,10 @@ app.get("/api/temp/all", (request, response) => {
       }
     : {};
   Temp.find({}, limit)
-    .then(doc => {
+    .then((doc) => {
       response.send(doc);
     })
-    .catch(error => {
+    .catch((error) => {
       response.status(400).send({ error: error["message"] });
     });
 });
@@ -56,14 +116,14 @@ app.get("/api/temp/all", (request, response) => {
 app.get("/api/temp", (request, response) => {
   let data = [];
   Temp.find()
-    .then(doc => {
+    .then((doc) => {
       return new Promise((resolve, reject) => {
         doc.map((dataset, idx, arr) => {
           Temp.aggregate([{ $match: dataset }])
             .unwind("values")
             .sort({ "values.createdAt": -1 })
             .limit(1)
-            .then(doc => {
+            .then((doc) => {
               data.push({
                 ...doc[0],
                 values: {
@@ -75,16 +135,16 @@ app.get("/api/temp", (request, response) => {
                 resolve(data);
               }
             })
-            .catch(error => {
+            .catch((error) => {
               return response.status(400).send({ error: error["message"] });
             });
         });
       });
     })
-    .then(data => {
+    .then((data) => {
       response.status(200).send({ data });
     })
-    .catch(error => {
+    .catch((error) => {
       return response.status(400).send({ error: error["message"] });
     });
 });
@@ -118,6 +178,9 @@ app.post(
       case "network address":
         Data = NetworkAddress;
         break;
+      case "iss location":
+        Data = ISSLocation;
+        break;
       default:
         return response
           .status(400)
@@ -138,11 +201,18 @@ app.post(
     );
 
     data
-      .then(doc => {
+      .then((doc) => {
         console.log(`Received data: ${JSON.stringify(request.body)}`);
         response.status(200).send({ error: null, body: request.body });
+        findAllData()
+          .then((result) => {
+            server.notify("update.data", result);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         response.status(400).send({ error: error["message"] });
       });
@@ -155,28 +225,28 @@ app.get("/api/data", (request, response) => {
   switch (request.query.data) {
     case "ip":
       NetworkAddress.find()
-        .then(doc => {
+        .then((doc) => {
           response.send(doc[0]);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
     case "netspeed":
       NetworkSpeed.find()
-        .then(doc => {
+        .then((doc) => {
           response.send(doc[0]);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
     case "all":
       findAllData()
-        .then(result => {
+        .then((result) => {
           response.send(result);
         })
-        .catch(error => {
+        .catch((error) => {
           response.status(400).send({ error: error["message"] });
         });
       break;
@@ -232,13 +302,45 @@ app.post(
     );
 
     temp
-      .then(doc => {
+      .then((doc) => {
         console.log(`Received Temperature ${JSON.stringify(request.body)}`);
         response.status(200).send("OK");
+        let data = [];
+        Temp.find()
+          .then((doc) => {
+            return new Promise((resolve, reject) => {
+              doc.map((dataset, idx, arr) => {
+                Temp.aggregate([{ $match: dataset }])
+                  .unwind("values")
+                  .sort({ "values.createdAt": -1 })
+                  .limit(1)
+                  .then((doc) => {
+                    data.push({
+                      ...doc[0],
+                      values: {
+                        ...doc[0].values,
+                        createdAt: doc[0].values.createdAt
+                      }
+                    });
+                    if (data.length === arr.length) {
+                      resolve(data);
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error["message"]);
+                  });
+              });
+            });
+          })
+          .then((data) => {
+            server.notify("update.temp", data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-        response.status(400).send({ error: error["message"] });
       });
   }
 );
@@ -344,37 +446,6 @@ app.post("/api/login", (request, response) => {
     }
   );
 });
-
-// POST /api/preset
-// send preset commands to the camera
-// unused as camera is on local network
-// app.post("/api/preset", (request, response) => {
-//   const { preset } = request.query;
-//   digestRequest
-//     .requestAsync({
-//       host: `http://${process.env.CAMERA_IP}`,
-//       path: `/cgi-bin/ptz.cgi?action=start&channel=0&code=GotoPreset&arg1=0&arg2=${preset}&arg3=0&arg4=0`,
-//       port: 80,
-//       method: "POST"
-//     })
-//     .then(result => {
-//       console.log(`Camera response: ${result.body}`);
-//       if (result.body !== "OK\r\n") {
-//         return response.status(400).json({
-//           message: `bad request`
-//         });
-//       }
-//       return response.json({
-//         message: `${result.body}`
-//       });
-//     })
-//     .catch(error => {
-//       console.error(error);
-//       return response.status(500).json({
-//         message: `internal server error`
-//       });
-//     });
-// });
 
 // POST /api/temp/seed
 // only while running local host, not for production
