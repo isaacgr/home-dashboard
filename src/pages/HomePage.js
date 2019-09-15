@@ -3,7 +3,7 @@ import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
 const Jaysonic = require("jaysonic/lib/client-ws");
 const socket = new Jaysonic.wsclient({
-  url: "ws://" + window.location.host + ":9999"
+  url: "ws://" + window.location.host + "/ws"
 });
 
 const AppContext = React.createContext({});
@@ -76,7 +76,6 @@ class HomePage extends Component {
       if (error) {
         console.log(error);
       } else {
-        console.log(result);
         this.setState((prevState) => ({
           ...prevState,
           cardData: result.params
