@@ -29,7 +29,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.listen(port, () => {
+const serverConnection = app.listen(port, () => {
   console.log(`Server started on ${port}`);
   app.get("*", (request, response) => {
     response.sendFile(path.join(publicPath, "index.html"));
@@ -41,9 +41,12 @@ app.listen(port, () => {
  *
  */
 
-const server = new Jaysonic.server.ws({ port: null, server: app });
+const server = new Jaysonic.server.ws({
+  port: null,
+  path: "/ws",
+  server: serverConnection
+});
 server.listen().then(() => {
-  console.log(server.server);
   server.method("get.temp", () => {
     return new Promise((resolve, reject) => {
       let data = [];
