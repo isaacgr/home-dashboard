@@ -36,7 +36,7 @@ class HomePage extends Component {
         this.setState((prevState) => ({
           ...prevState,
           temperatureData: {
-            data: response.result[0]
+            data: response.result[0][0]
           }
         }));
       })
@@ -50,7 +50,7 @@ class HomePage extends Component {
         this.setState((prevState) => ({
           ...prevState,
           temperatureData: {
-            data: response.result[0]
+            data: response.result[0][0]
           }
         }));
       })
