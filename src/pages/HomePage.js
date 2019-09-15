@@ -76,7 +76,6 @@ class HomePage extends Component {
       if (error) {
         console.log(error);
       } else {
-        console.log(result);
         this.setState((prevState) => ({
           ...prevState,
           cardData: result.params
