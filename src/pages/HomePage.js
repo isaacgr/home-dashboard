@@ -49,9 +49,7 @@ class HomePage extends Component {
       .then((response) => {
         this.setState((prevState) => ({
           ...prevState,
-          temperatureData: {
-            data: response.result[0]
-          }
+          cardData: response.result[0]
         }));
       })
       .catch((error) => {
