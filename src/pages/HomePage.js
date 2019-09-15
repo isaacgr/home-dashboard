@@ -3,7 +3,7 @@ import { GooeyMenu } from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
 const Jaysonic = require("jaysonic/lib/client-ws");
 const socket = new Jaysonic.wsclient({
-  url: "ws://" + window.location.host + ":9999"
+  url: "ws://hometemp.irowell.io/"
 });
 
 const AppContext = React.createContext({});

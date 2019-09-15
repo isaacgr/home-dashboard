@@ -29,16 +29,21 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.listen(port, () => {
+  console.log(`Server started on ${port}`);
+  app.get("*", (request, response) => {
+    response.sendFile(path.join(publicPath, "index.html"));
+  });
+});
 
 /** websocket stuff
  *
  *
  */
 
-const server = new Jaysonic.server.ws({ port: 9999 });
+const server = new Jaysonic.server.ws({ port: null, server: app });
 server.listen().then(() => {
-  console.log(server)
-  server.clientConnected(({ host, port }) => console.log({ host, port }));
+  console.log(server.server);
   server.method("get.temp", () => {
     return new Promise((resolve, reject) => {
       let data = [];
@@ -463,13 +468,6 @@ app.post("/api/temp/seed", (request, response) => {
     .then(() => {
       return response.status(200).send({ success: "db seeded" });
     });
-});
-
-app.listen(port, () => {
-  console.log(`Server started on ${port}`);
-  app.get("*", (request, response) => {
-    response.sendFile(path.join(publicPath, "index.html"));
-  });
 });
 
 module.exports = { app };
