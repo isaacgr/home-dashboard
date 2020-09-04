@@ -43,7 +43,7 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.4.1",
     "mongoose-unique-validator": "^2.0.3",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
